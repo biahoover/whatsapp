@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botão Ativo Durante o Dia</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #myButton {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+        }
+        #myButton.active {
+            background-color: green;
+            animation: pulse 1s infinite;
+            cursor: pointer;
+        }
+        #myButton.disabled {
+            background-color: grey;
+            cursor: not-allowed;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <a id="myButton" href="https://typebot.co/biainstagram">Clique-me</a>
+
+    <script>
+        function checkButtonStatus() {
+            const button = document.getElementById('myButton');
+            const now = new Date();
+            const hour = now.getHours();
+
+            if (hour >= 8 && hour < 23) {
+                button.classList.add('active');
+                button.classList.remove('disabled');
+                button.innerText = "FALE COMIGO NO WHATSAPP ♥";
+                button.href = "https://typebot.co/biainstagram";
+            } else {
+                button.classList.add('disabled');
+                button.classList.remove('active');
+                button.innerText = "ONLINE NO WHATSAPP EM:";
+                button.removeAttribute('href');
+                updateCountdown(button);
+            }
+        }
+
+        function updateCountdown(button) {
+            const now = new Date();
+            let nextActiveTime = new Date();
+
+            if (now.getHours() >= 23) {
+                nextActiveTime.setDate(now.getDate() + 1);
+            }
+            nextActiveTime.setHours(8, 0, 0, 0);
+
+            const diff = nextActiveTime - now;
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            button.innerText = `ONLINE NO WHATSAPP EM: ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        function buttonClicked(event) {
+            const button = document.getElementById('myButton');
+            if (button.classList.contains('disabled')) {
+                event.preventDefault();
+            }
+        }
+
+        document.getElementById('myButton').addEventListener('click', buttonClicked);
+
+        checkButtonStatus();
+        setInterval(checkButtonStatus, 1000);
+    </script>
+</body>
+</html>
