@@ -6,6 +6,21 @@
     <title>Bia Hoover</title>
     <link rel="icon" href="©2024 Bianca Hoover..png" type="image/png">
 
+    <!-- Facebook Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '951503763143037');
+      fbq('track', 'PageView_WTelegram');
+    </script>
+    <!-- End Facebook Pixel Code -->
+
     <style>
         body {
             background-image: url('©2024 Bianca Hoover..png');
@@ -20,111 +35,107 @@
             justify-content: center;
             align-items: center;
         }
-        
+
         .whatsapp-button {
-            font-size: 16px;
+            padding: 15px 30px;
+            background-color: #00FF00; /* Verde */
+            color: #FFFFFF;
             border: none;
             border-radius: 5px;
-            padding: 10px 20px;
+            font-size: 18px;
             cursor: pointer;
-            color: #fff;
-            background-color: #2ecc71; /* verde */
             text-align: center;
             text-decoration: none;
-            display: block;
-            margin-top: 20px;
+            display: inline-block;
+            margin-bottom: 20px;
         }
 
-        .whatsapp-button.inactive {
-            background-color: #ccc; /* cinza */
-            pointer-events: none; /* desabilita clique */
+        .whatsapp-button.gray {
+            background-color: #808080; /* Cinza */
+            cursor: not-allowed;
         }
 
-        .whatsapp-button:hover {
-            animation: pulse 1s infinite; /* pulsação */
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-            }
+        .countdown {
+            font-size: 14px;
+            margin-top: 5px;
         }
     </style>
 </head>
 <body>
-    <button class="whatsapp-button" id="whatsapp-button">FALE COMIGO NO WHATSAPP ♥</button>
+    <button id="whatsappButton" class="whatsapp-button" onclick="redirectToWhatsApp()">
+        FALE COMIGO NO WHATSAPP ♥
+        <div id="countdown" class="countdown"></div>
+    </button>
 
     <script>
-        // Função para verificar se o botão deve estar ativo ou inativo
-        function updateButtonStatus() {
+        function redirectToWhatsApp() {
             var now = new Date();
             var hours = now.getHours();
-            var button = document.getElementById('whatsapp-button');
 
             if (hours >= 8 && hours < 23) {
-                button.classList.remove('inactive');
-                button.textContent = 'FALE COMIGO NO WHATSAPP ♥';
+                var whatsapp = getCookie('whatsapp');
+                if (whatsapp) {
+                    window.location.href = whatsapp;
+                } else {
+                    var whatsappLinks = [
+                        'https://typebot.co/tbh1',
+                        'https://typebot.co/tbh3',
+                        'https://typebot.co/tbh5',
+                        'https://typebot.co/tbh6'
+                    ];
+                    var randomIndex = Math.floor(Math.random() * whatsappLinks.length);
+                    var chosenWhatsApp = whatsappLinks[randomIndex];
+                    setCookie('whatsapp', chosenWhatsApp, 1);
+                    window.location.href = chosenWhatsApp;
+                }
             } else {
-                button.classList.add('inactive');
-                button.textContent = 'Online no Whatsapp em:\n';
-                var countdown = document.createElement('span');
-                countdown.setAttribute('id', 'countdown');
-                button.appendChild(countdown);
+                document.getElementById('whatsappButton').classList.add('gray');
+                document.getElementById('whatsappButton').innerHTML = 'Online no Whatsapp em:<br>Retornaremos em breve';
+                var countdown = document.getElementById('countdown');
+                countdown.innerHTML = '';
 
-                // Contagem regressiva para ativar o botão novamente
-                var countdownInterval = setInterval(function() {
-                    var remainingHours = 23 - hours;
-                    var remainingMinutes = 59 - now.getMinutes();
-                    var remainingSeconds = 59 - now.getSeconds();
+                var countDownDate = new Date();
+                countDownDate.setHours(23, 0, 0, 0);
+                var x = setInterval(function() {
+                    var now = new Date().getTime();
+                    var distance = countDownDate - now;
 
-                    document.getElementById('countdown').textContent = remainingHours.toString().padStart(2, '0') + ':' + remainingMinutes.toString().padStart(2, '0') + ':' + remainingSeconds.toString().padStart(2, '0');
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                    if (remainingHours <= 0 && remainingMinutes <= 0 && remainingSeconds <= 0) {
-                        clearInterval(countdownInterval);
-                        updateButtonStatus(); // Atualiza o botão quando o tempo acabar
+                    countdown.innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+
+                    if (distance < 0) {
+                        clearInterval(x);
+                        countdown.innerHTML = "Botão ativado!";
+                        document.getElementById('whatsappButton').classList.remove('gray');
+                        document.getElementById('whatsappButton').innerHTML = 'FALE COMIGO NO WHATSAPP ♥';
                     }
                 }, 1000);
             }
         }
 
-        // Adicionar evento de clique ao botão de Whatsapp
-        document.getElementById('whatsapp-button').addEventListener('click', function() {
-            // Verifica se já existe um cookie armazenado
-            var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)whatsappRedirect\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-
-            // Se não existe cookie, redireciona aleatoriamente para um dos links do Whatsapp
-            if (!cookieValue) {
-                var whatsappLinks = [
-                    'https://typebot.co/tbh1',
-                    'https://typebot.co/tbh3',
-                    'https://typebot.co/tbh5',
-                    'https://typebot.co/tbh6'
-                ];
-                var randomIndex = Math.floor(Math.random() * whatsappLinks.length);
-                window.location.href = whatsappLinks[randomIndex];
-
-                // Armazena o link do Whatsapp no cookie
-                document.cookie = 'whatsappRedirect=' + whatsappLinks[randomIndex] + '; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/';
-            } else {
-                // Se o cookie já existe, redireciona para o mesmo link do Whatsapp
-                window.location.href = cookieValue;
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
             }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
 
-            // Disparar evento do Facebook Pixel
-            fbq('track', 'PageView_WTelegram', {
-                content_ids: ['951503763143037'],
-                content_type: 'product'
-            });
-        });
-
-        // Chama a função para verificar o status do botão quando a página é carregada
-        updateButtonStatus();
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
     </script>
 </body>
 </html>
