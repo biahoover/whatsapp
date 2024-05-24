@@ -1,168 +1,138 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meu Site</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background-image: url('Design sem nome (8).png');
-      background-size: cover;
-      background-repeat: no-repeat;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .green-button {
-      background-color: green;
-      border: none;
-      color: white;
-      padding: 15px 30px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      cursor: pointer;
-      border-radius: 8px;
-      transition-duration: 0.4s;
-    }
-    .green-button:hover {
-      background-color: #4CAF50;
-      box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-    }
-    .gray-button {
-      background-color: gray;
-      border: none;
-      color: white;
-      padding: 15px 30px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      cursor: not-allowed;
-      border-radius: 8px;
-    }
-    #countdown {
-      display: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distribuição de Tráfego</title>
+    <style>
+        body {
+            background-image: url('Design sem nome (8).png');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+        }
+        .button {
+            display: block;
+            width: 250px;
+            padding: 15px;
+            margin: 100px auto;
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        .button-green {
+            background-color: green;
+            box-shadow: 0 0 15px green;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 15px green;
+            }
+            50% {
+                box-shadow: 0 0 30px green;
+            }
+            100% {
+                box-shadow: 0 0 15px green;
+            }
+        }
+        .button-gray {
+            background-color: gray;
+        }
+        .countdown {
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 50px;
+        }
+    </style>
 </head>
 <body>
-  <button id="whatsappButton" class="green-button">FALE COMIGO NO WHATSAPP ♥</button>
-  <div id="countdown"></div>
-  <footer>©2024 Bianca Hoover.</footer>
+    <a id="whatsappButton" class="button button-gray">Online em: <span id="countdown"></span></a>
 
-  <script>
-    // Função para definir o cookie
-    function setCookie(name, value, hours) {
-      var expires = "";
-      if (hours) {
-        var date = new Date();
-        date.setTime(date.getTime() + (hours * 60 * 60 * 1000));
-        expires = "; expires=" + date.toUTCString();
-      }
-      document.cookie = name + "=" + (value || "") + expires + "; path=/";
-    }
+    <footer>©2024 Bianca Hoover.</footer>
 
-    // Função para obter o cookie
-    function getCookie(name) {
-      var nameEQ = name + "=";
-      var ca = document.cookie.split(';');
-      for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-      }
-      return null;
-    }
+    <script>
+        // Pixel do Facebook
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window,document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '951503763143037');
+        fbq('track', 'PageView_WhatsTelegram');
 
-    // Função para iniciar o contador regressivo
-    function startCountdown() {
-      var countdownElement = document.getElementById('countdown');
-      var countdownDate = new Date();
-      countdownDate.setHours(23, 0, 0); // Horário de desativação do botão
-      var now = new Date();
+        // Links do WhatsApp
+        const links = [
+            "https://typebot.co/tbh1",
+            "https://typebot.co/tbh3",
+            "https://typebot.co/tbh5",
+            "https://typebot.co/tbh6"
+        ];
 
-      var timeLeft = countdownDate - now;
-
-      var hoursLeft = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
-      var minutesLeft = Math.floor((timeLeft / 1000 / 60) % 60);
-      var secondsLeft = Math.floor((timeLeft / 1000) % 60);
-
-      countdownElement.innerHTML = 'Online em: ' + hoursLeft + 'h ' + minutesLeft + 'm ' + secondsLeft + 's';
-      countdownElement.style.display = 'block';
-
-      var countdownInterval = setInterval(function() {
-        timeLeft = countdownDate - new Date();
-
-        hoursLeft = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
-        minutesLeft = Math.floor((timeLeft / 1000 / 60) % 60);
-        secondsLeft = Math.floor((timeLeft / 1000) % 60);
-
-        countdownElement.innerHTML = 'Online em: ' + hoursLeft + 'h ' + minutesLeft + 'm ' + secondsLeft + 's';
-
-        if (timeLeft <= 0) {
-          clearInterval(countdownInterval);
-          countdownElement.style.display = 'none';
-          document.getElementById('whatsappButton').classList.remove('gray-button');
-          document.getElementById('whatsappButton').classList.add('green-button');
-          document.getElementById('whatsappButton').innerText = 'FALE COMIGO NO WHATSAPP ♥';
-          document.getElementById('whatsappButton').disabled = false;
+        // Armazenar ID do Dispositivo
+        function getDeviceId() {
+            let deviceId = localStorage.getItem('deviceId');
+            if (!deviceId) {
+                deviceId = 'device-' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('deviceId', deviceId);
+            }
+            return deviceId;
         }
-      }, 1000);
-    }
 
-    window.onload = function() {
-      var whatsappButton = document.getElementById('whatsappButton');
-      var userId = getCookie('user_id');
+        const deviceId = getDeviceId();
+        let assignedLinkIndex = localStorage.getItem(deviceId);
 
-      // Verificar se o botão deve estar ativado ou desativado
-      var now = new Date();
-      var currentHour = now.getHours();
-      if (currentHour >= 8 && currentHour < 23) {
-        // Ativar o botão
-        whatsappButton.classList.add('green-button');
-        whatsappButton.disabled = false;
-        whatsappButton.onclick = function() {
-          // Marcar evento do Facebook
-          fbq('track', 'PageView_WhatsTelegram', { eventID: '951503763143037' });
+        function getRandomLink() {
+            return links[Math.floor(Math.random() * links.length)];
+        }
 
-          // Redirecionar para o link correspondente
-          var link = getCookie('whatsapp_link');
-          if (!link) {
-            // Escolher aleatoriamente um dos links de WhatsApp
-            var whatsappLinks = [
-              'https://typebot.co/tbh1',
-              'https://typebot.co/tbh3',
-              'https://typebot.co/tbh5',
-              'https://typebot.co/tbh6'
-            ];
-            var randomIndex = Math.floor(Math.random() * whatsappLinks.length);
-            link = whatsappLinks[randomIndex];
-            setCookie('whatsapp_link', link, 24); // Armazenar o link escolhido por 24 horas
-          }
-          window.location.href = link;
-        };
-      } else {
-        // Desativar o botão
-        whatsappButton.classList.add('gray-button');
-        whatsappButton.innerText = 'Online em: ';
-        whatsappButton.disabled = true;
-        startCountdown();
-      }
+        if (!assignedLinkIndex) {
+            assignedLinkIndex = Math.floor(Math.random() * links.length);
+            localStorage.setItem(deviceId, assignedLinkIndex);
+        }
 
-      // Salvar o ID do usuário como cookie
-      if (!userId) {
-        userId = Math.random().toString(36).substring(2);
-        setCookie('user_id', userId, 24 * 30); // Armazenar por 30 dias
-      }
-    };
-  </script>
+        const assignedLink = links[assignedLinkIndex];
+
+        // Contagem Regressiva
+        function updateCountdown() {
+            const now = new Date();
+            const hours = now.getHours();
+            const button = document.getElementById('whatsappButton');
+            const countdownElement = document.getElementById('countdown');
+
+            if (hours >= 8 && hours < 23) {
+                button.className = 'button button-green';
+                button.href = assignedLink;
+                button.textContent = 'FALE COMIGO NO WHATSAPP ♥';
+                countdownElement.textContent = '';
+            } else {
+                button.className = 'button button-gray';
+                button.removeAttribute('href');
+                const nextActive = new Date();
+                nextActive.setHours(hours >= 23 ? 32 : 8, 0, 0, 0);
+                const timeLeft = nextActive - now;
+                const hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                countdownElement.textContent = `${hoursLeft}h ${minutesLeft}m ${secondsLeft}s`;
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
 </body>
 </html>
