@@ -38,7 +38,7 @@
 
         .whatsapp-button {
             padding: 15px 30px;
-            background-color: #00FF00; /* Verde */
+            background-color: #25D366; /* Verde do ícone do WhatsApp */
             color: #FFFFFF;
             border: none;
             border-radius: 5px;
@@ -48,11 +48,22 @@
             text-decoration: none;
             display: inline-block;
             margin-bottom: 20px;
+            animation: pulse 1s infinite alternate; /* Adicionando a animação de pulso */
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.05);
+            }
         }
 
         .whatsapp-button.gray {
             background-color: #808080; /* Cinza */
             cursor: not-allowed;
+            animation: none; /* Removendo a animação quando estiver desativado */
         }
 
         .countdown {
