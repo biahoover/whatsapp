@@ -59,9 +59,17 @@
             font-size: 18px;
             font-weight: bold;
         }
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+        }
         .button-instagram {
             background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
             border: none;
+            animation: none; /* Remova a animação padrão */
+        }
+        .button-instagram-pulsating {
             animation: pulseInstagram 1.5s infinite;
         }
         @keyframes pulseInstagram {
@@ -82,7 +90,8 @@
 </head>
 <body>
     <a id="whatsappButton" class="button button-gray">Online no Whatsapp em:<br><span id="countdown"></span></a>
-    <a href="https://typebot.co/tinsta" class="button button-instagram">Visite meu Instagram ♥</a>
+
+    <a href="https://instagram.com/biahoover" class="button button-instagram">Visite meu Instagram ♥</a>
 
     <script>
         // Pixel do Facebook
@@ -97,7 +106,62 @@
         fbq('init', '951503763143037');
         fbq('track', 'PageView_WhatsTelegram');
 
-        // Função para definir um cookie
+        // Links do WhatsApp
+        const links = [
+            "https://typebot.co/tbh1",
+            "https://typebot.co/tbh3",
+            "https://typebot.co/tbh5",
+            "https://typebot.co/tbh6"
+        ];
+
+        async function updateCountdown() {
+            const now = new Date();
+            const hours = now.getHours();
+            const button = document.getElementById('whatsappButton');
+
+            if (hours >= 8 && hours < 23) {
+                button.className = 'button button-green';
+                button.textContent = 'FALE COMIGO NO WHATSAPP ♥';
+                button.href = await getWhatsAppLink();
+            } else {
+                button.className = 'button button-gray';
+                button.removeAttribute('href');
+            }
+
+            const instagramButton = document.querySelector('.button-instagram');
+            if (hours >= 23 || hours < 8) {
+                instagramButton.classList.add('button-instagram-pulsating');
+            } else {
+                instagramButton.classList.remove('button-instagram-pulsating');
+            }
+        }
+
+        async function getWhatsAppLink() {
+            const deviceId = await getDeviceId();
+            let assignedLinkIndex = await fetchLink(deviceId, 'get');
+            if (!assignedLinkIndex) {
+                assignedLinkIndex = Math.floor(Math.random() * links.length);
+                await fetchLink(deviceId, 'set', assignedLinkIndex);
+            }
+            return links[assignedLinkIndex];
+        }
+
+        async function fetchLink(deviceId, action, link) {
+            const url = `https://script.google.com/macros/s/AKfycbwGk2ok7NEtA8fBIocZ29a-EVGywyk5hpsHJFoOUBwQQfuu8EMBc7udBLlQVF1H8fek/exec?
+            const url = `https://script.google.com/macros/s/AKfycbwGk2ok7NEtA8fBIocZ29a-EVGywyk5hpsHJFoOUBwQQfuu8EMBc7udBLlQVF1H8fek/exec?deviceId=${deviceId}&action=${action}${link ? `&link=${encodeURIComponent(link)}` : ''}`;
+            const response = await fetch(url);
+            return response.text();
+        }
+
+        async function getDeviceId() {
+            let deviceId = getCookie('deviceId');
+            if (!deviceId) {
+                deviceId = 'device-' + Math.random().toString(36).substr(2, 9);
+                setCookie('deviceId', deviceId, 365); // Armazena o ID do dispositivo por 1 ano
+            }
+            return deviceId;
+        }
+
         function setCookie(name, value, days) {
             var expires = "";
             if (days) {
@@ -108,7 +172,6 @@
             document.cookie = name + "=" + (value || "") + expires + "; path=/";
         }
 
-        // Função para obter um cookie
         function getCookie(name) {
             var nameEQ = name + "=";
             var ca = document.cookie.split(';');
@@ -118,66 +181,6 @@
                 if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
             }
             return null;
-        }
-
-        // Links do WhatsApp
-        const links = [
-            "https://typebot.co/tbh1",
-            "https://typebot.co/tbh3",
-            "https://typebot.co/tbh5",
-            "https://typebot.co/tbh6"
-        ];
-
-        // Armazenar ID do Dispositivo
-        function getDeviceId() {
-            let deviceId = getCookie('deviceId');
-            if (!deviceId) {
-                deviceId = 'device-' + Math.random().toString(36).substr(2, 9);
-                setCookie('deviceId', deviceId, 365); // Armazena o ID do dispositivo por 1 ano
-            }
-            return deviceId;
-        }
-
-        const deviceId = getDeviceId();
-
-        async function fetchLink(deviceId, action, link) {
-            const url = `https://script.google.com/macros/s/AKfycbwGk2ok7NEtA8fBIocZ29a-EVGywyk5hpsHJFoOUBwQQfuu8EMBc7udBLlQVF1H8fek/exec?deviceId=${deviceId}&action=${action}${link ? `&link=${encodeURIComponent(link)}` : ''}`;
-            const response = await fetch(url);
-            return response.text();
-        }
-
-        async function assignLink() {
-            let assignedLinkIndex = await fetchLink(deviceId, 'get');
-            if (!assignedLinkIndex) {
-                assignedLinkIndex = Math.floor(Math.random() * links.length);
-                await fetchLink(deviceId, 'set', assignedLinkIndex);
-            }
-            return links[assignedLinkIndex];
-        }
-
-        async function updateCountdown() {
-            const now = new Date();
-            const hours = now.getHours();
-            const button = document.getElementById('whatsappButton');
-            const countdownElement = document.getElementById('countdown');
-
-            if (hours >= 8 && hours < 23) {
-                const assignedLink = await assignLink();
-                button.className = 'button button-green';
-                button.href = assignedLink;
-                button.textContent = 'FALE COMIGO NO WHATSAPP ♥';
-                countdownElement.textContent = '';
-            } else {
-                button.className = 'button button-gray';
-                button.removeAttribute('href');
-                const nextActive = new Date();
-                nextActive.setHours(hours >= 23 ? 32 : 8, 0, 0, 0);
-                const timeLeft = nextActive - now;
-                const hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                const secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                countdownElement.textContent = `${hoursLeft}h ${minutesLeft}m ${secondsLeft}s`;
-            }
         }
 
         setInterval(updateCountdown, 1000);
