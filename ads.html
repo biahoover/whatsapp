@@ -6,18 +6,26 @@
     <title>Distribuição de Tráfego</title>
     <style>
         body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .background-container {
             background-image: url('Design sem nome (8).png');
             background-size: cover;
             background-position: center;
-            font-family: Arial, sans-serif;
             height: 100vh;
-            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         .button {
             display: block;
             width: 250px;
             padding: 15px;
-            margin: 100px auto;
             text-align: center;
             color: white;
             font-size: 18px;
@@ -50,14 +58,16 @@
             color: white;
             font-size: 18px;
             font-weight: bold;
+            margin-top: 10px;
         }
         footer {
             text-align: center;
             color: white;
-            margin-top: 50px;
+            padding: 20px 0;
+            background-color: #000;
         }
         @media only screen and (max-width: 1080px) and (max-height: 1920px) {
-            body {
+            .background-container {
                 background-size: contain;
                 background-repeat: no-repeat;
             }
@@ -65,7 +75,10 @@
     </style>
 </head>
 <body>
-    <a id="whatsappButton" class="button button-gray">Online em: <span id="countdown"></span></a>
+    <div class="background-container">
+        <a id="whatsappButton" class="button button-gray">Online em: <span id="countdown"></span></a>
+        <div class="countdown" id="countdownContainer"></div>
+    </div>
 
     <footer>©2024 Bianca Hoover.</footer>
 
@@ -143,7 +156,7 @@
             const now = new Date();
             const hours = now.getHours();
             const button = document.getElementById('whatsappButton');
-            const countdownElement = document.getElementById('countdown');
+            const countdownElement = document.getElementById('countdownContainer');
 
             if (hours >= 8 && hours < 23) {
                 button.className = 'button button-green';
