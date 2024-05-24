@@ -37,22 +37,15 @@
             box-shadow: 0 0 15px green;
             animation: pulse 1.5s infinite;
         }
-        .button-instagram {
-            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
-            border: none;
-        }
         @keyframes pulse {
             0% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+                box-shadow: 0 0 15px green;
             }
-            70% {
-                transform: scale(1);
-                box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+            50% {
+                box-shadow: 0 0 30px green;
             }
             100% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+                box-shadow: 0 0 15px green;
             }
         }
         .button-gray {
@@ -69,14 +62,33 @@
             color: white;
             margin-top: 20px;
         }
+        .button-instagram {
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+            border: none;
+            animation: pulseInstagram 1.5s infinite;
+        }
+        @keyframes pulseInstagram {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+            }
+        }
     </style>
 </head>
 <body>
     <a id="whatsappButton" class="button button-gray">Online no Whatsapp em: <span id="countdown"></span></a>
 
-    <a href="https://instagram.com/biahoover" class="button button-instagram">Visite meu Instagram</a>
+    <a href="https://instagram.com/biahoover" class="button button-instagram">Visite meu Instagram ♥</a>
 
-    <!-- <footer>©2024 Bianca Hoover.</footer> -->
+    
 
     <script>
         // Pixel do Facebook
@@ -135,7 +147,6 @@
                 button.href = assignedLink;
                 button.textContent = 'FALE COMIGO NO WHATSAPP ♥';
                 countdownElement.textContent = '';
-                document.querySelector('.button-instagram').classList.remove('pulsating');
             } else {
                 button.className = 'button button-gray';
                 button.removeAttribute('href');
@@ -146,11 +157,6 @@
                 const minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
                 const secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
                 countdownElement.textContent = `${hoursLeft}h ${minutesLeft}m ${secondsLeft}s`;
-                if (hours >= 23 || hours < 8) {
-                    document.querySelector('.button-instagram').classList.add('pulsating');
-                } else {
-                    document.querySelector('.button-instagram').classList.remove('pulsating');
-                }
             }
         }
 
