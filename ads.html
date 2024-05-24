@@ -3,11 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Canal VIP</title>
+    <title>Distribuição de Tráfego</title>
+    <style>
+        body {
+            background-image: url('Design sem nome (8).png');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+        }
+        .button {
+            display: block;
+            width: 250px;
+            padding: 15px;
+            margin: 100px auto;
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        .button-green {
+            background-color: green;
+            box-shadow: 0 0 15px green;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 15px green;
+            }
+            50% {
+                box-shadow: 0 0 30px green;
+            }
+            100% {
+                box-shadow: 0 0 15px green;
+            }
+        }
+        .button-gray {
+            background-color: gray;
+        }
+        .countdown {
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <a id="whatsappButton" class="button button-gray">Online em: <span id="countdown"></span></a>
 
-    <!-- Insira o código do Pixel do Facebook aqui -->
+    <footer>©2024 Bianca Hoover.</footer>
+
     <script>
+        // Pixel do Facebook
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
         n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -17,169 +72,91 @@
         s.parentNode.insertBefore(t,s)}(window,document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '951503763143037');
-        fbq('track', 'PageView');
-    </script>
-    <!-- Pixel de Facebook para rastreamento -->
-    <noscript>
-        <img height="1" width="1" style="display:none"
-             src="https://www.facebook.com/tr?id=951503763143037&ev=PageView&noscript=1"/>
-    </noscript>
-	
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-image: url('Design sem nome (8).png'); /* substitua pelo URL correto da imagem de fundo */
-            background-size: cover;
-            background-position: center;
-            font-family: Arial, sans-serif;
-        }
+        fbq('track', 'PageView_WhatsTelegram');
 
-        .container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+        // Links do WhatsApp
+        const links = [
+            "https://typebot.co/tbh1",
+            "https://typebot.co/tbh3",
+            "https://typebot.co/tbh5",
+            "https://typebot.co/tbh6"
+        ];
 
-        .title {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .subtitle {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: #555;
-        }
-
-        .pulse-button {
-            display: inline-block;
-            padding: 15px 30px;
-            font-size: 16px;
-            color: white;
-            background-color: #408dff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            outline: none;
-            text-align: center;
-            text-decoration: none;
-            -webkit-animation: pulse 1.5s infinite;
-            animation: pulse 1.5s infinite;
-        }
-
-        @-webkit-keyframes pulse {
-            0% {
-                -webkit-transform: scale(1);
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                -webkit-transform: scale(1.1);
-                transform: scale(1.1);
-                opacity: 0.8;
-            }
-            100% {
-                -webkit-transform: scale(1);
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes pulse {
-            0% {
-                -webkit-transform: scale(1);
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                -webkit-transform: scale(1.1);
-                transform: scale(1.1);
-                opacity: 0.8;
-            }
-            100% {
-                -webkit-transform: scale(1);
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <script>
-        // Função para gerar uma identificação única do dispositivo
-        function generateDeviceID() {
-            // Gera um identificador único usando o timestamp
-            return Date.now().toString();
-        }
-
-        // Função para obter o valor de um cookie
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-        }
-
-        // Função para definir um cookie
+        // Funções de Cookies
         function setCookie(name, value, days) {
-            let expires = "";
-            if (days) {
-                const date = new Date();
-                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                expires = "; expires=" + date.toUTCString();
-            }
-            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+            const d = new Date();
+            d.setTime(d.getTime() + (days*24*60*60*1000));
+            const expires = "expires=" + d.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
         }
 
-        // Função para redirecionar para o link do WhatsApp com base na identificação única do dispositivo
-        function redirectToWhatsApp() {
-            const deviceID = getCookie('deviceID');
-            let whatsappLink;
-
-            // Verifica se o dispositivo já possui uma identificação única
-            if (deviceID) {
-                // Distribui entre os links de WhatsApp com base no ID do dispositivo
-                const hash = parseInt(deviceID, 10) % 4;
-                switch (hash) {
-                    case 0:
-                        whatsappLink = 'https://api.whatsapp.com/send?phone=5519996292460&text=Oii%20Bia,%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶';
-                        break;
-                    case 1:
-                        whatsappLink = 'https://api.whatsapp.com/send?phone=5519997065737&text=Oii%20Bia,%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶';
-                        break;
-                    case 2:
-                        whatsappLink = 'https://api.whatsapp.com/send?phone=5519999631189&text=Oii%20Bia,%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶';
-                        break;
-                    case 3:
-                        whatsappLink = 'https://api.whatsapp.com/send?phone=5519998216043&text=Oii%20Bia,%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶';
-                        break;
+        function getCookie(name) {
+            const cname = name + "=";
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const ca = decodedCookie.split(';');
+            for(let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') {
+                    c = c.substring(1);
                 }
-            } else {
-                // Gera uma nova identificação única do dispositivo e salva no cookie
-                const newDeviceID = generateDeviceID();
-                setCookie('deviceID', newDeviceID, 30); // O cookie expira em 30 dias
-                // Redireciona para o primeiro link de WhatsApp
-                whatsappLink = 'https://api.whatsapp.com/send?phone=5519996292460&text=Oii%20Bia,%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶';
+                if (c.indexOf(cname) === 0) {
+                    return c.substring(cname.length, c.length);
+                }
             }
-
-            // Redireciona para o link de WhatsApp determinado
-            window.location.href = whatsappLink;
+            return "";
         }
+
+        // Armazenar ID do Dispositivo
+        function getDeviceId() {
+            let deviceId = getCookie('deviceId');
+            if (!deviceId) {
+                deviceId = 'device-' + Math.random().toString(36).substr(2, 9);
+                setCookie('deviceId', deviceId, 365);
+            }
+            return deviceId;
+        }
+
+        const deviceId = getDeviceId();
+        let assignedLinkIndex = getCookie(deviceId);
+
+        function getRandomLink() {
+            return links[Math.floor(Math.random() * links.length)];
+        }
+
+        if (!assignedLinkIndex) {
+            assignedLinkIndex = Math.floor(Math.random() * links.length);
+            setCookie(deviceId, assignedLinkIndex, 365);
+        }
+
+        const assignedLink = links[assignedLinkIndex];
+
+        // Contagem Regressiva
+        function updateCountdown() {
+            const now = new Date();
+            const hours = now.getHours();
+            const button = document.getElementById('whatsappButton');
+            const countdownElement = document.getElementById('countdown');
+
+            if (hours >= 8 && hours < 23) {
+                button.className = 'button button-green';
+                button.href = assignedLink;
+                button.textContent = 'FALE COMIGO NO WHATSAPP ♥';
+                countdownElement.textContent = '';
+            } else {
+                button.className = 'button button-gray';
+                button.removeAttribute('href');
+                const nextActive = new Date();
+                nextActive.setHours(hours >= 23 ? 32 : 8, 0, 0, 0);
+                const timeLeft = nextActive - now;
+                const hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                countdownElement.textContent = `${hoursLeft}h ${minutesLeft}m ${secondsLeft}s`;
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
     </script>
-	
-    <div class="container">
-        <div class="title">SEJA BEM-VINDO AO MEU CANAL VIP</div>
-        <div class="subtitle">Clique no botão abaixo para entrar!</div>
-        <button onclick="redirectToWhatsApp()" class="pulse-button">WhatsApp VIP</button>
-    </div>
-	
 </body>
 </html>
