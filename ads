@@ -84,15 +84,13 @@
             }
         }
     </style>
-	
 </head>
 <body>
 
     <script>
         // Função para gerar uma identificação única do dispositivo
         function generateDeviceID() {
-            // Aqui você pode implementar a lógica para gerar um ID único, por exemplo, um hash do userAgent
-            // Por simplicidade, vamos usar um timestamp
+            // Gera um identificador único usando o timestamp
             return Date.now().toString();
         }
 
@@ -121,16 +119,28 @@
 
             // Verifica se o dispositivo já possui uma identificação única
             if (deviceID) {
-                // Aqui você pode implementar a lógica para determinar qual link de WhatsApp redirecionar com base no ID do dispositivo
-                // Por simplicidade, vamos usar uma lógica de hash para distribuir entre os links
-                const hash = parseInt(deviceID, 10) % 4; // Assume que há 4 links de WhatsApp
-                whatsappLink = `https://api.whatsapp.com/send?phone=5519996292460&text=Oii%20Bia,%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶`; // Substitua pelos seus links
+                // Distribui entre os links de WhatsApp com base no ID do dispositivo
+                const hash = parseInt(deviceID, 10) % 4;
+                switch (hash) {
+                    case 0:
+                        whatsappLink = 'https://api.whatsapp.com/send?phone=5519996292460&text=Oii%20Bia,%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶';
+                        break;
+                    case 1:
+                        whatsappLink = 'https://api.whatsapp.com/send?phone=5519997065737&text=Oii%20Bia,%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶';
+                        break;
+                    case 2:
+                        whatsappLink = 'https://api.whatsapp.com/send?phone=5519999631189&text=Oii%20Bia,%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶';
+                        break;
+                    case 3:
+                        whatsappLink = 'https://api.whatsapp.com/send?phone=5519998216043&text=Oii%20Bia,%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶';
+                        break;
+                }
             } else {
                 // Gera uma nova identificação única do dispositivo e salva no cookie
                 const newDeviceID = generateDeviceID();
                 setCookie('deviceID', newDeviceID, 30); // O cookie expira em 30 dias
                 // Redireciona para o primeiro link de WhatsApp
-                whatsappLink = `https://api.whatsapp.com/send?phone=5519996292460&text=Oii%20Bia,%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶`; // Substitua pelos seus links
+                whatsappLink = 'https://api.whatsapp.com/send?phone=5519996292460&text=Oii%20Bia,%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶';
             }
 
             // Redireciona para o link de WhatsApp determinado
@@ -138,7 +148,14 @@
         }
     </script>
 	
-<h3>
+    <h3>
+        <span style="color:white;"><center style="background-color:none;">SEJA BEM-VINDO AO MEU CANAL VIP</center></span>
+        <span style="color:white;"><center style="background-color:none;">Clique no botão abaixo para entrar!</center></span>
+        <span style="background-color:pink;"><center style="background-color:none;">👇🏻</center></span>
+        <p style="text-align: center;">
+            <button onclick="redirectToWhatsApp()" class="pulse-button">WhatsApp VIP</button>
+        </p>
+    </h3>
 	
-	<span style="color:white;"><center style="background
-
+</body>
+</html>
