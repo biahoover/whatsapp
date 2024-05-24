@@ -9,122 +9,160 @@
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
-    }
-    .cover {
-      width: 1080px;
-      height: 1920px;
       background-image: url('Design sem nome (8).png');
       background-size: cover;
-      position: relative;
+      background-repeat: no-repeat;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
-    #whatsappButton {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 20px;
-      padding: 15px 30px;
-      background-color: #28a745; /* Verde */
-      color: #fff;
+    .green-button {
+      background-color: green;
       border: none;
-      border-radius: 25px;
+      color: white;
+      padding: 15px 30px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
       font-size: 16px;
+      margin: 4px 2px;
       cursor: pointer;
-      animation: pulse 2s infinite; /* Pulsante */
+      border-radius: 8px;
+      transition-duration: 0.4s;
     }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
+    .green-button:hover {
+      background-color: #4CAF50;
+      box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     }
-    #whatsappButton.disabled {
-      background-color: #ccc; /* Cinza */
+    .gray-button {
+      background-color: gray;
+      border: none;
+      color: white;
+      padding: 15px 30px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
       cursor: not-allowed;
+      border-radius: 8px;
+    }
+    #countdown {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <div class="cover">
-    <!-- Botão de WhatsApp -->
-    <button id="whatsappButton" onclick="redirectToWhatsApp()">FALE COMIGO NO WHATSAPP ♥</button>
-  </div>
-  <script>
-    function redirectToWhatsApp() {
-      var now = new Date();
-      var hour = now.getHours();
-      if (hour >= 8 && hour < 23) {
-        var expires = new Date(now);
-        expires.setHours(23);
-        expires.setMinutes(0);
-        expires.setSeconds(0);
-        var remainingTime = expires.getTime() - now.getTime();
-        document.cookie = "whatsappButton=active;expires=" + expires.toUTCString() + ";path=/";
-        window.location.href = getWhatsAppLink();
-      } else {
-        document.getElementById('whatsappButton').classList.add('disabled');
-        document.getElementById('whatsappButton').innerHTML = "Online em: " + formatTimeUntilActivation();
-      }
-    }
-
-    function getWhatsAppLink() {
-      var cookieValue = getCookie("whatsappButton");
-      if (cookieValue === "active") {
-        return getCookie("lastWhatsAppLink");
-      } else {
-        var whatsappLinks = [
-          "https://typebot.co/tbh1",
-          "https://typebot.co/tbh3",
-          "https://typebot.co/tbh5",
-          "https://typebot.co/tbh6"
-        ];
-        var randomIndex = Math.floor(Math.random() * whatsappLinks.length);
-        var selectedLink = whatsappLinks[randomIndex];
-        document.cookie = "lastWhatsAppLink=" + selectedLink + ";path=/";
-        return selectedLink;
-      }
-    }
-
-    function formatTimeUntilActivation() {
-      var now = new Date();
-      var activationTime = new Date(now);
-      activationTime.setHours(8);
-      activationTime.setMinutes(0);
-      activationTime.setSeconds(0);
-      var remainingTime = activationTime.getTime() - now.getTime();
-      var hours = Math.floor(remainingTime / (1000 * 60 * 60));
-      remainingTime -= hours * 1000 * 60 * 60;
-      var minutes = Math.floor(remainingTime / (1000 * 60));
-      remainingTime -= minutes * 1000 * 60;
-      var seconds = Math.floor(remainingTime / 1000);
-      return hours + "h " + minutes + "m " + seconds + "s";
-    }
-
-    function getCookie(name) {
-      var value = "; " + document.cookie;
-      var parts = value.split("; " + name + "=");
-      if (parts.length == 2) return parts.pop().split(";").shift();
-    }
-
-    redirectToWhatsApp();
-  </script>
-  <!-- Facebook Pixel Code -->
-  <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '951503763143037');
-    fbq('track', 'PageView_WhatsTelegram');
-  </script>
-  <noscript>
-    <img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=951503763143037&ev=PageView_WhatsTelegram&noscript=1"/>
-  </noscript>
-  <!-- End Facebook Pixel Code -->
-  <!-- Rodapé -->
+  <button id="whatsappButton" class="green-button">FALE COMIGO NO WHATSAPP ♥</button>
+  <div id="countdown"></div>
   <footer>©2024 Bianca Hoover.</footer>
+
+  <script>
+    // Função para definir o cookie
+    function setCookie(name, value, hours) {
+      var expires = "";
+      if (hours) {
+        var date = new Date();
+        date.setTime(date.getTime() + (hours * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+      }
+      document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    // Função para obter o cookie
+    function getCookie(name) {
+      var nameEQ = name + "=";
+      var ca = document.cookie.split(';');
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      }
+      return null;
+    }
+
+    // Função para iniciar o contador regressivo
+    function startCountdown() {
+      var countdownElement = document.getElementById('countdown');
+      var countdownDate = new Date();
+      countdownDate.setHours(23, 0, 0); // Horário de desativação do botão
+      var now = new Date();
+
+      var timeLeft = countdownDate - now;
+
+      var hoursLeft = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+      var minutesLeft = Math.floor((timeLeft / 1000 / 60) % 60);
+      var secondsLeft = Math.floor((timeLeft / 1000) % 60);
+
+      countdownElement.innerHTML = 'Online em: ' + hoursLeft + 'h ' + minutesLeft + 'm ' + secondsLeft + 's';
+      countdownElement.style.display = 'block';
+
+      var countdownInterval = setInterval(function() {
+        timeLeft = countdownDate - new Date();
+
+        hoursLeft = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+        minutesLeft = Math.floor((timeLeft / 1000 / 60) % 60);
+        secondsLeft = Math.floor((timeLeft / 1000) % 60);
+
+        countdownElement.innerHTML = 'Online em: ' + hoursLeft + 'h ' + minutesLeft + 'm ' + secondsLeft + 's';
+
+        if (timeLeft <= 0) {
+          clearInterval(countdownInterval);
+          countdownElement.style.display = 'none';
+          document.getElementById('whatsappButton').classList.remove('gray-button');
+          document.getElementById('whatsappButton').classList.add('green-button');
+          document.getElementById('whatsappButton').innerText = 'FALE COMIGO NO WHATSAPP ♥';
+          document.getElementById('whatsappButton').disabled = false;
+        }
+      }, 1000);
+    }
+
+    window.onload = function() {
+      var whatsappButton = document.getElementById('whatsappButton');
+      var userId = getCookie('user_id');
+
+      // Verificar se o botão deve estar ativado ou desativado
+      var now = new Date();
+      var currentHour = now.getHours();
+      if (currentHour >= 8 && currentHour < 23) {
+        // Ativar o botão
+        whatsappButton.classList.add('green-button');
+        whatsappButton.disabled = false;
+        whatsappButton.onclick = function() {
+          // Marcar evento do Facebook
+          fbq('track', 'PageView_WhatsTelegram', { eventID: '951503763143037' });
+
+          // Redirecionar para o link correspondente
+          var link = getCookie('whatsapp_link');
+          if (!link) {
+            // Escolher aleatoriamente um dos links de WhatsApp
+            var whatsappLinks = [
+              'https://typebot.co/tbh1',
+              'https://typebot.co/tbh3',
+              'https://typebot.co/tbh5',
+              'https://typebot.co/tbh6'
+            ];
+            var randomIndex = Math.floor(Math.random() * whatsappLinks.length);
+            link = whatsappLinks[randomIndex];
+            setCookie('whatsapp_link', link, 24); // Armazenar o link escolhido por 24 horas
+          }
+          window.location.href = link;
+        };
+      } else {
+        // Desativar o botão
+        whatsappButton.classList.add('gray-button');
+        whatsappButton.innerText = 'Online em: ';
+        whatsappButton.disabled = true;
+        startCountdown();
+      }
+
+      // Salvar o ID do usuário como cookie
+      if (!userId) {
+        userId = Math.random().toString(36).substring(2);
+        setCookie('user_id', userId, 24 * 30); // Armazenar por 30 dias
+      }
+    };
+  </script>
 </body>
 </html>
