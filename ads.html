@@ -7,7 +7,7 @@
     <style>
         body {
             background-image: url('Design sem nome (8).png');
-            background-size: cover;
+            background-size: cover; /* Ajusta o tamanho da imagem de fundo */
             background-position: center;
             font-family: Arial, sans-serif;
             text-align: center; /* Centraliza os elementos filhos horizontalmente */
@@ -55,11 +55,9 @@
             color: white;
             margin-top: 50px;
         }
-
-        /* Ajuste para dispositivos móveis */
-        @media only screen and (max-width: 600px) {
+        @media (max-width: 1080px) and (max-height: 1920px) {
             body {
-                background-size: auto; /* Ajusta o tamanho da imagem para telas menores */
+                background-size: contain; /* Ajusta a imagem para preencher a tela mantendo a proporção */
             }
         }
     </style>
