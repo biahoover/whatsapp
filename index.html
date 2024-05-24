@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Distribuição de Tráfego</title>
+    <title>Bia Hoover</title>
+    <link rel="icon" href="©2024 Bianca Hoover..png" type="image/png">
+
     <style>
         body {
             background-image: url('©2024 Bianca Hoover..png');
@@ -65,26 +67,31 @@
         .button-instagram {
             background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
             border: none;
-            color: white;
+            animation: pulseInstagram 1.5s infinite;
         }
-        .button-instagram:hover {
-            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
-            filter: brightness(90%);
-        }
-        .button-telegram {
-            background-color: #0088cc; /* Cor azul do ícone do Telegram */
-            box-shadow: 0 0 15px #0088cc; /* Sombra azul do ícone do Telegram */
-            animation: pulse 1.5s infinite; /* Adicionando a animação de pulsação */
-        }
-        .button-telegram:hover {
-            background-color: #005e9e; /* Cor azul escuro quando hover */
+        @keyframes pulseInstagram {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+            }
         }
     </style>
 </head>
 <body>
-    <a id="telegramButton" class="button button-telegram" href="https://t.me/+qQGRF-G7GagxNTcx">TELEGRAM VIP</a>
+    <a id="whatsappButton" class="button button-gray">Online no Whatsapp em:<br><span id="countdown"></span></a>
 
-    <a href="https://instagram.com/biahoover" class="button button-instagram">Visite meu Instagram ♥</a>
+
+    <a href="https://typebot.co/tinsta" class="button button-instagram">Visite meu Instagram ♥</a>
+
+    
 
     <script>
         // Pixel do Facebook
@@ -96,9 +103,8 @@
         t.src=v;s=b.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t,s)}(window,document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
-
         fbq('init', '951503763143037');
-        fbq('track', 'PageView_Clientes');
+        fbq('track', 'PageView_WhatsTelegram');
 
         // Função para definir um cookie
         function setCookie(name, value, days) {
@@ -123,15 +129,67 @@
             return null;
         }
 
-        // Verifica se o evento de compra já foi registrado para este dispositivo
-        const purchaseEventRegistered = getCookie('purchaseEventRegistered');
+        // Links do WhatsApp
+        const links = [
+            "https://typebot.co/tbh1",
+            "https://typebot.co/tbh3",
+            "https://typebot.co/tbh5",
+            "https://typebot.co/tbh6"
+        ];
 
-        if (!purchaseEventRegistered) {
-            fbq('track', 'Purchase');
-
-            // Marca o evento de compra como registrado
-            setCookie('purchaseEventRegistered', 'true', 365); // Valido por 1 ano
+        // Armazenar ID do Dispositivo
+        function getDeviceId() {
+            let deviceId = getCookie('deviceId');
+            if (!deviceId) {
+                deviceId = 'device-' + Math.random().toString(36).substr(2, 9);
+                setCookie('deviceId', deviceId, 365); // Armazena o ID do dispositivo por 1 ano
+            }
+            return deviceId;
         }
+
+        const deviceId = getDeviceId();
+
+        async function fetchLink(deviceId, action, link) {
+            const url = `https://script.google.com/macros/s/AKfycbwGk2ok7NEtA8fBIocZ29a-EVGywyk5hpsHJFoOUBwQQfuu8EMBc7udBLlQVF1H8fek/exec?deviceId=${deviceId}&action=${action}${link ? `&link=${encodeURIComponent(link)}` : ''}`;
+            const response = await fetch(url);
+            return response.text();
+        }
+
+        async function assignLink() {
+            let assignedLinkIndex = await fetchLink(deviceId, 'get');
+            if (!assignedLinkIndex) {
+                assignedLinkIndex = Math.floor(Math.random() * links.length);
+                await fetchLink(deviceId, 'set', assignedLinkIndex);
+            }
+            return links[assignedLinkIndex];
+        }
+
+        async function updateCountdown() {
+            const now = new Date();
+            const hours = now.getHours();
+            const button = document.getElementById('whatsappButton');
+            const countdownElement = document.getElementById('countdown');
+
+            if (hours >= 8 && hours < 23) {
+                button.className = 'button button-green';
+                button.href = await assignLink();
+                button.textContent = 'FALE COMIGO NO WHATSAPP ♥';
+                countdownElement.textContent = '';
+            } else {
+                button.className = 'button button-gray';
+                button.removeAttribute('href');
+                const nextActive = new Date();
+                nextActive.setHours(hours >= 23 ? 32 : 8, 0, 0, 0);
+                const timeLeft = nextActive - now;
+                const hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                countdownElement.textContent = `${hoursLeft}h ${minutesLeft}m ${secondsLeft}s`;
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
     </script>
 </body>
 </html>
