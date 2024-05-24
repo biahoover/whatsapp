@@ -37,15 +37,22 @@
             box-shadow: 0 0 15px green;
             animation: pulse 1.5s infinite;
         }
+        .button-instagram {
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+            border: none;
+        }
         @keyframes pulse {
             0% {
-                box-shadow: 0 0 15px green;
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
             }
-            50% {
-                box-shadow: 0 0 30px green;
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
             }
             100% {
-                box-shadow: 0 0 15px green;
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
             }
         }
         .button-gray {
@@ -65,10 +72,11 @@
     </style>
 </head>
 <body>
-    <a id="whatsappButton" class="button button-gray">Online em: <span id="countdown"></span></a>
+    <a id="whatsappButton" class="button button-gray">Online no Whatsapp em: <span id="countdown"></span></a>
 
-    <!-- <h4>©2024 Bianca Hoover.</h4> -->
-	
+    <a href="https://instagram.com/biahoover" class="button button-instagram pulsating">Visite meu Instagram</a>
+
+   <!-- <footer>©2024 Bianca Hoover.</footer> -->
 
     <script>
         // Pixel do Facebook
@@ -127,6 +135,7 @@
                 button.href = assignedLink;
                 button.textContent = 'FALE COMIGO NO WHATSAPP ♥';
                 countdownElement.textContent = '';
+                document.querySelector('.button-instagram').classList.remove('pulsating');
             } else {
                 button.className = 'button button-gray';
                 button.removeAttribute('href');
@@ -137,6 +146,7 @@
                 const minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
                 const secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
                 countdownElement.textContent = `${hoursLeft}h ${minutesLeft}m ${secondsLeft}s`;
+                document.querySelector('.button-instagram').classList.add('pulsating');
             }
         }
 
