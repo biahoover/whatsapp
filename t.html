@@ -8,6 +8,7 @@
 
     <!-- Facebook Pixel Code -->
     <script>
+      // Função para carregar o código do Facebook Pixel
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
       n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -16,8 +17,8 @@
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '951503763143037');
-      fbq('track', 'PageView_WTelegram');
+      fbq('init', '951503763143037'); // Inicializa o Facebook Pixel com o ID fornecido
+      fbq('track', 'PageView_WTelegram'); // Rastreamento da visualização da página
     </script>
     <!-- End Facebook Pixel Code -->
 
@@ -51,13 +52,13 @@
         .whatsapp-button {
             background-color: #25D366; /* Verde do ícone do WhatsApp */
             color: #FFFFFF;
-            animation: pulse 1s infinite alternate; /* Adicionando a animação de pulso */
+            animation: pulse 1s infinite alternate; /* Animação de pulso */
         }
 
         .whatsapp-button.gray {
             background-color: #808080; /* Cinza */
             cursor: not-allowed;
-            animation: none; /* Removendo a animação quando estiver desativado */
+            animation: none; /* Removendo a animação quando desativado */
         }
 
         .instagram-button {
@@ -85,16 +86,19 @@
     </style>
 </head>
 <body>
+    <!-- Botão do WhatsApp -->
     <button id="whatsappButton" class="whatsapp-button" onclick="redirectToWhatsApp()">
         FALE COMIGO NO WHATSAPP ♥
         <div id="countdown" class="countdown"></div>
     </button>
 
+    <!-- Botão do Instagram -->
     <button id="instagramButton" class="instagram-button" onclick="redirectToInstagram()">
         Visite meu Instagram ♥
     </button>
 
     <script>
+        // Função para redirecionar ao WhatsApp
         function redirectToWhatsApp() {
             var now = new Date();
             var hours = now.getHours();
@@ -122,7 +126,7 @@
                 countdown.innerHTML = '';
 
                 var countDownDate = new Date();
-                countDownDate.setHours(23, 0, 0, 0);
+                countDownDate.setHours(8, 0, 0, 0);
                 var x = setInterval(function() {
                     var now = new Date().getTime();
                     var distance = countDownDate - now;
@@ -143,6 +147,7 @@
             }
         }
 
+        // Função para redirecionar ao Instagram
         function redirectToInstagram() {
             var now = new Date();
             var hours = now.getHours();
@@ -158,6 +163,7 @@
             }
         }
 
+        // Função para definir um cookie
         function setCookie(name, value, days) {
             var expires = "";
             if (days) {
@@ -168,6 +174,7 @@
             document.cookie = name + "=" + (value || "") + expires + "; path=/";
         }
 
+        // Função para obter o valor de um cookie
         function getCookie(name) {
             var nameEQ = name + "=";
             var ca = document.cookie.split(';');
