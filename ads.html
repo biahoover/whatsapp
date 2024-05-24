@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <title>Canal VIP</title>
+
     <!-- Insira o código do Pixel do Facebook aqui -->
     <script>
         !function(f,b,e,v,n,t,s)
@@ -15,23 +17,48 @@
         s.parentNode.insertBefore(t,s)}(window,document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '951503763143037');
-		fbq('track', 'PageView');
+        fbq('track', 'PageView');
     </script>
-  <!-- Pixel de Facebook para rastreamento -->
+    <!-- Pixel de Facebook para rastreamento -->
     <noscript>
         <img height="1" width="1" style="display:none"
              src="https://www.facebook.com/tr?id=951503763143037&ev=PageView&noscript=1"/>
     </noscript>
 	
-	<style>
+    <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: none;
+            background-image: url('20240407_161344.jpg'); /* substitua pelo URL correto da imagem de fundo */
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
         }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
         .pulse-button {
             display: inline-block;
             padding: 15px 30px;
@@ -148,14 +175,11 @@
         }
     </script>
 	
-    <h3>
-        <span style="color:white;"><center style="background-color:none;">SEJA BEM-VINDO AO MEU CANAL VIP</center></span>
-        <span style="color:white;"><center style="background-color:none;">Clique no botão abaixo para entrar!</center></span>
-        <span style="background-color:pink;"><center style="background-color:none;">👇🏻</center></span>
-        <p style="text-align: center;">
-            <button onclick="redirectToWhatsApp()" class="pulse-button">WhatsApp VIP</button>
-        </p>
-    </h3>
+    <div class="container">
+        <div class="title">SEJA BEM-VINDO AO MEU CANAL VIP</div>
+        <div class="subtitle">Clique no botão abaixo para entrar!</div>
+        <button onclick="redirectToWhatsApp()" class="pulse-button">WhatsApp VIP</button>
+    </div>
 	
 </body>
 </html>
