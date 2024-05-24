@@ -12,12 +12,18 @@
             background-attachment: fixed; /* Fixa a imagem de fundo */
             font-family: Arial, sans-serif;
             text-align: center; /* Centraliza os elementos filhos horizontalmente */
+            margin: 0; /* Remove margens padrão do body */
+            padding: 0; /* Remove padding padrão do body */
+            height: 100vh; /* Define a altura do body como 100% da altura da viewport */
+            display: flex; /* Usa flexbox para centralizar os elementos verticalmente */
+            flex-direction: column; /* Organiza os elementos verticalmente */
+            justify-content: center; /* Centraliza os elementos verticalmente */
         }
         .button {
             display: inline-block; /* Altera para inline-block para ficar centralizado */
             width: 250px;
             padding: 15px;
-            margin: 100px auto;
+            margin: 20px auto; /* Margem inferior reduzida para separar o botão do rodapé */
             text-align: center;
             color: white;
             font-size: 18px;
@@ -54,7 +60,8 @@
         footer {
             text-align: center;
             color: white;
-            margin-top: 50px;
+            margin-top: auto; /* Empurra o rodapé para a parte inferior */
+            padding: 20px; /* Adiciona algum espaço interno ao rodapé */
         }
         @media (max-width: 1080px) and (max-height: 1920px) {
             body {
@@ -155,7 +162,8 @@
                 const nextActive = new Date();
                 nextActive.setHours(hours >= 23 ? 32 : 8, 0, 0, 0);
                 const timeLeft = nextActive - now;
-                const hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const hoursLeft = Math.floor((timeLeft %
+(1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
                 const secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
                 countdownElement.textContent = `${hoursLeft}h ${minutesLeft}m ${secondsLeft}s`;
