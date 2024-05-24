@@ -97,6 +97,9 @@
         s.parentNode.insertBefore(t,s)}(window,document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
 
+        fbq('init', '951503763143037');
+        fbq('track', 'PageView_Clientes');
+
         // Função para definir um cookie
         function setCookie(name, value, days) {
             var expires = "";
@@ -124,8 +127,6 @@
         const purchaseEventRegistered = getCookie('purchaseEventRegistered');
 
         if (!purchaseEventRegistered) {
-            // Pixel do Facebook
-            fbq('init', '951503763143037');
             fbq('track', 'Purchase');
 
             // Marca o evento de compra como registrado
