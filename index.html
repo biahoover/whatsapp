@@ -101,19 +101,19 @@
     <script>
         function redirectToWhatsApp() {
             var urlParams = new URLSearchParams(window.location.search);
-            var source = urlParams.get('source') || '';
+            var source = urlParams.get('source') || 'browser';
 
             var whatsappLinks = {
                 "facebook": ["https://typebot.co/fbh1", "https://typebot.co/fbh3", "https://typebot.co/fbh5", "https://typebot.co/fbh6"],
                 "instagram": ["https://typebot.co/ibh1", "https://typebot.co/ibh3", "https://typebot.co/ibh5", "https://typebot.co/ibh6"],
                 "telegram": ["https://typebot.co/tbh1", "https://typebot.co/tbh3", "https://typebot.co/tbh5", "https://typebot.co/tbh6"],
-                "": ["https://typebot.co/nbh1", "https://typebot.co/nbh3", "https://typebot.co/nbh5", "https://typebot.co/nbh6"]
+                "browser": ["https://typebot.co/nbh1", "https://typebot.co/nbh3", "https://typebot.co/nbh5", "https://typebot.co/nbh6"]
             };
 
             var deviceId = Math.floor(Math.random() * 1000000);
 
             var chosenWhatsAppIndex = (deviceId % 4);
-            var chosenWhatsApp = whatsappLinks[source][chosenWhatsAppIndex] || whatsappLinks[""][chosenWhatsAppIndex];
+            var chosenWhatsApp = whatsappLinks[source][chosenWhatsAppIndex];
 
             var scriptUrl = 'https://script.google.com/macros/s/AKfycbwLWIlQE6bFa0pzrAv3Gbvbfsq0qydD0gBC8O4UHwc/dev';
             var requestUrl = `${scriptUrl}?deviceId=${deviceId}&source=${source}`;
@@ -145,11 +145,4 @@
             if (hours >= 0 && hours < 8) {
                 TelegramButton.classList.add('pulseTelegram');
             } else {
-                TelegramButton.classList.remove('pulseTelegram');
-            }
-        }
-
-        setInterval(checkTelegramPulse, 1000);
-    </script>
-</body>
-</html>
+                TelegramButton.classLis
