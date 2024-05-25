@@ -8,7 +8,6 @@
 
     <!-- Facebook Pixel Code -->
     <script>
-      // Função para carregar o código do Facebook Pixel
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
       n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -17,8 +16,8 @@
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '951503763143037'); // Inicializa o Facebook Pixel com o ID fornecido
-      fbq('track', 'PageView_WInstagram'); // Rastreamento da visualização da página
+      fbq('init', '951503763143037');
+      fbq('track', 'PageView_WInstagram');
     </script>
     <!-- End Facebook Pixel Code -->
 
@@ -50,24 +49,24 @@
         }
 
         .whatsapp-button {
-            background-color: #25D366; /* Verde do ícone do WhatsApp */
+            background-color: #25D366;
             color: #FFFFFF;
-            animation: pulse 1s infinite alternate; /* Animação de pulso */
+            animation: pulse 1s infinite alternate;
         }
 
         .whatsapp-button.gray {
-            background-color: #808080; /* Cinza */
+            background-color: #808080;
             cursor: not-allowed;
-            animation: none; /* Removendo a animação quando desativado */
+            animation: none;
         }
 
         .Telegram-button {
-            background-color: #0088cc; /* Azul do ícone do Telegram */
+            background-color: #0088cc;
             color: #FFFFFF;
         }
 
         .pulseTelegram {
-            animation: pulseTelegram 1s infinite alternate; /* Animação de pulso para o Telegram */
+            animation: pulseTelegram 1s infinite alternate;
         }
 
         @keyframes pulse {
@@ -90,22 +89,19 @@
     </style>
 </head>
 <body>
-    <!-- Botão do WhatsApp -->
     <button id="whatsappButton" class="whatsapp-button" onclick="redirectToWhatsApp()">
         FALE COMIGO NO WHATSAPP ♥
         <div id="countdown" class="countdown"></div>
     </button>
 
-    <!-- Botão do Telegram -->
     <button id="TelegramButton" class="Telegram-button" onclick="redirectToTelegram()">
         CANAL NO TELEGRAM 🔥 <br>Inscreva-se grátis!</br>
     </button>
 
     <script>
-        // Função para redirecionar ao WhatsApp com base na origem do acesso
         function redirectToWhatsApp() {
             var urlParams = new URLSearchParams(window.location.search);
-            var source = urlParams.get('source') || ''; // Se não houver origem, define como vazio
+            var source = urlParams.get('source') || '';
 
             var whatsappLinks = {
                 "facebook": ["https://typebot.co/fbh1", "https://typebot.co/fbh3", "https://typebot.co/fbh5", "https://typebot.co/fbh6"],
@@ -114,18 +110,14 @@
                 "": ["https://typebot.co/nbh1", "https://typebot.co/nbh3", "https://typebot.co/nbh5", "https://typebot.co/nbh6"]
             };
 
-            // Obter o ID do dispositivo (pode ser substituído por uma lógica para gerar um ID único)
-            var deviceId = Math.floor(Math.random() * 1000000); // Gera um ID aleatório para demonstração
+            var deviceId = Math.floor(Math.random() * 1000000);
 
-            // Redirecionar para o WhatsApp com base na origem do acesso e no ID do dispositivo
-            var chosenWhatsAppIndex = (deviceId % 4); // Distribui o tráfego uniformemente entre os 4 links do WhatsApp
-            var chosenWhatsApp = whatsappLinks[source][chosenWhatsAppIndex] || whatsappLinks[""][chosenWhatsAppIndex]; // Se a origem não for reconhecida, use a lista padrão
+            var chosenWhatsAppIndex = (deviceId % 4);
+            var chosenWhatsApp = whatsappLinks[source][chosenWhatsAppIndex] || whatsappLinks[""][chosenWhatsAppIndex];
 
-            // Enviar o ID do dispositivo e a origem para o Google Apps Script
             var scriptUrl = 'https://script.google.com/macros/s/AKfycbzep7HjC4NCl55nknvP7UXrIesFs9NZFFsGrxWX3vR0sP4zSXdSgQ0VZhAUrOBOxnklmA/exec';
             var requestUrl = `${scriptUrl}?deviceId=${deviceId}&source=${source}`;
 
-            // Fazer a solicitação HTTP para adicionar dados à planilha
             var xhr = new XMLHttpRequest();
             xhr.open('GET', requestUrl, true);
             xhr.onload = function() {
@@ -137,17 +129,14 @@
             };
             xhr.send();
 
-            // Redirecionar para o WhatsApp
             window.location.href = chosenWhatsApp;
         }
 
-        // Função para redirecionar ao Telegram
         function redirectToTelegram() {
             var Telegram = 'https://typebot.co/i_telegram';
             window.location.href = Telegram;
         }
 
-        // Adiciona a animação de pulsação ao botão do Telegram das 0h às 8h
         function checkTelegramPulse() {
             var now = new Date();
             var hours = now.getHours();
@@ -164,4 +153,3 @@
     </script>
 </body>
 </html>
-
