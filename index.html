@@ -8,17 +8,16 @@
 
     <!-- Facebook Pixel Code -->
     <script>
-      // Função para carregar o código do Facebook Pixel
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '951503763143037'); // Inicializa o Facebook Pixel com o ID fornecido
-      fbq('track', 'PageView_WInstagram'); // Rastreamento da visualização da página
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '951503763143037');
+        fbq('track', 'PageView_WInstagram');
     </script>
     <!-- End Facebook Pixel Code -->
 
@@ -50,24 +49,24 @@
         }
 
         .whatsapp-button {
-            background-color: #25D366; /* Verde do ícone do WhatsApp */
+            background-color: #25D366;
             color: #FFFFFF;
-            animation: pulse 1s infinite alternate; /* Animação de pulso */
+            animation: pulse 1s infinite alternate;
         }
 
         .whatsapp-button.gray {
-            background-color: #808080; /* Cinza */
+            background-color: #808080;
             cursor: not-allowed;
-            animation: none; /* Removendo a animação quando desativado */
+            animation: none;
         }
 
         .Telegram-button {
-            background-color: #0088cc; /* Azul do ícone do Telegram */
+            background-color: #0088cc;
             color: #FFFFFF;
         }
 
         .pulseTelegram {
-            animation: pulseTelegram 1s infinite alternate; /* Animação de pulso para o Telegram */
+            animation: pulseTelegram 1s infinite alternate;
         }
 
         @keyframes pulse {
@@ -90,27 +89,21 @@
     </style>
 </head>
 <body>
-    <!-- Botão do WhatsApp -->
     <button id="whatsappButton" class="whatsapp-button" onclick="redirectToWhatsApp()">
         FALE COMIGO NO WHATSAPP ♥
         <div id="countdown" class="countdown"></div>
     </button>
 
-    <!-- Botão do Telegram -->
     <button id="TelegramButton" class="Telegram-button" onclick="redirectToTelegram()">
         CANAL NO TELEGRAM 🔥 <br>Inscreva-se grátis!</br>
     </button>
 
     <script>
-        // Função para obter o ID do dispositivo
         function getDeviceID() {
-            // Simulação de um ID de dispositivo único
             return navigator.userAgent.replace(/\D+/g, '');
         }
 
-        // Função para obter a origem do acesso
         function getSource() {
-            // Exemplo simplificado de detecção de origem
             if (document.referrer.includes('facebook.com')) {
                 return 'Facebook';
             } else if (document.referrer.includes('instagram.com')) {
@@ -122,10 +115,8 @@
             }
         }
 
-        // URL do script do Google Apps Script
         const scriptUrl = "https://script.google.com/macros/s/AKfycbwByZ3j38eX7Csylyz3hDf4s9mRNbwJOldKJbkqzpwq3sTxhtad37YZZykcX1EbbqE1/exec";
 
-        // Função para redirecionar ao WhatsApp
         function redirectToWhatsApp() {
             var now = new Date();
             var hours = now.getHours();
@@ -134,7 +125,6 @@
                 var deviceID = getDeviceID();
                 var source = getSource();
                 
-                // Requisição para obter o link do WhatsApp do Google Sheets
                 var xhr = new XMLHttpRequest();
                 xhr.open("GET", scriptUrl + "?sheetUrl=" + encodeURIComponent("https://docs.google.com/spreadsheets/d/1yLVkbkvxZ9qQIKShlsDdxKIggDtB3ar_doydS0lQUsI/edit#gid=0") +
                                         "&sheetName=" + encodeURIComponent("Página 1") +
@@ -181,13 +171,11 @@
             }
         }
 
-        // Função para redirecionar ao Telegram
         function redirectToTelegram() {
             var Telegram = 'https://typebot.co/i_telegram';
             window.location.href = Telegram;
         }
 
-        // Adiciona a animação de pulsação ao botão do Telegram das 0h às 8h
         function checkTelegramPulse() {
             var now = new Date();
             var hours = now.getHours();
@@ -204,3 +192,4 @@
     </script>
 </body>
 </html>
+
