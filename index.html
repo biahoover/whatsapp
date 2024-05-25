@@ -145,4 +145,11 @@
             if (hours >= 0 && hours < 8) {
                 TelegramButton.classList.add('pulseTelegram');
             } else {
-                TelegramButton.classLis
+                TelegramButton.classList.remove('pulseTelegram');
+            }
+        }
+
+        setInterval(checkTelegramPulse, 1000);
+    </script>
+</body>
+</html>
