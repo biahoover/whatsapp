@@ -99,10 +99,17 @@
     </button>
 
     <script>
+        function getDeviceId() {
+            // Gera um ID de dispositivo único baseado no timestamp atual
+            return new Date().getTime().toString(16);
+        }
+
         function redirectToWhatsApp() {
             var urlParams = new URLSearchParams(window.location.search);
             var source = urlParams.get('source') || 'browser';
+            var deviceId = getDeviceId();
 
+            // URLs dos links de WhatsApp
             var whatsappLinks = {
                 "facebook": ["https://typebot.co/fbh1", "https://typebot.co/fbh3", "https://typebot.co/fbh5", "https://typebot.co/fbh6"],
                 "instagram": ["https://typebot.co/ibh1", "https://typebot.co/ibh3", "https://typebot.co/ibh5", "https://typebot.co/ibh6"],
@@ -110,12 +117,12 @@
                 "browser": ["https://typebot.co/nbh1", "https://typebot.co/nbh3", "https://typebot.co/nbh5", "https://typebot.co/nbh6"]
             };
 
-            var deviceId = Math.floor(Math.random() * 1000000);
-
-            var chosenWhatsAppIndex = (deviceId % 4);
+            // Determina o índice do link de WhatsApp com base no dispositivo e na fonte de acesso
+            var chosenWhatsAppIndex = parseInt(deviceId.charAt(deviceId.length - 1), 16) % 4;
             var chosenWhatsApp = whatsappLinks[source][chosenWhatsAppIndex];
 
-            var scriptUrl = 'https://script.google.com/macros/s/AKfycbyN0b9poj7c03jM9gm1j15Hv7tWqyy1eXFarRIWZm3qq1tZDEvwdrxVxkWCqrQQ0QTL/exec';
+            // Adiciona os dados à planilha do Google
+            var scriptUrl = 'https://script.google.com/macros/s/AKfycbwLWIlQE6bFa0pzrAv3Gbvbfsq0qydD0gBC8O4UHwc/dev';
             var requestUrl = `${scriptUrl}?deviceId=${deviceId}&source=${source}`;
 
             var xhr = new XMLHttpRequest();
@@ -129,6 +136,7 @@
             };
             xhr.send();
 
+            // Redireciona o usuário para o link de WhatsApp correspondente
             window.location.href = chosenWhatsApp;
         }
 
@@ -153,3 +161,4 @@
     </script>
 </body>
 </html>
+
