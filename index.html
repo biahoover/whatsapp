@@ -102,83 +102,41 @@
     </button>
 
     <script>
-        // Função para obter o ID do dispositivo
-        function getDeviceID() {
-            // Simulação de um ID de dispositivo único
-            return navigator.userAgent.replace(/\D+/g, '');
+        // Função para obter parâmetros da URL
+        function getUrlParams() {
+            var params = {};
+            window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) {
+                params[key] = value;
+            });
+            return params;
         }
 
-        // Função para obter a origem do acesso
-        function getSource() {
-            // Exemplo simplificado de detecção de origem
-            if (document.referrer.includes('facebook.com')) {
-                return 'Facebook';
-            } else if (document.referrer.includes('instagram.com')) {
-                return 'Instagram';
-            } else if (document.referrer.includes('t.me')) {
-                return 'Telegram';
-            } else {
-                return 'Navegador';
-            }
-        }
-
-        // URL do script do Google Apps Script
-        const scriptUrl = "https://script.google.com/macros/s/AKfycbzhk_mnwYqpKZoAKamP7ZDTBPQ8WCBw8Dbk_kzoRb57bwXdILAyNIKih8t6aq6SjlHf/exec";
-
-        // Função para redirecionar ao WhatsApp
+        // Função para redirecionar ao WhatsApp com base na origem do acesso
         function redirectToWhatsApp() {
-            var now = new Date();
-            var hours = now.getHours();
+            var urlParams = getUrlParams();
+            var source = urlParams["source"];
+            var whatsappLinks = {
+                "facebook": ["https://typebot.co/fbh1", "https://typebot.co/fbh3", "https://typebot.co/fbh5", "https://typebot.co/fbh6"],
+                "instagram": ["https://typebot.co/ibh1", "https://typebot.co/ibh3", "https://typebot.co/ibh5", "https://typebot.co/ibh6"],
+                "telegram": ["https://typebot.co/tbh1", "https://typebot.co/tbh3", "https://typebot.co/tbh5", "https://typebot.co/tbh6"],
+                "": ["https://typebot.co/nbh1", "https://typebot.co/nbh3", "https://typebot.co/nbh5", "https://typebot.co/nbh6"]
+            };
 
-            if (hours >= 8 && hours < 23) {
-                var deviceID = getDeviceID();
-                var source = getSource();
-                
-                // Requisição para obter o link do WhatsApp do Google Sheets
-                var xhr = new XMLHttpRequest();
-                xhr.open("GET", scriptUrl + "?sheetUrl=" + encodeURIComponent("https://docs.google.com/spreadsheets/d/1yLVkbkvxZ9qQIKShlsDdxKIggDtB3ar_doydS0lQUsI/edit#gid=0") +
-                                        "&sheetName=" + encodeURIComponent("Página 1") +
-                                        "&deviceID=" + encodeURIComponent(deviceID) +
-                                        "&source=" + encodeURIComponent(source) +
-                                        "&timestamp=" + encodeURIComponent(new Date().toISOString()), true);
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                        var response = JSON.parse(xhr.responseText);
-                        window.location.href = response.whatsappLink;
-                    }
-                };
-                xhr.send();
-            } else {
-                document.getElementById('whatsappButton').classList.add('gray');
-                document.getElementById('whatsappButton').innerHTML = 'Online no Whatsapp em:<br>';
-                var countdown = document.getElementById('countdown');
-                countdown.innerHTML = '';
+            // Obter o ID do dispositivo (pode ser substituído por uma lógica para gerar um ID único)
+            var deviceId = Math.floor(Math.random() * 1000000); // Gera um ID aleatório para demonstração
 
-                var countDownDate = new Date();
-                countDownDate.setHours(8, 0, 0, 0);
-                var x = setInterval(function() {
-                    var now = new Date().getTime();
-                    var distance = countDownDate - now;
+            // Armazenar o ID do dispositivo e a origem do acesso na planilha do Google Sheets
+            var googleSheetsUrl = "https://script.google.com/macros/s/AKfycbzEqnr17_AQVhAp1LV-yzELh-orhHUjTW2KGaUoZahx2TvDYRHOozd3oeKVJ1Ohlz0vMA/exec";
+            var requestData = "?deviceId=" + deviceId + "&source=" + source;
+            var requestUrl = googleSheetsUrl + requestData;
+            var request = new XMLHttpRequest();
+            request.open("GET", requestUrl, true);
+            request.send();
 
-                    if (distance < 0) {
-                        countDownDate.setDate(countDownDate.getDate() + 1);
-                        distance = countDownDate - now;
-                    }
-
-                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                    countdown.innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
-
-                    if (distance < 0) {
-                        clearInterval(x);
-                        countdown.innerHTML = "Botão ativado!";
-                        document.getElementById('whatsappButton').classList.remove('gray');
-                        document.getElementById('whatsappButton').innerHTML = 'FALE COMIGO NO WHATSAPP ♥';
-                    }
-                }, 1000);
-            }
+            // Redirecionar para o WhatsApp com base na origem do acesso e no ID do dispositivo
+            var chosenWhatsAppIndex = (deviceId % 4); // Distribui o tráfego uniformemente entre os 4 links do WhatsApp
+            var chosenWhatsApp = whatsappLinks[source][chosenWhatsAppIndex];
+            window.location.href = chosenWhatsApp;
         }
 
         // Função para redirecionar ao Telegram
@@ -201,6 +159,7 @@
         }
 
         setInterval(checkTelegramPulse, 1000);
-    </script>
+    </
+script>
 </body>
 </html>
