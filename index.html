@@ -6,146 +6,106 @@
     <title>Bia Hoover</title>
     <link rel="icon" href="©2024 Bianca Hoover..png" type="image/png">
 
-    <!-- Facebook Pixel Code -->
-    <script>
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '951503763143037');
-      fbq('track', 'PageView_WTelegram');
-    </script>
-    <!-- End Facebook Pixel Code -->
-
     <style>
-        body {
-            background-image: url('©2024 Bianca Hoover..png');
-            background-size: cover;
-            background-position: center;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .whatsapp-button {
-            padding: 15px 30px;
-            background-color: #25D366; /* Verde do ícone do WhatsApp */
-            color: #FFFFFF;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            margin-bottom: 20px;
-            animation: pulse 1s infinite alternate; /* Adicionando a animação de pulso */
-        }
-
-        @keyframes pulse {
-            from {
-                transform: scale(1);
-            }
-            to {
-                transform: scale(1.05);
-            }
-        }
-
-        .whatsapp-button.gray {
-            background-color: #808080; /* Cinza */
-            cursor: not-allowed;
-            animation: none; /* Removendo a animação quando estiver desativado */
-        }
-
-        .countdown {
-            font-size: 14px;
-            margin-top: 5px;
-        }
+        /* Estilos CSS */
     </style>
 </head>
 <body>
+    <!-- Botão do WhatsApp -->
     <button id="whatsappButton" class="whatsapp-button" onclick="redirectToWhatsApp()">
         FALE COMIGO NO WHATSAPP ♥
         <div id="countdown" class="countdown"></div>
     </button>
 
+    <!-- Script JavaScript -->
     <script>
+        // Função para redirecionar ao WhatsApp
         function redirectToWhatsApp() {
-            var now = new Date();
-            var hours = now.getHours();
+            var whatsappLink;
+            var deviceID = getDeviceID(); // Obtém o ID do dispositivo
 
-            if (hours >= 8 && hours < 23) {
-                var whatsapp = getCookie('whatsapp');
-                if (whatsapp) {
-                    window.location.href = whatsapp;
-                } else {
-                    var whatsappLinks = [
-                        'https://typebot.co/tbh1',
-                        'https://typebot.co/tbh3',
-                        'https://typebot.co/tbh5',
-                        'https://typebot.co/tbh6'
-                    ];
-                    var randomIndex = Math.floor(Math.random() * whatsappLinks.length);
-                    var chosenWhatsApp = whatsappLinks[randomIndex];
-                    setCookie('whatsapp', chosenWhatsApp, 1);
-                    window.location.href = chosenWhatsApp;
-                }
+            // Verifica de onde o cliente está acessando e define os links do WhatsApp correspondentes
+            switch (getAccessChannel()) {
+                case 'Facebook':
+                    whatsappLink = getWhatsAppLink(deviceID, ['fbh1', 'fbh3', 'fbh5', 'fbh6']);
+                    break;
+                case 'Instagram':
+                    whatsappLink = getWhatsAppLink(deviceID, ['ibh1', 'ibh3', 'ibh5', 'ibh6']);
+                    break;
+                case 'Telegram':
+                    whatsappLink = getWhatsAppLink(deviceID, ['tbh1', 'tbh3', 'tbh5', 'tbh6']);
+                    break;
+                default:
+                    whatsappLink = getWhatsAppLink(deviceID, ['nbh1', 'nbh3', 'nbh5', 'nbh6']);
+            }
+
+            // Redireciona para o link do WhatsApp correspondente
+            window.location.href = whatsappLink;
+        }
+
+        // Função para obter o ID do dispositivo (simulada)
+        function getDeviceID() {
+            // Você pode implementar esta função de acordo com sua necessidade, como a obtenção do ID do dispositivo do usuário
+            // Por exemplo:
+            return '123456789'; // Simulação de um ID de dispositivo
+        }
+
+        // Função para obter o canal de acesso (simulada)
+        function getAccessChannel() {
+            // Você pode implementar esta função para detectar o canal de acesso do usuário (Facebook, Instagram, Telegram ou navegador)
+            // Por exemplo:
+            return 'Facebook'; // Simulação de acesso via Facebook
+        }
+
+        // Função para obter o link do WhatsApp correspondente
+        function getWhatsAppLink(deviceID, whatsappLinks) {
+            var storedLink = getStoredWhatsAppLink(deviceID); // Obtém o link do WhatsApp armazenado para este dispositivo
+
+            // Se o link do WhatsApp estiver armazenado, retorna-o, caso contrário, escolhe um novo aleatoriamente
+            if (storedLink) {
+                return storedLink;
             } else {
-                document.getElementById('whatsappButton').classList.add('gray');
-                document.getElementById('whatsappButton').innerHTML = 'Online no Whatsapp em:<br>Retornaremos em breve';
-                var countdown = document.getElementById('countdown');
-                countdown.innerHTML = '';
-
-                var countDownDate = new Date();
-                countDownDate.setHours(23, 0, 0, 0);
-                var x = setInterval(function() {
-                    var now = new Date().getTime();
-                    var distance = countDownDate - now;
-
-                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                    countdown.innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
-
-                    if (distance < 0) {
-                        clearInterval(x);
-                        countdown.innerHTML = "Botão ativado!";
-                        document.getElementById('whatsappButton').classList.remove('gray');
-                        document.getElementById('whatsappButton').innerHTML = 'FALE COMIGO NO WHATSAPP ♥';
-                    }
-                }, 1000);
+                var randomIndex = Math.floor(Math.random() * whatsappLinks.length);
+                var chosenWhatsApp = whatsappLinks[randomIndex];
+                setStoredWhatsAppLink(deviceID, chosenWhatsApp); // Armazena o link do WhatsApp para este dispositivo
+                return 'https://typebot.co/' + chosenWhatsApp;
             }
         }
 
-        function setCookie(name, value, days) {
-            var expires = "";
-            if (days) {
-                var date = new Date();
-                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                expires = "; expires=" + date.toUTCString();
-            }
-            document.cookie = name + "=" + (value || "") + expires + "; path=/";
-        }
-
-        function getCookie(name) {
-            var nameEQ = name + "=";
-            var ca = document.cookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        // Função para obter o link do WhatsApp armazenado para o dispositivo
+        function getStoredWhatsAppLink(deviceID) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "client_data.txt", false);
+            xhttp.send();
+            var clientData = xhttp.responseText;
+            var dataLines = clientData.split("\n");
+            for (var i = 0; i < dataLines.length; i++) {
+                var line = dataLines[i].split(",");
+                if (line[0] === deviceID) {
+                    return line[1];
+                }
             }
             return null;
+        }
+
+        // Função para armazenar o link do WhatsApp para o dispositivo
+        function setStoredWhatsAppLink(deviceID, whatsappLink) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "client_data.txt", false);
+            xhttp.send();
+            var clientData = xhttp.responseText;
+            var newData = "";
+            var dataLines = clientData.split("\n");
+            for (var i = 0; i < dataLines.length; i++) {
+                var line = dataLines[i].split(",");
+                if (line[0] === deviceID) {
+                    line[1] = whatsappLink;
+                }
+                newData += line.join(",") + "\n";
+            }
+            xhttp.open("POST", "client_data.txt", false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("data=" + newData);
         }
     </script>
 </body>
