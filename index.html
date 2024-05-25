@@ -6,8 +6,87 @@
     <title>Bia Hoover</title>
     <link rel="icon" href="©2024 Bianca Hoover..png" type="image/png">
 
+    <!-- Facebook Pixel Code -->
+    <script>
+      // Função para carregar o código do Facebook Pixel
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '951503763143037'); // Inicializa o Facebook Pixel com o ID fornecido
+      fbq('track', 'PageView_WInstagram'); // Rastreamento da visualização da página
+    </script>
+    <!-- End Facebook Pixel Code -->
+
     <style>
-        /* Estilos CSS */
+        body {
+            background-image: url('©2024 Bianca Hoover..png');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .whatsapp-button, .Telegram-button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .whatsapp-button {
+            background-color: #25D366; /* Verde do ícone do WhatsApp */
+            color: #FFFFFF;
+            animation: pulse 1s infinite alternate; /* Animação de pulso */
+        }
+
+        .whatsapp-button.gray {
+            background-color: #808080; /* Cinza */
+            cursor: not-allowed;
+            animation: none; /* Removendo a animação quando desativado */
+        }
+
+        .Telegram-button {
+            background-color: #0088cc; /* Azul do ícone do Telegram */
+            color: #FFFFFF;
+        }
+
+        .pulseTelegram {
+            animation: pulseTelegram 1s infinite alternate; /* Animação de pulso para o Telegram */
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes pulseTelegram {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.05);
+            }
+        }
     </style>
 </head>
 <body>
@@ -17,96 +96,111 @@
         <div id="countdown" class="countdown"></div>
     </button>
 
-    <!-- Script JavaScript -->
+    <!-- Botão do Telegram -->
+    <button id="TelegramButton" class="Telegram-button" onclick="redirectToTelegram()">
+        CANAL NO TELEGRAM 🔥 <br>Inscreva-se grátis!</br>
+    </button>
+
     <script>
+        // Função para obter o ID do dispositivo
+        function getDeviceID() {
+            // Simulação de um ID de dispositivo único
+            return navigator.userAgent.replace(/\D+/g, '');
+        }
+
+        // Função para obter a origem do acesso
+        function getSource() {
+            // Exemplo simplificado de detecção de origem
+            if (document.referrer.includes('facebook.com')) {
+                return 'Facebook';
+            } else if (document.referrer.includes('instagram.com')) {
+                return 'Instagram';
+            } else if (document.referrer.includes('t.me')) {
+                return 'Telegram';
+            } else {
+                return 'Navegador';
+            }
+        }
+
+        // URL do script do Google Apps Script
+        const scriptUrl = "https://script.google.com/macros/s/AKfycbwByZ3j38eX7Csylyz3hDf4s9mRNbwJOldKJbkqzpwq3sTxhtad37YZZykcX1EbbqE1/exec";
+
         // Função para redirecionar ao WhatsApp
         function redirectToWhatsApp() {
-            var whatsappLink;
-            var deviceID = getDeviceID(); // Obtém o ID do dispositivo
+            var now = new Date();
+            var hours = now.getHours();
 
-            // Verifica de onde o cliente está acessando e define os links do WhatsApp correspondentes
-            switch (getAccessChannel()) {
-                case 'Facebook':
-                    whatsappLink = getWhatsAppLink(deviceID, ['fbh1', 'fbh3', 'fbh5', 'fbh6']);
-                    break;
-                case 'Instagram':
-                    whatsappLink = getWhatsAppLink(deviceID, ['ibh1', 'ibh3', 'ibh5', 'ibh6']);
-                    break;
-                case 'Telegram':
-                    whatsappLink = getWhatsAppLink(deviceID, ['tbh1', 'tbh3', 'tbh5', 'tbh6']);
-                    break;
-                default:
-                    whatsappLink = getWhatsAppLink(deviceID, ['nbh1', 'nbh3', 'nbh5', 'nbh6']);
-            }
-
-            // Redireciona para o link do WhatsApp correspondente
-            window.location.href = whatsappLink;
-        }
-
-        // Função para obter o ID do dispositivo (simulada)
-        function getDeviceID() {
-            // Você pode implementar esta função de acordo com sua necessidade, como a obtenção do ID do dispositivo do usuário
-            // Por exemplo:
-            return '123456789'; // Simulação de um ID de dispositivo
-        }
-
-        // Função para obter o canal de acesso (simulada)
-        function getAccessChannel() {
-            // Você pode implementar esta função para detectar o canal de acesso do usuário (Facebook, Instagram, Telegram ou navegador)
-            // Por exemplo:
-            return 'Facebook'; // Simulação de acesso via Facebook
-        }
-
-        // Função para obter o link do WhatsApp correspondente
-        function getWhatsAppLink(deviceID, whatsappLinks) {
-            var storedLink = getStoredWhatsAppLink(deviceID); // Obtém o link do WhatsApp armazenado para este dispositivo
-
-            // Se o link do WhatsApp estiver armazenado, retorna-o, caso contrário, escolhe um novo aleatoriamente
-            if (storedLink) {
-                return storedLink;
+            if (hours >= 8 && hours < 23) {
+                var deviceID = getDeviceID();
+                var source = getSource();
+                
+                // Requisição para obter o link do WhatsApp do Google Sheets
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", scriptUrl + "?sheetUrl=" + encodeURIComponent("https://docs.google.com/spreadsheets/d/1yLVkbkvxZ9qQIKShlsDdxKIggDtB3ar_doydS0lQUsI/edit#gid=0") +
+                                        "&sheetName=" + encodeURIComponent("Página 1") +
+                                        "&deviceID=" + encodeURIComponent(deviceID) +
+                                        "&source=" + encodeURIComponent(source) +
+                                        "&timestamp=" + encodeURIComponent(new Date().toISOString()), true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        window.location.href = response.whatsappLink;
+                    }
+                };
+                xhr.send();
             } else {
-                var randomIndex = Math.floor(Math.random() * whatsappLinks.length);
-                var chosenWhatsApp = whatsappLinks[randomIndex];
-                setStoredWhatsAppLink(deviceID, chosenWhatsApp); // Armazena o link do WhatsApp para este dispositivo
-                return 'https://typebot.co/' + chosenWhatsApp;
+                document.getElementById('whatsappButton').classList.add('gray');
+                document.getElementById('whatsappButton').innerHTML = 'Online no Whatsapp em:<br>';
+                var countdown = document.getElementById('countdown');
+                countdown.innerHTML = '';
+
+                var countDownDate = new Date();
+                countDownDate.setHours(8, 0, 0, 0);
+                var x = setInterval(function() {
+                    var now = new Date().getTime();
+                    var distance = countDownDate - now;
+
+                    if (distance < 0) {
+                        countDownDate.setDate(countDownDate.getDate() + 1);
+                        distance = countDownDate - now;
+                    }
+
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    countdown.innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+
+                    if (distance < 0) {
+                        clearInterval(x);
+                        countdown.innerHTML = "Botão ativado!";
+                        document.getElementById('whatsappButton').classList.remove('gray');
+                        document.getElementById('whatsappButton').innerHTML = 'FALE COMIGO NO WHATSAPP ♥';
+                    }
+                }, 1000);
             }
         }
 
-        // Função para obter o link do WhatsApp armazenado para o dispositivo
-        function getStoredWhatsAppLink(deviceID) {
-            var xhttp = new XMLHttpRequest();
-            xhttp.open("GET", "client_data.txt", false);
-            xhttp.send();
-            var clientData = xhttp.responseText;
-            var dataLines = clientData.split("\n");
-            for (var i = 0; i < dataLines.length; i++) {
-                var line = dataLines[i].split(",");
-                if (line[0] === deviceID) {
-                    return line[1];
-                }
-            }
-            return null;
+        // Função para redirecionar ao Telegram
+        function redirectToTelegram() {
+            var Telegram = 'https://typebot.co/i_telegram';
+            window.location.href = Telegram;
         }
 
-        // Função para armazenar o link do WhatsApp para o dispositivo
-        function setStoredWhatsAppLink(deviceID, whatsappLink) {
-            var xhttp = new XMLHttpRequest();
-            xhttp.open("GET", "client_data.txt", false);
-            xhttp.send();
-            var clientData = xhttp.responseText;
-            var newData = "";
-            var dataLines = clientData.split("\n");
-            for (var i = 0; i < dataLines.length; i++) {
-                var line = dataLines[i].split(",");
-                if (line[0] === deviceID) {
-                    line[1] = whatsappLink;
-                }
-                newData += line.join(",") + "\n";
+        // Adiciona a animação de pulsação ao botão do Telegram das 0h às 8h
+        function checkTelegramPulse() {
+            var now = new Date();
+            var hours = now.getHours();
+            var TelegramButton = document.getElementById('TelegramButton');
+
+            if (hours >= 0 && hours < 8) {
+                TelegramButton.classList.add('pulseTelegram');
+            } else {
+                TelegramButton.classList.remove('pulseTelegram');
             }
-            xhttp.open("POST", "client_data.txt", false);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("data=" + newData);
         }
+
+        setInterval(checkTelegramPulse, 1000);
     </script>
 </body>
 </html>
