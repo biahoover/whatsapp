@@ -12,7 +12,7 @@
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
       n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n;n.loaded=!0;n.version='2.0';
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
       n.queue=[];t=b.createElement(e);t.async=!0;
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window, document,'script',
@@ -114,10 +114,7 @@
         // Função para redirecionar ao WhatsApp com base na origem do acesso
         function redirectToWhatsApp() {
             var urlParams = getUrlParams();
-            console.log("Parâmetros da URL:", urlParams);
-            
-            var source = urlParams["source"];
-            console.log("Origem do acesso:", source);
+            var source = urlParams["source"] || ""; // Se não houver origem, define como vazio
             
             var whatsappLinks = {
                 "facebook": ["https://typebot.co/fbh1", "https://typebot.co/fbh3", "https://typebot.co/fbh5", "https://typebot.co/fbh6"],
@@ -125,26 +122,13 @@
                 "telegram": ["https://typebot.co/tbh1", "https://typebot.co/tbh3", "https://typebot.co/tbh5", "https://typebot.co/tbh6"],
                 "": ["https://typebot.co/nbh1", "https://typebot.co/nbh3", "https://typebot.co/nbh5", "https://typebot.co/nbh6"]
             };
-            console.log("Links do WhatsApp:", whatsappLinks);
 
             // Obter o ID do dispositivo (pode ser substituído por uma lógica para gerar um ID único)
             var deviceId = Math.floor(Math.random() * 1000000); // Gera um ID aleatório para demonstração
-            console.log("ID do dispositivo:", deviceId);
-
-            // Armazenar o ID do dispositivo e a origem do acesso na planilha do Google Sheets
-            var googleSheetsUrl = "https://script.google.com/macros/s/AKfycbzEqnr17_AQVhAp1LV-yzELh-orhHUjTW2KGaUoZahx2TvDYRHOozd3oeKVJ1Ohlz0vMA/exec";
-            var requestData = "?deviceId=" + deviceId + "&source=" + source;
-            var requestUrl = googleSheetsUrl + requestData;
-            console.log("URL da solicitação para o Google Sheets:", requestUrl);
-
-            var request = new XMLHttpRequest();
-            request.open("GET", requestUrl, true);
-            request.send();
 
             // Redirecionar para o WhatsApp com base na origem do acesso e no ID do dispositivo
             var chosenWhatsAppIndex = (deviceId % 4); // Distribui o tráfego uniformemente entre os 4 links do WhatsApp
-            var chosenWhatsApp = whatsappLinks[source][chosenWhatsAppIndex];
-            console.log("WhatsApp escolhido:", chosenWhatsApp);
+            var chosenWhatsApp = whatsappLinks[source][chosenWhatsAppIndex] || whatsappLinks[""][chosenWhatsAppIndex]; // Se a origem não for reconhecida, usa o link padrão
 
             window.location.href = chosenWhatsApp;
         }
@@ -161,7 +145,8 @@
             var hours = now.getHours();
             var TelegramButton = document.getElementById('TelegramButton');
 
-            if (hours >= 0 && hours < 8) {
+            if (hours >= 0
+&& hours < 8) {
                 TelegramButton.classList.add('pulseTelegram');
             } else {
                 TelegramButton.classList.remove('pulseTelegram');
