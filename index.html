@@ -102,89 +102,10 @@
     </button>
 
     <script>
-        // Função para obter parâmetros da URL
-        function getUrlParams() {
-            var params = {};
-            window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) {
-                params[key] = value;
-            });
-            return params;
-        }
-
         // Função para redirecionar ao WhatsApp com base na origem do acesso
         function redirectToWhatsApp() {
-            var urlParams = getUrlParams();
-            var source = urlParams["source"] || ""; // Se não houver origem, define como vazio
-            
-            var whatsappLinks = {
-                "facebook": ["https://typebot.co/fbh1", "https://typebot.co/fbh3", "https://typebot.co/fbh5", "https://typebot.co/fbh6"],
-                "instagram": ["https://typebot.co/ibh1", "https://typebot.co/ibh3", "https://typebot.co/ibh5", "https://typebot.co/ibh6"],
-                "telegram": ["https://typebot.co/tbh1", "https://typebot.co/tbh3", "https://typebot.co/tbh5", "https://typebot.co/tbh6"],
-                "": ["https://typebot.co/nbh1", "https://typebot.co/nbh3", "https://typebot.co/nbh5", "https://typebot.co/nbh6"]
-            };
-
-            // Obter o ID do dispositivo (pode ser substituído por uma lógica para gerar um ID único)
-            var deviceId = Math.floor(Math.random() * 1000000); // Gera um ID aleatório para demonstração
-
-            // Redirecionar para o WhatsApp com base na origem do acesso e no ID do dispositivo
-            var chosenWhatsAppIndex = (deviceId % 4); // Distribui o tráfego uniformemente entre os 4 links do WhatsApp
-            var chosenWhatsApp = whatsappLinks[source][chosenWhatsAppIndex] || whatsappLinks[""][chosenWhatsAppIndex]; // Se a origem não for reconhecida, use a lista padrão
-
-            // Enviar o ID do dispositivo e a origem para o Google Apps Script
-            var scriptUrl = 'https://script.google.com/macros/s/AKfycbzep7HjC4NCl55nknvP7UXrIesFs9NZFFsGrxWX3vR0sP4zSXdSgQ0VZhAUrOBOxnklmA/exec';
-            var requestUrl = scriptUrl + '?deviceId=' + deviceId + '&source=' + source;
-
-            // Fazer a solicitação HTTP para adicionar dados à planilha
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', requestUrl);
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    console.log('Dados adicionados com sucesso à planilha!');
-                } else {
-                    console.log('Erro ao adicionar dados à planilha. Status:', xhr.status);
-                }
-            };
-            xhr.send();
-
-            // Redirecionar para o WhatsApp
-            window.location.href = chosenWhatsApp;
-        }
-
-        // Função para redirecionar ao Telegram
-        function redirectToTelegram() {
-            var Telegram = 'https://typebot.co/i_telegram';
-            window.location.href = Telegram;
-        }
-
-        // Adiciona a animação de pulsação ao botão do Telegram das
-        // Adiciona a animação de pulsação ao botão do Telegram das 0h às 8h
-        function checkTelegramPulse() {
-            var now = new Date();
-            var hours = now.getHours();
-            var TelegramButton = document.getElementById('TelegramButton');
-
-            if (hours >= 0 && hours < 8) {
-                TelegramButton.classList.add('pulseTelegram');
-            } else {
-                TelegramButton.classList.remove('pulseTelegram');
-            }
-        }
-
-        setInterval(checkTelegramPulse, 1000);
-
-        // Função para obter parâmetros da URL
-        function getUrlParams() {
-            var params = {};
-            window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) {
-                params[key] = value;
-            });
-            return params;
-        }
-
-        // Função para redirecionar ao WhatsApp com base na origem do acesso
-        function redirectToWhatsApp() {
-            var urlParams = getUrlParams();
-            var source = urlParams["source"] || ""; // Se não houver origem, define como vazio
+            var urlParams = new URLSearchParams(window.location.search);
+            var source = urlParams.get('source') || ''; // Se não houver origem, define como vazio
 
             var whatsappLinks = {
                 "facebook": ["https://typebot.co/fbh1", "https://typebot.co/fbh3", "https://typebot.co/fbh5", "https://typebot.co/fbh6"],
@@ -202,11 +123,11 @@
 
             // Enviar o ID do dispositivo e a origem para o Google Apps Script
             var scriptUrl = 'https://script.google.com/macros/s/AKfycbzep7HjC4NCl55nknvP7UXrIesFs9NZFFsGrxWX3vR0sP4zSXdSgQ0VZhAUrOBOxnklmA/exec';
-            var requestUrl = scriptUrl + '?deviceId=' + deviceId + '&source=' + source;
+            var requestUrl = `${scriptUrl}?deviceId=${deviceId}&source=${source}`;
 
             // Fazer a solicitação HTTP para adicionar dados à planilha
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', requestUrl);
+            xhr.open('GET', requestUrl, true);
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     console.log('Dados adicionados com sucesso à planilha!');
