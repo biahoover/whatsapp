@@ -11,20 +11,35 @@
         <h1>Editor do Site Principal</h1>
     </header>
     <main>
-        <section id="meta-tags">
-            <!-- Seção para editar as configurações -->
+        <section id="facebook-pixel">
+            <h2>Configurações do Facebook Pixel</h2>
+            <label for="pixel-id">ID do Pixel:</label>
+            <input type="text" id="pixel-id" name="pixel-id">
+
+            <label for="pixel-name">Nome do Pixel:</label>
+            <input type="text" id="pixel-name" name="pixel-name">
         </section>
+
+        <section id="background-image">
+            <h2>Imagem de Fundo</h2>
+            <label for="bg-image">URL da Imagem:</label>
+            <input type="text" id="bg-image" name="bg-image">
+        </section>
+
+        <section id="whatsapp-button">
+            <h2>Botão do WhatsApp</h2>
+            <label for="whatsapp-color">Cor de Fundo:</label>
+            <input type="color" id="whatsapp-color" name="whatsapp-color">
+
+            <label for="whatsapp-text">Texto:</label>
+            <input type="text" id="whatsapp-text" name="whatsapp-text">
+        </section>
+
+        <!-- Adicione mais seções para outros botões e configurações -->
     </main>
     <footer>
         <button id="save-button">Salvar Configurações</button>
     </footer>
-    <!-- Painel para mostrar as configurações -->
-    <aside id="saved-settings">
-        <h2>Configurações Salvas</h2>
-        <div id="saved-settings-content">
-            <!-- As configurações serão exibidas aqui -->
-        </div>
-    </aside>
     <script src="scripts.js"></script>
 </body>
 </html>
