@@ -9,8 +9,8 @@
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Bia Hoover">
     <meta property="og:description" content="Contato Whatsapp">
-    <meta property="og:image" content="https://biahoover.github.io/whatsapp/©2024 Bianca Hoover..png"> <!-- Substitua URL_da_Imagem pela URL da imagem desejada -->
-    <meta property="og:url" content="biahoover.github.io/whatsapp"> <!-- Substitua URL_do_Site pela URL da página -->
+    <meta property="og:image" content="https://biahoover.github.io/whatsapp/©2024 Bianca Hoover..png">
+    <meta property="og:url" content="biahoover.github.io/whatsapp">
     <meta property="og:type" content="website">
 
     <style>
@@ -41,15 +41,15 @@
         }
 
         .whatsapp-button {
-            background-color: #25D366; /* Verde do ícone do WhatsApp */
+            background-color: #25D366;
             color: #FFFFFF;
-            animation: pulse 1s infinite alternate; /* Animação de pulso */
+            animation: pulse 1s infinite alternate;
         }
 
         .whatsapp-button.gray {
-            background-color: #808080; /* Cinza */
+            background-color: #808080;
             cursor: not-allowed;
-            animation: none; /* Removendo a animação quando desativado */
+            animation: none;
         }
 
         .instagram-button {
@@ -58,7 +58,7 @@
         }
 
         .pulseInstagram {
-            animation: pulseInstagram 1s infinite alternate; /* Animação de pulso para o Instagram */
+            animation: pulseInstagram 1s infinite alternate;
         }
 
         @keyframes pulse {
@@ -82,7 +82,6 @@
 
      <!-- Facebook Pixel Code -->
     <script>
-      // Função para carregar o código do Facebook Pixel
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
       n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -91,8 +90,8 @@
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '951503763143037'); // Inicializa o Facebook Pixel com o ID fornecido
-      fbq('track', 'PageView_Site'); // Rastreamento da visualização da página
+      fbq('init', '951503763143037');
+      fbq('track', 'PageView_Site');
     </script>
     <!-- End Facebook Pixel Code -->
 </head>
@@ -116,20 +115,13 @@
 
             if (hours >= 8 && hours < 23) {
                 var whatsapp = getCookie('whatsapp');
-                if (whatsapp) {
-                    window.location.href = whatsapp;
-                } else {
-                    var whatsappLinks = [
-                        'https://typebot.co/fbh1', 'https://typebot.co/fbh2', 'https://typebot.co/fbh3', 'https://typebot.co/fbh4',
-                        'https://typebot.co/ibh1', 'https://typebot.co/ibh3', 'https://typebot.co/ibh5', 'https://typebot.co/ibh6',
-                        'https://typebot.co/tbh1', 'https://typebot.co/tbh3', 'https://typebot.co/tbh5', 'https://typebot.co/tbh6',
-                        'https://typebot.co/nbh1', 'https://typebot.co/nbh3', 'https://typebot.co/nbh5', 'https://typebot.co/nbh6'
-                    ];
-                    var randomIndex = Math.floor(Math.random() * whatsappLinks.length);
-                    var chosenWhatsApp = whatsappLinks[randomIndex];
-                    setCookie('whatsapp', chosenWhatsApp, 365);
-                    window.location.href = chosenWhatsApp;
+                if (!whatsapp) {
+                    whatsapp = Math.floor(Math.random() * 4) + 1;
+                    setCookie('whatsapp', whatsapp, 365);
                 }
+                var source = determineSource();
+                var link = getWhatsAppLink(source, whatsapp);
+                window.location.href = link;
             } else {
                 document.getElementById('whatsappButton').classList.add('gray');
                 document.getElementById('whatsappButton').innerHTML = 'Online no Whatsapp em:<br>';
@@ -138,6 +130,9 @@
 
                 var countDownDate = new Date();
                 countDownDate.setHours(8, 0, 0, 0);
+                if (now.getHours() >= 8) {
+                    countDownDate.setDate(countDownDate.getDate() + 1);
+                }
                 var x = setInterval(function() {
                     var now = new Date().getTime();
                     var distance = countDownDate - now;
@@ -156,6 +151,31 @@
                     }
                 }, 1000);
             }
+        }
+
+        // Função para determinar a origem
+        function determineSource() {
+            var referrer = document.referrer.toLowerCase();
+            if (referrer.includes('facebook.com')) {
+                return 'facebook';
+            } else if (referrer.includes('instagram.com')) {
+                return 'instagram';
+            } else if (referrer.includes('telegram.org')) {
+                return 'telegram';
+            } else {
+                return 'other';
+            }
+        }
+
+        // Função para obter o link do WhatsApp
+        function getWhatsAppLink(source, whatsapp) {
+            var links = {
+                'facebook': ['https://typebot.co/fbh1', 'https://typebot.co/fbh2', 'https://typebot.co/fbh3', 'https://typebot.co/fbh4'],
+                'instagram': ['https://typebot.co/ibh1', 'https://typebot.co/ibh2', 'https://typebot.co/ibh3', 'https://typebot.co/ibh4'],
+                'telegram': ['https://typebot.co/tbh1', 'https://typebot.co/tbh2', 'https://typebot.co/tbh3', 'https://typebot.co/tbh4'],
+                'other': ['https://typebot.co/nbh1', 'https://typebot.co/nbh2', 'https://typebot.co/nbh3', 'https://typebot.co/nbh4']
+            };
+            return links[source][whatsapp - 1];
         }
 
         // Função para redirecionar ao Instagram
