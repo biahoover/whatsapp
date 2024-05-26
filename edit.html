@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor do Site Principal</title>
+    <link rel="stylesheet" href="styles.css">
+
+
+</head>
+<body>
+    <header>
+        <h1>Editor do Site Principal</h1>
+    </header>
+    <main>
+        <section id="meta-tags">
+            <h2>Meta Tags e Informações Básicas</h2>
+            <label for="site-title">Título do Site:</label>
+            <input type="text" id="site-title" name="site-title">
+
+            <label for="site-description">Descrição do Site:</label>
+            <textarea id="site-description" name="site-description"></textarea>
+
+            <label for="favicon">Favicon:</label>
+            <input type="file" id="favicon" name="favicon">
+
+            <!-- Open Graph Meta Tags -->
+            <h3>Open Graph Meta Tags</h3>
+            <label for="og-title">Título:</label>
+            <input type="text" id="og-title" name="og-title">
+
+            <label for="og-description">Descrição:</label>
+            <textarea id="og-description" name="og-description"></textarea>
+
+            <label for="og-image">Imagem:</label>
+            <input type="file" id="og-image" name="og-image">
+
+            <label for="og-url">URL:</label>
+            <input type="text" id="og-url" name="og-url">
+
+            <label for="og-type">Tipo:</label>
+            <select id="og-type" name="og-type">
+                <option value="website">Website</option>
+                <option value="article">Artigo</option>
+                <!-- Adicione mais opções conforme necessário -->
+            </select>
+        </section>
+
+        <!-- Adicione mais seções para os outros itens do checklist -->
+    </main>
+    <footer>
+        <button id="save-button">Salvar Configurações</button>
+    </footer>
+</body>
+</html>
