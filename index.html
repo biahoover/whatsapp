@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bia Hoover</title>
-    <link rel="icon" href="©2024 Bianca Hoover..png" type="image/png">
+    <link rel="icon" href="favicon.png" type="image/png">
 
     <!-- Facebook Pixel Code -->
     <script>
+      // Função para carregar o código do Facebook Pixel
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
       n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -16,14 +17,14 @@
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '951503763143037');
-      fbq('track', 'PageView_WInstagram');
+      fbq('init', '951503763143037'); // Inicializa o Facebook Pixel com o ID fornecido
+      fbq('track', 'PageView_WTelegram'); // Rastreamento da visualização da página
     </script>
     <!-- End Facebook Pixel Code -->
 
     <style>
         body {
-            background-image: url('©2024 Bianca Hoover..png');
+            background-image: url('background.jpg');
             background-size: cover;
             background-position: center;
             font-family: Arial, sans-serif;
@@ -36,7 +37,7 @@
             align-items: center;
         }
 
-        .whatsapp-button, .Telegram-button {
+        .whatsapp-button, .instagram-button {
             padding: 15px 30px;
             border: none;
             border-radius: 5px;
@@ -49,24 +50,24 @@
         }
 
         .whatsapp-button {
-            background-color: #25D366;
+            background-color: #25D366; /* Verde do ícone do WhatsApp */
             color: #FFFFFF;
-            animation: pulse 1s infinite alternate;
+            animation: pulse 1s infinite alternate; /* Animação de pulso */
         }
 
         .whatsapp-button.gray {
-            background-color: #808080;
+            background-color: #808080; /* Cinza */
             cursor: not-allowed;
-            animation: none;
+            animation: none; /* Removendo a animação quando desativado */
         }
 
-        .Telegram-button {
-            background-color: #0088cc;
+        .instagram-button {
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45);
             color: #FFFFFF;
         }
 
-        .pulseTelegram {
-            animation: pulseTelegram 1s infinite alternate;
+        .pulseInstagram {
+            animation: pulseInstagram 1s infinite alternate; /* Animação de pulso para o Instagram */
         }
 
         @keyframes pulse {
@@ -78,7 +79,7 @@
             }
         }
 
-        @keyframes pulseTelegram {
+        @keyframes pulseInstagram {
             from {
                 transform: scale(1);
             }
@@ -89,62 +90,110 @@
     </style>
 </head>
 <body>
+    <!-- Botão do WhatsApp -->
     <button id="whatsappButton" class="whatsapp-button" onclick="redirectToWhatsApp()">
         FALE COMIGO NO WHATSAPP ♥
         <div id="countdown" class="countdown"></div>
     </button>
 
-    <button id="TelegramButton" class="Telegram-button" onclick="redirectToTelegram()">
-        CANAL NO TELEGRAM 🔥 <br>Inscreva-se grátis!</br>
+    <!-- Botão do Instagram -->
+    <button id="instagramButton" class="instagram-button" onclick="redirectToInstagram()">
+        Visite meu Instagram
     </button>
 
     <script>
-        function getDeviceId() {
-            // Gera um ID de dispositivo único baseado no timestamp atual
-            return new Date().getTime().toString(16);
-        }
-
+        // Função para redirecionar ao WhatsApp
         function redirectToWhatsApp() {
-            var urlParams = new URLSearchParams(window.location.search);
-            var source = urlParams.get('source') || 'browser';
-            var deviceId = getDeviceId();
-            
-            // URLs dos links de WhatsApp
-            var whatsappLinks = {
-                "facebook": ["https://typebot.co/fbh1", "https://typebot.co/fbh3", "https://typebot.co/fbh5", "https://typebot.co/fbh6"],
-                "instagram": ["https://typebot.co/ibh1", "https://typebot.co/ibh3", "https://typebot.co/ibh5", "https://typebot.co/ibh6"],
-                "telegram": ["https://typebot.co/tbh1", "https://typebot.co/tbh3", "https://typebot.co/tbh5", "https://typebot.co/tbh6"],
-                "browser": ["https://typebot.co/nbh1", "https://typebot.co/nbh3", "https://typebot.co/nbh5", "https://typebot.co/nbh6"]
-            };
-            
-            // Determina o índice do link de WhatsApp com base no dispositivo e na fonte de acesso
-            var chosenWhatsAppIndex = parseInt(deviceId.charAt(deviceId.length - 1), 16) % 4;
-            var chosenWhatsApp = whatsappLinks[source][chosenWhatsAppIndex];
-            
-            // Redireciona o usuário para o link de WhatsApp correspondente
-            window.location.href = chosenWhatsApp + '?source=' + source + '&deviceId=' + deviceId;
-            
-            // Envia os dados para o Google Apps Script
-            sendDataToGoogleAppsScript(deviceId, source, chosenWhatsApp);
+            var now = new Date();
+            var hours = now.getHours();
+
+            if (hours >= 8 && hours < 23) {
+                var whatsapp = getCookie('whatsapp');
+                if (whatsapp) {
+                    window.location.href = whatsapp;
+                } else {
+                    var whatsappLinks = [
+                        'https://typebot.co/fbh1', 'https://typebot.co/fbh2', 'https://typebot.co/fbh3', 'https://typebot.co/fbh4',
+                        'https://typebot.co/ibh1', 'https://typebot.co/ibh3', 'https://typebot.co/ibh5', 'https://typebot.co/ibh6',
+                        'https://typebot.co/tbh1', 'https://typebot.co/tbh3', 'https://typebot.co/tbh5', 'https://typebot.co/tbh6',
+                        'https://typebot.co/nbh1', 'https://typebot.co/nbh3', 'https://typebot.co/nbh5', 'https://typebot.co/nbh6'
+                    ];
+                    var randomIndex = Math.floor(Math.random() * whatsappLinks.length);
+                    var chosenWhatsApp = whatsappLinks[randomIndex];
+                    setCookie('whatsapp', chosenWhatsApp, 365);
+                    window.location.href = chosenWhatsApp;
+                }
+            } else {
+                document.getElementById('whatsappButton').classList.add('gray');
+                document.getElementById('whatsappButton').innerHTML = 'Online no Whatsapp em:<br>';
+                var countdown = document.getElementById('countdown');
+                countdown.innerHTML = '';
+
+                var countDownDate = new Date();
+                countDownDate.setHours(8, 0, 0, 0);
+                var x = setInterval(function() {
+                    var now = new Date().getTime();
+                    var distance = countDownDate - now;
+
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    countdown.innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+
+                    if (distance < 0) {
+                        clearInterval(x);
+                        countdown.innerHTML = "Botão ativado!";
+                        document.getElementById('whatsappButton').classList.remove('gray');
+                        document.getElementById('whatsappButton').innerHTML = 'FALE COMIGO NO WHATSAPP ♥';
+                    }
+                }, 1000);
+            }
         }
 
-        function sendDataToGoogleAppsScript(deviceId, source, redirectUrl) {
-            // URL do Google Apps Script
-            var googleAppsScriptUrl = 'https://script.google.com/macros/s/AKfycbyN0b9poj7c03jM9gm1j15Hv7tWqyy1eXFarRIWZm3qq1tZDEvwdrxVxkWCqrQQ0QTL/exec';
-            
-            // Monta a URL com os parâmetros deviceId, source e redirectUrl
-            var url = googleAppsScriptUrl + '?deviceId=' + deviceId + '&source=' + source + '&redirectUrl=' + encodeURIComponent(redirectUrl);
-            
-            // Envia uma requisição GET para o Google Apps Script
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro ao enviar os dados para o Google Apps Script');
-                    }
-                    return response.text();
-                })
-                .then(data => console.log('Dados enviados com sucesso:', data))
-                .catch(error => console.error('Erro:', error));
+        // Função para redirecionar ao Instagram
+        function redirectToInstagram() {
+            var instagram = 'https://typebot.co/t_instagram';
+            window.location.href = instagram;
+        }
+
+        // Adiciona a animação de pulsação ao botão do Instagram das 0h às 8h
+        function checkInstagramPulse() {
+            var now = new Date();
+            var hours = now.getHours();
+            var instagramButton = document.getElementById('instagramButton');
+
+            if (hours >= 0 && hours < 8) {
+                instagramButton.classList.add('pulseInstagram');
+            } else
+ {
+                instagramButton.classList.remove('pulseInstagram');
+            }
+        }
+
+        setInterval(checkInstagramPulse, 1000);
+
+        // Função para definir um cookie
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        // Função para obter o valor de um cookie
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
         }
     </script>
 </body>
