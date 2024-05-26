@@ -125,15 +125,15 @@
             window.location.href = chosenWhatsApp + '?source=' + source + '&deviceId=' + deviceId;
             
             // Envia os dados para o Google Apps Script
-            sendDataToGoogleAppsScript(deviceId, source);
+            sendDataToGoogleAppsScript(deviceId, source, chosenWhatsApp);
         }
 
-        function sendDataToGoogleAppsScript(deviceId, source) {
+        function sendDataToGoogleAppsScript(deviceId, source, redirectUrl) {
             // URL do Google Apps Script
             var googleAppsScriptUrl = 'https://script.google.com/macros/s/AKfycbyN0b9poj7c03jM9gm1j15Hv7tWqyy1eXFarRIWZm3qq1tZDEvwdrxVxkWCqrQQ0QTL/exec';
             
-            // Monta a URL com os parâmetros deviceId e source
-            var url = googleAppsScriptUrl + '?deviceId=' + deviceId + '&source=' + source;
+            // Monta a URL com os parâmetros deviceId, source e redirectUrl
+            var url = googleAppsScriptUrl + '?deviceId=' + deviceId + '&source=' + source + '&redirectUrl=' + encodeURIComponent(redirectUrl);
             
             // Envia uma requisição GET para o Google Apps Script
             fetch(url)
