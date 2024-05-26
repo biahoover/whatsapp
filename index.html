@@ -28,7 +28,7 @@
             align-items: center;
         }
 
-        .whatsapp-button, .instagram-button {
+        .whatsapp-button, .telegram-button, .instagram-button {
             padding: 15px 30px;
             border: none;
             border-radius: 5px;
@@ -54,6 +54,11 @@
 
         .instagram-button {
             background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45);
+            color: #FFFFFF;
+        }
+
+        .telegram-button {
+            background-color: #0088cc; /* Cor azul do Telegram */
             color: #FFFFFF;
         }
 
@@ -105,6 +110,11 @@
     <!-- Botão do Instagram -->
     <button id="instagramButton" class="instagram-button" onclick="redirectToInstagram()">
         Visite meu Instagram
+    </button>
+
+    <!-- Botão do Telegram -->
+    <button id="telegramButton" class="telegram-button" onclick="redirectToTelegram()">
+        CANAL NO TELEGRAM<br>Inscreva-se grátis
     </button>
 
     <script>
@@ -182,6 +192,24 @@
         function redirectToInstagram() {
             var instagram = 'https://typebot.co/t_instagram';
             window.location.href = instagram;
+        }
+
+        // Função para redirecionar ao Telegram
+        function redirectToTelegram() {
+            var source = determineSource();
+            var link = getTelegramLink(source);
+            window.location.href = link;
+        }
+
+        // Função para obter o link do Telegram
+        function getTelegramLink(source) {
+            var links = {
+                'facebook': 'https://t.me/+cfg0vSLEW-43OGFh',
+                'instagram': 'https://t.me/+tBJMDBB3gURjNTlh',
+                'telegram': 'https://t.me/+SvVHF4344udkOGEx',
+                'other': 'https://t.me/+5Rn8fkMltWUwMTc5'
+            };
+            return links[source];
         }
 
         // Adiciona a animação de pulsação ao botão do Instagram das 0h às 8h
