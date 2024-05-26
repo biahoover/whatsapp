@@ -109,33 +109,32 @@
             var source = urlParams.get('source') || 'browser';
             var deviceId = getDeviceId();
             
-            // URLs dos links de WhatsApp
+            // Mapeamento de fontes para índices de redirecionamento
             var whatsappLinks = {
-                "facebook": ["https://typebot.co/fbh1", "https://typebot.co/fbh3", "https://typebot.co/fbh5", "https://typebot.co/fbh6"],
-                "instagram": ["https://typebot.co/ibh1", "https://typebot.co/ibh3", "https://typebot.co/ibh5", "https://typebot.co/ibh6"],
-                "telegram": ["https://typebot.co/tbh1", "https://typebot.co/tbh3", "https://typebot.co/tbh5", "https://typebot.co/tbh6"],
-                "browser": ["https://typebot.co/nbh1", "https://typebot.co/nbh3", "https://typebot.co/nbh5", "https://typebot.co/nbh6"]
+                "facebook": 0,
+                "instagram": 1,
+                "telegram": 2,
+                "browser": 3
             };
             
-            // Determina o índice do link de WhatsApp com base no dispositivo e na fonte de acesso
-            var chosenWhatsAppIndex = parseInt(deviceId.charAt(deviceId.length - 1), 16) % 4;
-            var chosenWhatsApp = whatsappLinks[source][chosenWhatsAppIndex];
+            // Obtém o índice de redirecionamento com base na fonte de acesso
+            var redirectIndex = whatsappLinks[source];
             
-            // Redireciona o usuário para o link de WhatsApp correspondente
-            window.location.href = chosenWhatsApp + '?source=' + source + '&deviceId=' + deviceId;
+            // Redireciona o usuário para o índice correspondente do WhatsApp
+            window.location.href = 'https://script.google.com/macros/s/AKfycbyN0b9poj7c03jM9gm1j15Hv7tWqyy1eXFarRIWZm3qq1tZDEvwdrxVxkWCqrQQ0QTL/exec' + '?deviceId=' + deviceId + '&source=' + source + '&redirectIndex=' + redirectIndex;
             
             // Envia os dados para o Google Apps Script
-            sendDataToGoogleAppsScript(deviceId, source, chosenWhatsApp);
+            sendDataToGoogleAppsScript(deviceId, source, redirectIndex);
         }
 
-        function sendDataToGoogleAppsScript(deviceId, source, redirectUrl) {
+        function sendDataToGoogleAppsScript(deviceId, source, redirectIndex) {
             // URL do Google Apps Script
             var googleAppsScriptUrl = 'https://script.google.com/macros/s/AKfycbyN0b9poj7c03jM9gm1j15Hv7tWqyy1eXFarRIWZm3qq1tZDEvwdrxVxkWCqrQQ0QTL/exec';
             
-            // Monta a URL com os parâmetros deviceId, source e redirectUrl
-            var url = googleAppsScriptUrl + '?deviceId=' + deviceId + '&source=' + source + '&redirectUrl=' + encodeURIComponent(redirectUrl);
+            // Monta a URL com os parâmetros deviceId, source e redirectIndex
+            var url = googleAppsScriptUrl + '?deviceId=' + deviceId + '&source=' + source + '&redirectIndex=' + redirectIndex;
             
-            // Envia uma requisição GET para o Google Apps Script
+                        // Envia uma requisição GET para o Google Apps Script
             fetch(url)
                 .then(response => {
                     if (!response.ok) {
@@ -149,3 +148,4 @@
     </script>
 </body>
 </html>
+
