@@ -82,7 +82,6 @@
     <button id="instagramButton" class="button" onclick="redirectToInstagram()"></button>
 
     <script>
- 
         const buttonSettings = {
             whatsapp: {
                 text: 'FALE COMIGO NO WHATSAPP ♥',
@@ -90,9 +89,9 @@
                 textColor: '#ffffff',
                 startTime: 8,
                 endTime: 23,
-                pulse: true,
-                pulseStart: 8,
-                pulseEnd: 23,
+                pulse: false,
+                pulseStart: 0,
+                pulseEnd: 0,
                 visibility: true,
                 visibilityStart: 0,
                 visibilityEnd: 24
@@ -116,16 +115,16 @@
                 textColor: '#ffffff',
                 startTime: 0,
                 endTime: 24,
-                pulse: false,
+                pulse: true,
                 pulseStart: 0,
-                pulseEnd: 24,
+                pulseEnd: 8,
                 visibility: true,
                 visibilityStart: 0,
                 visibilityEnd: 24
             }
         };
 
-              function applyWhatsAppSettings() {
+        function applyWhatsAppSettings() {
             const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
             const currentHour = now.hour;
             const settings = buttonSettings.whatsapp;
@@ -222,7 +221,7 @@
 
                 if (distance <= 0) {
                     clearInterval(x);
-                    applyButtonSettings(); // Reapply settings to update the button state
+                    applyWhatsAppSettings(); // Reapply settings to update the button state
                 }
             }, 1000);
         }
@@ -304,7 +303,13 @@
             return "";
         }
 
-     
+        function applyButtonSettings() {
+            applyWhatsAppSettings();
+            applyTelegramSettings();
+            applyInstagramSettings();
+        }
+
+        applyButtonSettings();
     </script>
 </body>
 </html>
