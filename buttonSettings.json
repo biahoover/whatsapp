@@ -5,7 +5,7 @@
         "textColor": "#ffffff",
         "startTime": 8,
         "endTime": 23,
-        "pulse": false,
+        "pulse": true,
         "pulseStart": 8,
         "pulseEnd": 23,
         "visibility": true,
