@@ -240,11 +240,20 @@ function redirectToInstagram() {
         return 'other';
     }
 
-function getWhatsAppLink(source, whatsapp) {
-    // Obter os links do WhatsApp do arquivo JSON de acordo com a fonte de acesso
-    const whatsappLinks = buttonSettings.links.whatsapp[source];
-    return whatsappLinks[whatsapp - 1];
+function getWhatsAppLink(source) {
+    if (buttonSettings && buttonSettings.whatsapp) {
+        const whatsappLinks = buttonSettings.links.whatsapp;
+        if (whatsappLinks && whatsappLinks[source]) {
+            const whatsappIndex = getCookie('whatsapp');
+            const whatsappLinkArray = whatsappLinks[source];
+            if (whatsappIndex >= 1 && whatsappIndex <= whatsappLinkArray.length) {
+                return whatsappLinkArray[whatsappIndex - 1];
+            }
+        }
+    }
+    return ''; // Retornar uma string vazia se não for possível obter o link
 }
+
 
 function getTelegramLink(source) {
     // Obter o link do Telegram do arquivo JSON de acordo com a fonte de acesso
