@@ -87,6 +87,7 @@
                 text: 'FALE COMIGO NO WHATSAPP ♥',
                 color: '#25D366',
                 textColor: '#ffffff',
+                margintop: 200px,
                 startTime: 13,
                 endTime: 23,
                 pulse: false,
@@ -136,6 +137,7 @@
                 button.style.display = 'inline-block';
                 button.style.backgroundColor = settings.color;
                 button.style.color = settings.textColor;
+                button.style.marginTop = setting.margintop; // Adicionando margem superior
                 button.innerHTML = settings.text;
                 if (settings.pulse && currentHour >= settings.pulseStart && currentHour < settings.pulseEnd) {
                     button.classList.add('pulse');
