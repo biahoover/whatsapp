@@ -72,9 +72,13 @@
     <!-- End Facebook Pixel Code -->
 </head>
 <body>
-    <!-- Botões -->
+    <!-- Botão do WhatsApp -->
     <button id="whatsappButton" class="button" onclick="redirectToWhatsApp()"></button>
+
+    <!-- Botão do Telegram -->
     <button id="telegramButton" class="button" onclick="redirectToTelegram()"></button>
+
+    <!-- Botão do Instagram -->
     <button id="instagramButton" class="button" onclick="redirectToInstagram()"></button>
 
     <script>
@@ -149,7 +153,21 @@
         }
 
         function redirectToTelegram() {
-            const link = determineTelegramLink();
+            const source = determineSource();
+            let link = '';
+            switch (source) {
+                case 'facebook':
+                    link = 'https://t.me/+cfg0vSLEW-43OGFh';
+                    break;
+                case 'instagram':
+                    link = 'https://t.me/+tBJMDBB3gURjNTlh';
+                    break;
+                case 'telegram':
+                    link = 'https://t.me/+SvVHF4344udkOGEx';
+                    break;
+                default:
+                    link = 'https://t.me/+5Rn8fkMltWUwMTc5';
+            }
             window.location.href = link;
         }
 
@@ -164,17 +182,6 @@
             if (referrer.includes('instagram.com')) return 'instagram';
             if (referrer.includes('telegram.org')) return 'telegram';
             return 'other';
-        }
-
-        function determineTelegramLink() {
-            const source = determineSource();
-            const telegramLinks = {
-                'facebook': 'https://t.me/+cfg0vSLEW-43OGFh',
-                'instagram': 'https://t.me/+tBJMDBB3gURjNTlh',
-                'telegram': 'https://t.me/+SvVHF4344udkOGEx',
-                'other': 'https://t.me/+5Rn8fkMltWUwMTc5'
-            };
-            return telegramLinks[source];
         }
 
         function getWhatsAppLink(source, whatsapp) {
@@ -203,4 +210,3 @@
     </script>
 </body>
 </html>
-
