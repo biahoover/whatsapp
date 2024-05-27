@@ -1,17 +1,17 @@
 {
-"whatsappText": "FALE COMIGO NO WHATSAPP ♥",
-"whatsappColor": "#25D366",
-"whatsappTextColor": "#ffffff",
-"whatsappStartTime": 13,
-"whatsappEndTime": 23,
-"whatsappPulse": false,
-"whatsappPulseStart": 8,
-"whatsappPulseEnd": 23,
-"whatsappPisibility": true,
-"whatsappVisibilityStart": 0,
- "whatsappVisibilityEnd": 24
-
+    "whatsappText": "FALE COMIGO NO WHATSAPP ♥",
+    "whatsappColor": "#25D366",
+    "whatsappTextColor": "#ffffff",
+    "whatsappStartTime": 13,
+    "whatsappEndTime": 23,
+    "whatsappPulse": false,
+    "whatsappPulseStart": 8,
+    "whatsappPulseEnd": 23,
+    "whatsappVisibility": true,
+    "whatsappVisibilityStart": 0,
+    "whatsappVisibilityEnd": 24
 }
+
 
 
 
