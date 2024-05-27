@@ -149,8 +149,7 @@
         }
 
         function redirectToTelegram() {
-            const source = determineSource();
-            const link = getTelegramLink(source);
+            const link = determineTelegramLink();
             window.location.href = link;
         }
 
@@ -167,6 +166,17 @@
             return 'other';
         }
 
+        function determineTelegramLink() {
+            const source = determineSource();
+            const telegramLinks = {
+                'facebook': 'https://t.me/+cfg0vSLEW-43OGFh',
+                'instagram': 'https://t.me/+tBJMDBB3gURjNTlh',
+                'telegram': 'https://t.me/+SvVHF4344udkOGEx',
+                'other': 'https://t.me/+5Rn8fkMltWUwMTc5'
+            };
+            return telegramLinks[source];
+        }
+
         function getWhatsAppLink(source, whatsapp) {
             const links = {
                 'facebook': ['https://typebot.co/fbh1', 'https://typebot.co/fbh2', 'https://typebot.co/fbh3', 'https://typebot.co/fbh4'],
@@ -175,16 +185,6 @@
                 'other': ['https://typebot.co/nbh1', 'https://typebot.co/nbh2', 'https://typebot.co/nbh3', 'https://typebot.co/nbh4']
             };
             return links[source][whatsapp - 1];
-        }
-
-        function getTelegramLink(source) {
-            const links = {
-                'facebook': 'https://t.me/+cfg0vSLEW-43OGFh',
-                'instagram': 'https://t.me/+tBJMDBB3gURjNTlh',
-                'telegram': 'https://t.me/+SvVHF4344udkOGEx',
-                'other': 'https://t.me/+5Rn8fkMltWUwMTc5'
-            };
-            return links[source];
         }
 
         function setCookie(name, value, days) {
@@ -203,3 +203,4 @@
     </script>
 </body>
 </html>
+
