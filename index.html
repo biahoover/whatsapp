@@ -111,8 +111,7 @@
             },
             instagram: {
                 text: 'Visite meu Instagram',
-                color:  '#ffffff',
-                    //'linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45)',
+                color: 'linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45)',
                 textColor: '#ffffff',
                 startTime: 0,
                 endTime: 24,
@@ -125,31 +124,73 @@
             }
         };
 
-        function applyButtonSettings() {
+              function applyWhatsAppSettings() {
             const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
             const currentHour = now.hour;
+            const settings = buttonSettings.whatsapp;
+            const button = document.getElementById('whatsappButton');
+            const isWithinActiveHours = currentHour >= settings.startTime && currentHour < settings.endTime;
+            const isVisible = currentHour >= settings.visibilityStart && currentHour < settings.visibilityEnd;
 
-            for (const [buttonId, settings] of Object.entries(buttonSettings)) {
-                const button = document.getElementById(`${buttonId}Button`);
-                const isWithinActiveHours = currentHour >= settings.startTime && currentHour < settings.endTime;
-                const isVisible = currentHour >= settings.visibilityStart && currentHour < settings.visibilityEnd;
-
-                if (settings.visibility && isVisible) {
-                    button.style.display = 'inline-block';
-                    button.style.backgroundColor = settings.color;
-                    button.style.color = settings.textColor;
-                    button.innerHTML = settings.text;
-                    if (settings.pulse && currentHour >= settings.pulseStart && currentHour < settings.pulseEnd) {
-                        button.classList.add('pulse');
-                    } else {
-                        button.classList.remove('pulse');
-                    }
-                    if (buttonId === 'whatsapp' && !isWithinActiveHours) {
-                        setWhatsAppInactiveState(button);
-                    }
+            if (settings.visibility && isVisible) {
+                button.style.display = 'inline-block';
+                button.style.backgroundColor = settings.color;
+                button.style.color = settings.textColor;
+                button.innerHTML = settings.text;
+                if (settings.pulse && currentHour >= settings.pulseStart && currentHour < settings.pulseEnd) {
+                    button.classList.add('pulse');
                 } else {
-                    button.style.display = 'none';
+                    button.classList.remove('pulse');
                 }
+                if (!isWithinActiveHours) {
+                    setWhatsAppInactiveState(button);
+                }
+            } else {
+                button.style.display = 'none';
+            }
+        }
+
+        function applyTelegramSettings() {
+            const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
+            const currentHour = now.hour;
+            const settings = buttonSettings.telegram;
+            const button = document.getElementById('telegramButton');
+            const isVisible = currentHour >= settings.visibilityStart && currentHour < settings.visibilityEnd;
+
+            if (settings.visibility && isVisible) {
+                button.style.display = 'inline-block';
+                button.style.backgroundColor = settings.color;
+                button.style.color = settings.textColor;
+                button.innerHTML = settings.text;
+                if (settings.pulse && currentHour >= settings.pulseStart && currentHour < settings.pulseEnd) {
+                    button.classList.add('pulse');
+                } else {
+                    button.classList.remove('pulse');
+                }
+            } else {
+                button.style.display = 'none';
+            }
+        }
+
+        function applyInstagramSettings() {
+            const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
+            const currentHour = now.hour;
+            const settings = buttonSettings.instagram;
+            const button = document.getElementById('instagramButton');
+            const isVisible = currentHour >= settings.visibilityStart && currentHour < settings.visibilityEnd;
+
+            if (settings.visibility && isVisible) {
+                button.style.display = 'inline-block';
+                button.style.background = settings.color;  // Use 'background' for gradients
+                button.style.color = settings.textColor;
+                button.innerHTML = settings.text;
+                if (settings.pulse && currentHour >= settings.pulseStart && currentHour < settings.pulseEnd) {
+                    button.classList.add('pulse');
+                } else {
+                    button.classList.remove('pulse');
+                }
+            } else {
+                button.style.display = 'none';
             }
         }
 
