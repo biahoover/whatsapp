@@ -1,0 +1,29 @@
+{
+  "botoes": {
+    "whatsapp": {
+      "ativo": true,
+      "visivel": true,
+      "texto": "Entre em contato via WhatsApp",
+      "cor": "#25D366",
+      "horario_funcionamento": {
+        "inicio": 8,
+        "fim": 23
+      }
+    },
+    "telegram": {
+      "ativo": true,
+      "visivel": true,
+      "texto": "Inscreva-se no canal do Telegram",
+      "cor": "#0088cc"
+    },
+    "instagram": {
+      "ativo": true,
+      "visivel": true,
+      "texto": "Visite meu Instagram",
+      "cor": "#405DE6"
+    }
+  },
+  "facebook_pixel": {
+    "nome": "951503763143037"
+  }
+}
