@@ -85,7 +85,7 @@
         const buttonSettings = {};
 
         // Consulta o arquivo JSON para carregar as configurações dos botões
-        fetch('buttonSettings.json')
+        fetch('buttonSettings.json?_=' + Date.now())
             .then(response => response.json())
             .then(data => {
                 buttonSettings.whatsapp = data.whatsapp;
