@@ -83,25 +83,66 @@
 
     <script>
 
- fetch('buttonSettings.json')
+ // Consulta o arquivo JSON para as configurações do botão do WhatsApp
+fetch('buttonSettings.json')
     .then(response => response.json())
     .then(data => {
-        // Atribuir os valores do JSON às propriedades do objeto buttonSettings
-        buttonSettings.whatsapp.text = data.whatsappText;
-        buttonSettings.whatsapp.color = data.whatsappColor;
-        buttonSettings.whatsapp.textColor = data.whatsappTextColor;
-        buttonSettings.whatsapp.startTime = data.whatsappStartTime;
-        buttonSettings.whatsapp.endTime = data.whatsappEndTime;
-        buttonSettings.whatsapp.pulse = data.whatsappPulse;
-        buttonSettings.whatsapp.pulseStart = data.whatsappPulseStart;
-        buttonSettings.whatsapp.pulseEnd = data.whatsappPulseEnd;
-        buttonSettings.whatsapp.visibility = data.whatsappVisibility;
-        buttonSettings.whatsapp.visibilityStart = data.whatsappVisibilityStart;
-        buttonSettings.whatsapp.visibilityEnd = data.whatsappVisibilityEnd;
+        buttonSettings.whatsapp.text = data.whatsapp.text;
+        buttonSettings.whatsapp.color = data.whatsapp.color;
+        buttonSettings.whatsapp.textColor = data.whatsapp.textColor;
+        buttonSettings.whatsapp.startTime = data.whatsapp.startTime;
+        buttonSettings.whatsapp.endTime = data.whatsapp.endTime;
+        buttonSettings.whatsapp.pulse = data.whatsapp.pulse;
+        buttonSettings.whatsapp.pulseStart = data.whatsapp.pulseStart;
+        buttonSettings.whatsapp.pulseEnd = data.whatsapp.pulseEnd;
+        buttonSettings.whatsapp.visibility = data.whatsapp.visibility;
+        buttonSettings.whatsapp.visibilityStart = data.whatsapp.visibilityStart;
+        buttonSettings.whatsapp.visibilityEnd = data.whatsapp.visibilityEnd;
 
         console.log(buttonSettings);
     })
-    .catch(error => console.error('Erro ao carregar as configurações:', error));
+    .catch(error => console.error('Erro ao carregar as configurações do WhatsApp:', error));
+
+// Consulta o arquivo JSON para as configurações do botão do Telegram
+fetch('buttonSettings.json')
+    .then(response => response.json())
+    .then(data => {
+        buttonSettings.telegram.text = data.telegram.text;
+        buttonSettings.telegram.color = data.telegram.color;
+        buttonSettings.telegram.textColor = data.telegram.textColor;
+        buttonSettings.telegram.startTime = data.telegram.startTime;
+        buttonSettings.telegram.endTime = data.telegram.endTime;
+        buttonSettings.telegram.pulse = data.telegram.pulse;
+        buttonSettings.telegram.pulseStart = data.telegram.pulseStart;
+        buttonSettings.telegram.pulseEnd = data.telegram.pulseEnd;
+        buttonSettings.telegram.visibility = data.telegram.visibility;
+        buttonSettings.telegram.visibilityStart = data.telegram.visibilityStart;
+        buttonSettings.telegram.visibilityEnd = data.telegram.visibilityEnd;
+
+        console.log(buttonSettings);
+    })
+    .catch(error => console.error('Erro ao carregar as configurações do Telegram:', error));
+
+// Consulta o arquivo JSON para as configurações do botão do Instagram
+fetch('buttonSettings.json')
+    .then(response => response.json())
+    .then(data => {
+        buttonSettings.instagram.text = data.instagram.text;
+        buttonSettings.instagram.color = data.instagram.color;
+        buttonSettings.instagram.textColor = data.instagram.textColor;
+        buttonSettings.instagram.startTime = data.instagram.startTime;
+        buttonSettings.instagram.endTime = data.instagram.endTime;
+        buttonSettings.instagram.pulse = data.instagram.pulse;
+        buttonSettings.instagram.pulseStart = data.instagram.pulseStart;
+        buttonSettings.instagram.pulseEnd = data.instagram.pulseEnd;
+        buttonSettings.instagram.visibility = data.instagram.visibility;
+        buttonSettings.instagram.visibilityStart = data.instagram.visibilityStart;
+        buttonSettings.instagram.visibilityEnd = data.instagram.visibilityEnd;
+
+        console.log(buttonSettings);
+    })
+    .catch(error => console.error('Erro ao carregar as configurações do Instagram:', error));
+
 
 
 
