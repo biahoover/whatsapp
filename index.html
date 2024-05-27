@@ -195,36 +195,37 @@
         }
 
         function setWhatsAppInactiveState(button) {
-            button.style.backgroundColor = 'gray';
-            const countdown = document.createElement('div');
-            countdown.id = 'countdown';
-            countdown.className = 'countdown';
-            button.innerHTML = 'Online no WhatsApp em:<br>';
-            button.appendChild(countdown);
+    button.style.backgroundColor = 'gray';
+    const countdown = document.createElement('div');
+    countdown.id = 'countdown';
+    countdown.className = 'countdown';
+    button.innerHTML = 'Online no WhatsApp em:<br>';
+    button.appendChild(countdown);
 
-            const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
-            let countDownDate = now.set({ hour: buttonSettings.whatsapp.startTime, minute: 0, second: 0, millisecond: 0 });
+    const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
+    let countDownDate = now.set({ hour: buttonSettings.whatsapp.startTime, minute: 0, second: 0, millisecond: 0 });
 
-            if (now.hour >= buttonSettings.whatsapp.startTime) {
-                countDownDate = countDownDate.plus({ days: 1 });
-            }
+    if (now.hour >= buttonSettings.whatsapp.startTime) {
+        countDownDate = countDownDate.plus({ days: 1 });
+    }
 
-            const x = setInterval(function() {
-                const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
-                const distance = countDownDate.diff(now);
+    const x = setInterval(function() {
+        const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
+        const distance = countDownDate.diff(now);
 
-                const hours = distance.hours.toString().padStart(2, '0');
-                const minutes = distance.minutes.toString().padStart(2, '0');
-                const seconds = distance.seconds.toString().padStart(2, '0');
+        const hours = distance.hours.toString().padStart(2, '0');
+        const minutes = distance.minutes.toString().padStart(2, '0');
+        const seconds = distance.seconds.toString().padStart(2, '0');
 
-                countdown.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
+        countdown.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
 
-                if (distance <= 0) {
-                    clearInterval(x);
-                    applyWhatsAppSettings(); // Reapply settings to update the button state
-                }
-            }, 1000);
+        if (distance <= 0) {
+            clearInterval(x);
+            applyButtonSettings(); // Reapply settings to update the button state
         }
+    }, 1000);
+}
+
 
         function redirectToWhatsApp() {
             const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
