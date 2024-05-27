@@ -3,7 +3,7 @@
         "text": "FALE COMIGO NO WHATSAPP ♥", // Texto exibido no botão do WhatsApp
         "color": "#25D366", // Cor de fundo do botão do WhatsApp
         "textColor": "#ffffff", // Cor do texto do botão do WhatsApp
-        "startTime": 13, // Hora de início das horas ativas do botão do WhatsApp
+        "startTime": 18, // Hora de início das horas ativas do botão do WhatsApp
         "endTime": 23, // Hora de término das horas ativas do botão do WhatsApp
         "pulse": false, // Define se o botão do WhatsApp deve pulsar durante o horário ativo
         "pulseStart": 8, // Hora de início do pulso do botão do WhatsApp
