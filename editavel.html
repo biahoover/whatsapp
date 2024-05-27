@@ -28,13 +28,13 @@
             align-items: center;
         }
 
-        .whatsapp-button, .telegram-button, .instagram-button {
+        .button {
             padding: 15px 30px;
             border: none;
             border-radius: 5px;
             font-size: 18px;
-            width: 270px; /* Permite que o botão tenha a largura necessária para o conteúdo */
-            height: auto; /* Permite que o botão tenha a altura necessária para o conteúdo */
+            width: 270px;
+            height: auto;
             cursor: pointer;
             text-align: center;
             text-decoration: none;
@@ -42,31 +42,8 @@
             margin-bottom: 20px;
         }
 
-        .whatsapp-button {
-            background-color: #25D366;
-            color: #FFFFFF;
-            margin-top: 150px; /* Adiciona 20 pixels de espaçamento na parte superior do botão */
+        .pulse {
             animation: pulse 1s infinite alternate;
-        }
-
-        .whatsapp-button.gray {
-            background-color: #808080;
-            cursor: not-allowed;
-            animation: none;
-        }
-
-        .instagram-button {
-            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45);
-            color: #FFFFFF;
-        }
-
-        .telegram-button {
-            background-color: #0088cc; /* Cor azul do Telegram */
-            color: #FFFFFF;
-        }
-
-        .pulseInstagram {
-            animation: pulseInstagram 1s infinite alternate;
         }
 
         @keyframes pulse {
@@ -77,112 +54,152 @@
                 transform: scale(1.05);
             }
         }
-
-        @keyframes pulseInstagram {
-            from {
-                transform: scale(1);
-            }
-            to {
-                transform: scale(1.05);
-            }
-        }
     </style>
+
+    <!-- Facebook Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '951503763143037');
+      fbq('track', 'PageView_Site');
+    </script>
+    <!-- End Facebook Pixel Code -->
 </head>
 <body>
-    <!-- Botão do WhatsApp -->
-    <button id="whatsappButton" class="whatsapp-button">
-        FALE COMIGO NO WHATSAPP ♥
-        <div id="countdown" class="countdown"></div>
-    </button>
-
-    <!-- Botão do Telegram -->
-    <button id="telegramButton" class="telegram-button">
-        CANAL NO TELEGRAM<br>Inscreva-se grátis
-    </button>
-
-    <!-- Botão do Instagram -->
-    <button id="instagramButton" class="instagram-button">
-        Visite meu Instagram
-    </button>
+    <!-- Botões -->
+    <button id="whatsappButton" class="button" onclick="redirectToWhatsApp()"></button>
+    <button id="telegramButton" class="button" onclick="redirectToTelegram()"></button>
+    <button id="instagramButton" class="button" onclick="redirectToInstagram()"></button>
 
     <script>
-        function carregarConfiguracoes() {
-            fetch('config.json')
-            .then(response => response.json())
-            .then(config => {
-                // Configuração dos botões
-                for (let botao in config.botoes) {
-                    let dadosBotao = config.botoes[botao];
-                    let botaoElemento = document.getElementById(botao + 'Button');
+        const buttonSettings = {
+            whatsapp: {
+                text: 'FALE COMIGO NO WHATSAPP ♥',
+                color: '#25D366',
+                startTime: 8,
+                endTime: 23,
+                pulse: false,
+                pulseStart: 0,
+                pulseEnd: 0,
+                visibility: true
+            },
+            telegram: {
+                text: 'CANAL NO TELEGRAM<br>Inscreva-se grátis',
+                color: '#0088cc',
+                startTime: 0,
+                endTime: 24,
+                pulse: true,
+                pulseStart: 0,
+                pulseEnd: 8,
+                visibility: true
+            },
+            instagram: {
+                text: 'Visite meu Instagram',
+                color: 'linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45)',
+                startTime: 0,
+                endTime: 24,
+                pulse: true,
+                pulseStart: 0,
+                pulseEnd: 8,
+                visibility: true
+            }
+        };
 
-                    if (dadosBotao.ativo) {
-                        if (dadosBotao.visivel) {
-                            botaoElemento.style.display = 'inline-block';
-                        } else {
-                            botaoElemento.style.display = 'none';
-                        }
+        function applyButtonSettings() {
+            const now = new Date();
+            const currentHour = now.getHours();
 
-                        botaoElemento.innerHTML = dadosBotao.texto;
-                        botaoElemento.style.backgroundColor = dadosBotao.cor;
+            for (const [buttonId, settings] of Object.entries(buttonSettings)) {
+                const button = document.getElementById(`${buttonId}Button`);
+                const isWithinActiveHours = currentHour >= settings.startTime && currentHour < settings.endTime;
 
-                        if (botao === 'whatsapp') {
-                            aplicarHorarioFuncionamento(botaoElemento, dadosBotao.horario_funcionamento);
-                        }
-                    } else {
-                        botaoElemento.style.display = 'none';
-                    }
+                if (settings.visibility && isWithinActiveHours) {
+                    button.style.display = 'inline-block';
+                    button.style.backgroundColor = settings.color;
+                    button.innerHTML = settings.text;
+                    button.classList.toggle('pulse', settings.pulse && currentHour >= settings.pulseStart && currentHour < settings.pulseEnd);
+                } else {
+                    button.style.display = 'none';
                 }
-
-                // Configuração do Facebook Pixel
-                !function(f,b,e,v,n,t,s)
-                {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-                n.queue=[];t=b.createElement(e);t.async=!0;
-                t.src=v;s=b.getElementsByTagName(e)[0];
-                s.parentNode.insertBefore(t,s)}(window, document,'script',
-                'https://connect.facebook.net/en_US/fbevents.js');
-                fbq('init', config.facebook_pixel.nome);
-                fbq('track', 'PageView_BiaHoover');
-            })
-            .catch(error => console.error('Erro ao carregar configurações:', error));
-        }
-
-        function aplicarHorarioFuncionamento(botaoElemento, horario) {
-            var now = new Date();
-            var hours = now.getHours();
-
-            if (hours >= horario.inicio && hours < horario.fim) {
-                botaoElemento.classList.remove('gray');
-                botaoElemento.removeAttribute('disabled');
-            } else {
-                botaoElemento.classList.add('gray');
-                botaoElemento.setAttribute('disabled', 'disabled');
             }
         }
 
-        function redirectToWhatsApp() {
-            // Função de redirecionamento para o WhatsApp
-            // Mantida como original
-        }
+        setInterval(applyButtonSettings, 60000); // Atualiza a cada minuto
+        window.onload = applyButtonSettings;
 
-        function redirectToInstagram() {
-            // Função de redirecionamento para o Instagram
-            // Mantida como original
+        function redirectToWhatsApp() {
+            const now = new Date();
+            const hours = now.getHours();
+            if (hours >= buttonSettings.whatsapp.startTime && hours < buttonSettings.whatsapp.endTime) {
+                const whatsapp = getCookie('whatsapp');
+                if (!whatsapp) {
+                    const newWhatsApp = Math.floor(Math.random() * 4) + 1;
+                    setCookie('whatsapp', newWhatsApp, 365);
+                }
+                const source = determineSource();
+                const link = getWhatsAppLink(source, whatsapp || newWhatsApp);
+                window.location.href = link;
+            }
         }
 
         function redirectToTelegram() {
-            // Função de redirecionamento para o Telegram
-            // Mantida como original
+            const source = determineSource();
+            const link = getTelegramLink(source);
+            window.location.href = link;
         }
 
-        function checkInstagramPulse() {
-            // Função para aplicar a animação de pulsação no botão do Instagram
-            // Mantida como original
+        function redirectToInstagram() {
+            const link = 'https://typebot.co/t_instagram';
+            window.location.href = link;
         }
 
-        carregarConfiguracoes(); // Carregar configurações ao carregar a página
-        setInterval(checkInstagramPulse, 1000); // Verificar pulsação do Instagram a cada segundo
+        function determineSource() {
+            const referrer = document.referrer.toLowerCase();
+            if (referrer.includes('facebook.com')) return 'facebook';
+            if (referrer.includes('instagram.com')) return 'instagram';
+            if (referrer.includes('telegram.org')) return 'telegram';
+            return 'other';
+        }
+
+        function getWhatsAppLink(source, whatsapp) {
+            const links = {
+                'facebook': ['https://typebot.co/fbh1', 'https://typebot.co/fbh2', 'https://typebot.co/fbh3', 'https://typebot.co/fbh4'],
+                'instagram': ['https://typebot.co/ibh1', 'https://typebot.co/ibh2', 'https://typebot.co/ibh3', 'https://typebot.co/ibh4'],
+                'telegram': ['https://typebot.co/tbh1', 'https://typebot.co/tbh2', 'https://typebot.co/tbh3', 'https://typebot.co/tbh4'],
+                'other': ['https://typebot.co/nbh1', 'https://typebot.co/nbh2', 'https://typebot.co/nbh3', 'https://typebot.co/nbh4']
+            };
+            return links[source][whatsapp - 1];
+        }
+
+        function getTelegramLink(source) {
+            const links = {
+                'facebook': 'https://t.me/+cfg0vSLEW-43OGFh',
+                'instagram': 'https://t.me/+tBJMDBB3gURjNTlh',
+                'telegram': 'https://t.me/+SvVHF4344udkOGEx',
+                'other': 'https://t.me/+5Rn8fkMltWUwMTc5'
+            };
+            return links[source];
+        }
+
+        function setCookie(name, value, days) {
+            const expires = new Date(Date.now() + days * 864e5).toUTCString();
+            document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
+        }
+
+        function getCookie(name) {
+            return document.cookie.split('; ').reduce((r, v) => {
+                const parts = v.split('=');
+                return parts[0] === name ? decodeURIComponent(parts[1]) : r;
+            }, '');
+        }
+
+        applyButtonSettings();
     </script>
 </body>
 </html>
