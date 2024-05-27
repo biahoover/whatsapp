@@ -194,7 +194,7 @@
             }
         }
 
-        function setWhatsAppInactiveState(button) {
+function setWhatsAppInactiveState(button) {
     button.style.backgroundColor = 'gray';
     const countdown = document.createElement('div');
     countdown.id = 'countdown';
@@ -203,23 +203,23 @@
     button.appendChild(countdown);
 
     const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
-    let countDownDate = now.set({ hour: buttonSettings.whatsapp.startTime, minute: 0, second: 0, millisecond: 0 });
+    const nextActiveHour = now.set({ hour: buttonSettings.whatsapp.startTime, minute: 0, second: 0, millisecond: 0 });
 
     if (now.hour >= buttonSettings.whatsapp.startTime) {
-        countDownDate = countDownDate.plus({ days: 1 });
+        nextActiveHour.plus({ days: 1 });
     }
 
     const x = setInterval(function() {
         const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
-        const distance = countDownDate.diff(now);
+        const distance = nextActiveHour.diff(now);
 
-        const hours = distance.hours.toString().padStart(2, '0');
-        const minutes = distance.minutes.toString().padStart(2, '0');
-        const seconds = distance.seconds.toString().padStart(2, '0');
+        const hours = Math.floor(distance.as('hours')).toString().padStart(2, '0');
+        const minutes = Math.floor(distance.as('minutes') % 60).toString().padStart(2, '0');
+        const seconds = Math.floor(distance.as('seconds') % 60).toString().padStart(2, '0');
 
         countdown.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
 
-        if (distance <= 0) {
+        if (distance.as('milliseconds') <= 0) {
             clearInterval(x);
             applyButtonSettings(); // Reapply settings to update the button state
         }
