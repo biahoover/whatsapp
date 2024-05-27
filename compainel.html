@@ -82,14 +82,29 @@
     <button id="instagramButton" class="button" onclick="redirectToInstagram()"></button>
 
     <script>
-      // Se você estiver usando CommonJS (Node.js)
-const buttonSettings = require('./buttonSettings');
+    // Função para carregar as configurações do arquivo JSON
+function carregarConfiguracoes() {
+    // Faz uma requisição para carregar o arquivo JSON
+    fetch('configuracoes.json')
+    .then(response => response.json()) // Converte a resposta para JSON
+    .then(data => {
+        // Aqui você pode acessar as configurações e fazer o que precisar com elas
+        console.log(data);
+        // Por exemplo, acessar as configurações do botão do WhatsApp
+        const whatsappSettings = data.buttonSettings.whatsapp;
+        console.log(whatsappSettings);
+        // Agora você pode aplicar essas configurações aos botões do seu site
+        // Exemplo:
+        // document.getElementById('whatsappButton').style.backgroundColor = whatsappSettings.color;
+    })
+    .catch(error => {
+        console.error('Erro ao carregar as configurações:', error);
+    });
+}
 
-// Se você estiver usando ECMAScript Modules (ESM)
-// import buttonSettings from './buttonSettings.js';
+// Chamando a função para carregar as configurações quando a página carrega
+window.onload = carregarConfiguracoes;
 
-// Agora você pode acessar suas configurações de botões normalmente
-console.log(buttonSettings.whatsapp.text); // Saída: FALE COMIGO NO WHATSAPP ♥
 
 
         function applyWhatsAppSettings() {
