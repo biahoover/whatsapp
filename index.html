@@ -206,7 +206,7 @@
         }
 
         function redirectToInstagram() {
-            const link = 'https://typebot.co/t_instagram';
+            const link = 'https://www.instagram.com/seu_instagram';
             window.location.href = link;
         }
 
@@ -220,10 +220,10 @@
 
         function getWhatsAppLink(source, whatsapp) {
             const links = {
-                'facebook': ['https://typebot.co/fbh1', 'https://typebot.co/fbh2', 'https://typebot.co/fbh3', 'https://typebot.co/fbh4'],
-                'instagram': ['https://typebot.co/ibh1', 'https://typebot.co/ibh2', 'https://typebot.co/ibh3', 'https://typebot.co/ibh4'],
-                'telegram': ['https://typebot.co/tbh1', 'https://typebot.co/tbh2', 'https://typebot.co/tbh3', 'https://typebot.co/tbh4'],
-                'other': ['https://typebot.co/obh1', 'https://typebot.co/obh2', 'https://typebot.co/obh3', 'https://typebot.co/obh4']
+                'facebook': ['https://api.whatsapp.com/send?phone=11111111111', 'https://api.whatsapp.com/send?phone=22222222222', 'https://api.whatsapp.com/send?phone=33333333333', 'https://api.whatsapp.com/send?phone=44444444444'],
+                'instagram': ['https://api.whatsapp.com/send?phone=55555555555', 'https://api.whatsapp.com/send?phone=66666666666', 'https://api.whatsapp.com/send?phone=77777777777', 'https://api.whatsapp.com/send?phone=88888888888'],
+                'telegram': ['https://api.whatsapp.com/send?phone=99999999999', 'https://api.whatsapp.com/send?phone=1010101010', 'https://api.whatsapp.com/send?phone=1111111111', 'https://api.whatsapp.com/send?phone=1212121212'],
+                'other': ['https://api.whatsapp.com/send?phone=1313131313', 'https://api.whatsapp.com/send?phone=1414141414', 'https://api.whatsapp.com/send?phone=1515151515', 'https://api.whatsapp.com/send?phone=1616161616']
             };
             return links[source][whatsapp - 1];
         }
