@@ -84,8 +84,13 @@
     <script>
         const buttonSettings = {};
 
-        // Consulta o arquivo JSON para carregar as configurações dos botões
-        fetch('buttonSettings.json?_=' + Date.now())
+// Função para gerar um parâmetro de consulta único
+function generateUniqueQueryParam() {
+    return `?timestamp=${new Date().getTime()}`;
+}
+
+// Consulta o arquivo JSON para carregar as configurações dos botões
+fetch('buttonSettings.json' + generateUniqueQueryParam())
             .then(response => response.json())
             .then(data => {
                 buttonSettings.whatsapp = data.whatsapp;
