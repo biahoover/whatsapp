@@ -82,20 +82,14 @@
     <button id="instagramButton" class="button" onclick="redirectToInstagram()"></button>
 
     <script>
-        fetch('./config.json') // Faz uma solicitação para carregar o arquivo config.json
-    .then(response => response.json()) // Converte a resposta para JSON
-    .then(config => { // Manipula os dados do arquivo JSON
-        const whatsappConfig = config.whatsapp; // Obtém as configurações do WhatsApp
-        const telegramConfig = config.telegram; // Obtém as configurações do Telegram
-        const instagramConfig = config.instagram; // Obtém as configurações do Instagram
+      // Se você estiver usando CommonJS (Node.js)
+const buttonSettings = require('./buttonSettings');
 
-        // Aqui você pode fazer o que quiser com as configurações obtidas
-        console.log("Configurações obtidas do arquivo config.json:", config);
-        console.log("Configurações do WhatsApp:", whatsappConfig);
-        console.log("Configurações do Telegram:", telegramConfig);
-        console.log("Configurações do Instagram:", instagramConfig);
-    })
-    .catch(error => console.error('Erro ao carregar o arquivo config.json:', error)); // Lida com erros de carregamento do arquivo
+// Se você estiver usando ECMAScript Modules (ESM)
+// import buttonSettings from './buttonSettings.js';
+
+// Agora você pode acessar suas configurações de botões normalmente
+console.log(buttonSettings.whatsapp.text); // Saída: FALE COMIGO NO WHATSAPP ♥
 
 
         function applyWhatsAppSettings() {
