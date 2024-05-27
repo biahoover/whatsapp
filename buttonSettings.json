@@ -1,41 +1,44 @@
 {
     "whatsapp": {
-        "text": "FALE COMIGO NO WHATSAPP ♥",
-        "color": "#25D366",
-        "textColor": "#ffffff",
-        "startTime": 13,
-        "endTime": 23,
-        "pulse": false,
-        "pulseStart": 8,
-        "pulseEnd": 23,
-        "visibility": true,
-        "visibilityStart": 0,
-        "visibilityEnd": 24
+        // Configurações do botão do WhatsApp
+        "text": "FALE COMIGO NO WHATSAPP ♥", // Texto exibido no botão
+        "color": "#25D366", // Cor de fundo do botão
+        "textColor": "#ffffff", // Cor do texto do botão
+        "startTime": 18, // Horário de início da disponibilidade do botão (formato 24 horas)
+        "endTime": 23, // Horário de término da disponibilidade do botão (formato 24 horas)
+        "pulse": false, // Define se o botão pulsa ou não durante o período ativo
+        "pulseStart": 8, // Horário de início do pulso do botão (formato 24 horas)
+        "pulseEnd": 23, // Horário de término do pulso do botão (formato 24 horas)
+        "visibility": true, // Define se o botão é visível ou não
+        "visibilityStart": 0, // Horário de início da visibilidade do botão (formato 24 horas)
+        "visibilityEnd": 24 // Horário de término da visibilidade do botão (formato 24 horas)
     },
     "telegram": {
-        "text": "CANAL NO TELEGRAM<br>Inscreva-se grátis",
-        "color": "#0088cc",
-        "textColor": "#ffffff",
-        "startTime": 0,
-        "endTime": 24,
-        "pulse": true,
-        "pulseStart": 8,
-        "pulseEnd": 20,
-        "visibility": true,
-        "visibilityStart": 0,
-        "visibilityEnd": 24
+        // Configurações do botão do Telegram
+        "text": "CANAL NO TELEGRAM<br>Inscreva-se grátis", // Texto exibido no botão
+        "color": "#0088cc", // Cor de fundo do botão
+        "textColor": "#ffffff", // Cor do texto do botão
+        "startTime": 0, // Horário de início da disponibilidade do botão (formato 24 horas)
+        "endTime": 24, // Horário de término da disponibilidade do botão (formato 24 horas)
+        "pulse": true, // Define se o botão pulsa ou não durante o período ativo
+        "pulseStart": 8, // Horário de início do pulso do botão (formato 24 horas)
+        "pulseEnd": 20, // Horário de término do pulso do botão (formato 24 horas)
+        "visibility": true, // Define se o botão é visível ou não
+        "visibilityStart": 0, // Horário de início da visibilidade do botão (formato 24 horas)
+        "visibilityEnd": 24 // Horário de término da visibilidade do botão (formato 24 horas)
     },
     "instagram": {
-        "text": "Visite meu Instagram",
-        "color": "linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45)",
-        "textColor": "#ffffff",
-        "startTime": 0,
-        "endTime": 24,
-        "pulse": false,
-        "pulseStart": 0,
-        "pulseEnd": 8,
-        "visibility": true,
-        "visibilityStart": 0,
-        "visibilityEnd": 24
+        // Configurações do botão do Instagram
+        "text": "Visite meu Instagram", // Texto exibido no botão
+        "color": "linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45)", // Cor de fundo do botão (gradiente)
+        "textColor": "#ffffff", // Cor do texto do botão
+        "startTime": 0, // Horário de início da disponibilidade do botão (formato 24 horas)
+        "endTime": 24, // Horário de término da disponibilidade do botão (formato 24 horas)
+        "pulse": false, // Define se o botão pulsa ou não durante o período ativo
+        "pulseStart": 0, // Horário de início do pulso do botão (formato 24 horas)
+        "pulseEnd": 8, // Horário de término do pulso do botão (formato 24 horas)
+        "visibility": true, // Define se o botão é visível ou não
+        "visibilityStart": 0, // Horário de início da visibilidade do botão (formato 24 horas)
+        "visibilityEnd": 24 // Horário de término da visibilidade do botão (formato 24 horas)
     }
 }
