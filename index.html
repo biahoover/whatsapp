@@ -124,48 +124,48 @@
     <script>
         // Função para redirecionar ao WhatsApp
         function redirectToWhatsApp() {
-            var now = new Date();
-            var hours = now.getHours();
+    var now = new Date();
+    var hours = now.getHours();
 
-            if (hours >= 8 && hours < 23) {
-                var whatsapp = getCookie('whatsapp');
-                if (!whatsapp) {
-                    whatsapp = Math.floor(Math.random() * 4) + 1;
-                    setCookie('whatsapp', whatsapp, 365);
-                }
-                var source = determineSource();
-                var link = getWhatsAppLink(source, whatsapp);
-                window.location.href = link;
-            } else {
-                document.getElementById('whatsappButton').classList.add('gray');
-                document.getElementById('whatsappButton').innerHTML = 'Online no Whatsapp em:<br>';
-                var countdown = document.getElementById('countdown');
-                countdown.innerHTML = '';
-
-                var countDownDate = new Date();
-                countDownDate.setHours(8, 0, 0, 0);
-                if (now.getHours() >= 8) {
-                    countDownDate.setDate(countDownDate.getDate() + 1);
-                }
-                var x = setInterval(function() {
-                    var now = new Date().getTime();
-                    var distance = countDownDate - now;
-
-                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                    countdown.innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
-
-                    if (distance < 0) {
-                        clearInterval(x);
-                        countdown.innerHTML = "Botão ativado!";
-                        document.getElementById('whatsappButton').classList.remove('gray');
-                        document.getElementById('whatsappButton').innerHTML = 'FALE COMIGO NO WHATSAPP ♥';
-                    }
-                }, 1000);
-            }
+    if (hours >= 8 && hours < 23) {
+        var whatsapp = getCookie('whatsapp');
+        if (!whatsapp) {
+            whatsapp = Math.floor(Math.random() * 4) + 1;
+            setCookie('whatsapp', whatsapp, 365);
         }
+        var source = determineSource();
+        var link = getWhatsAppLink(source, whatsapp);
+        window.location.href = link;
+    } else {
+        document.getElementById('whatsappButton').classList.add('gray');
+        document.getElementById('whatsappButton').innerHTML = 'Online no Whatsapp em:<br>';
+        var countdown = document.getElementById('countdown');
+        countdown.innerHTML = '';
+
+        var countDownDate = new Date();
+        countDownDate.setHours(8, 0, 0, 0);
+        if (now.getHours() >= 8) {
+            countDownDate.setDate(countDownDate.getDate() + 1);
+        }
+        var x = setInterval(function () {
+            var now = new Date().getTime();
+            var distance = countDownDate - now;
+
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            countdown.innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById('whatsappButton').classList.remove('gray');
+                document.getElementById('whatsappButton').innerHTML = 'FALE COMIGO NO WHATSAPP ♥';
+            }
+        }, 1000);
+    }
+}
+
 
         // Função para determinar a origem
         function determineSource() {
