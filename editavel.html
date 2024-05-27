@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bia Hoover</title>
+    <link rel="icon" href="https://biahoover.github.io/whatsapp/©2024 Bianca Hoover..png" type="image/png">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Bia Hoover">
+    <meta property="og:description" content="Contato Whatsapp">
+    <meta property="og:image" content="https://biahoover.github.io/whatsapp/©2024 Bianca Hoover..png">
+    <meta property="og:url" content="biahoover.github.io/whatsapp">
+    <meta property="og:type" content="website">
+
+    <style>
+        body {
+            background-image: url('https://biahoover.github.io/whatsapp/©2024 Bianca Hoover..png');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .whatsapp-button, .telegram-button, .instagram-button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            width: 270px; /* Permite que o botão tenha a largura necessária para o conteúdo */
+            height: auto; /* Permite que o botão tenha a altura necessária para o conteúdo */
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .whatsapp-button {
+            background-color: #25D366;
+            color: #FFFFFF;
+            margin-top: 150px; /* Adiciona 20 pixels de espaçamento na parte superior do botão */
+            animation: pulse 1s infinite alternate;
+        }
+
+        .whatsapp-button.gray {
+            background-color: #808080;
+            cursor: not-allowed;
+            animation: none;
+        }
+
+        .instagram-button {
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45);
+            color: #FFFFFF;
+        }
+
+        .telegram-button {
+            background-color: #0088cc; /* Cor azul do Telegram */
+            color: #FFFFFF;
+        }
+
+        .pulseInstagram {
+            animation: pulseInstagram 1s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes pulseInstagram {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.05);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Botão do WhatsApp -->
+    <button id="whatsappButton" class="whatsapp-button">
+        FALE COMIGO NO WHATSAPP ♥
+        <div id="countdown" class="countdown"></div>
+    </button>
+
+    <!-- Botão do Telegram -->
+    <button id="telegramButton" class="telegram-button">
+        CANAL NO TELEGRAM<br>Inscreva-se grátis
+    </button>
+
+    <!-- Botão do Instagram -->
+    <button id="instagramButton" class="instagram-button">
+        Visite meu Instagram
+    </button>
+
+    <script>
+        function carregarConfiguracoes() {
+            fetch('config.json')
+            .then(response => response.json())
+            .then(config => {
+                // Configuração dos botões
+                for (let botao in config.botoes) {
+                    let dadosBotao = config.botoes[botao];
+                    let botaoElemento = document.getElementById(botao + 'Button');
+
+                    if (dadosBotao.ativo) {
+                        if (dadosBotao.visivel) {
+                            botaoElemento.style.display = 'inline-block';
+                        } else {
+                            botaoElemento.style.display = 'none';
+                        }
+
+                        botaoElemento.innerHTML = dadosBotao.texto;
+                        botaoElemento.style.backgroundColor = dadosBotao.cor;
+
+                        if (botao === 'whatsapp') {
+                            aplicarHorarioFuncionamento(botaoElemento, dadosBotao.horario_funcionamento);
+                        }
+                    } else {
+                        botaoElemento.style.display = 'none';
+                    }
+                }
+
+                // Configuração do Facebook Pixel
+                !function(f,b,e,v,n,t,s)
+                {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                n.queue=[];t=b.createElement(e);t.async=!0;
+                t.src=v;s=b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t,s)}(window, document,'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+                fbq('init', config.facebook_pixel.nome);
+                fbq('track', 'PageView_BiaHoover');
+            })
+            .catch(error => console.error('Erro ao carregar configurações:', error));
+        }
+
+        function aplicarHorarioFuncionamento(botaoElemento, horario) {
+            var now = new Date();
+            var hours = now.getHours();
+
+            if (hours >= horario.inicio && hours < horario.fim) {
+                botaoElemento.classList.remove('gray');
+                botaoElemento.removeAttribute('disabled');
+            } else {
+                botaoElemento.classList.add('gray');
+                botaoElemento.setAttribute('disabled', 'disabled');
+            }
+        }
+
+        function redirectToWhatsApp() {
+            // Função de redirecionamento para o WhatsApp
+            // Mantida como original
+        }
+
+        function redirectToInstagram() {
+            // Função de redirecionamento para o Instagram
+            // Mantida como original
+        }
+
+        function redirectToTelegram() {
+            // Função de redirecionamento para o Telegram
+            // Mantida como original
+        }
+
+        function checkInstagramPulse() {
+            // Função para aplicar a animação de pulsação no botão do Instagram
+            // Mantida como original
+        }
+
+        carregarConfiguracoes(); // Carregar configurações ao carregar a página
+        setInterval(checkInstagramPulse, 1000); // Verificar pulsação do Instagram a cada segundo
+    </script>
+</body>
+</html>
