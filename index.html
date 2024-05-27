@@ -82,6 +82,9 @@
     <button id="instagramButton" class="button" onclick="redirectToInstagram()"></button>
 
     <script>
+ window.addEventListener('load', function() {
+            applyButtonSettings();
+        });
         const buttonSettings = {
             whatsapp: {
                 text: 'FALE COMIGO NO WHATSAPP ♥',
@@ -303,9 +306,7 @@
             return "";
         }
 
-      window.addEventListener('load', function() {
-            applyButtonSettings();
-        });
+     
     </script>
 </body>
 </html>
