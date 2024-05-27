@@ -83,25 +83,26 @@
 
     <script>
 
-    fetch('buttonSettings.json')
-        .then(response => response.json())
-        .then(data => {
+  fetch('buttonSettings.json')
+    .then(response => response.json())
+    .then(data => {
+        // Atribuir os valores do JSON às propriedades do objeto buttonSettings
+        buttonSettings.whatsapp.text = data.whatsappText;
+        buttonSettings.whatsapp.color = data.whatsappColor;
+        buttonSettings.whatsapp.textColor = data.whatsappTextColor;
+        buttonSettings.whatsapp.startTime = data.whatsappStartTime;
+        buttonSettings.whatsapp.endTime = data.whatsappEndTime;
+        buttonSettings.whatsapp.pulse = data.whatsappPulse;
+        buttonSettings.whatsapp.pulseStart = data.whatsappPulseStart;
+        buttonSettings.whatsapp.pulseEnd = data.whatsappPulseEnd;
+        buttonSettings.whatsapp.visibility = data.whatsappVisibility;
+        buttonSettings.whatsapp.visibilityStart = data.whatsappVisibilityStart;
+        buttonSettings.whatsapp.visibilityEnd = data.whatsappVisibilityEnd;
 
-                buttonSettings.whatsapp.text: = data.whatsappText;
-                buttonSettings.whatsapp.color: = data.whatsappColor;
-                buttonSettings.whatsapp.textColor: = data.whatsappTextColor;
-                buttonSettings.whatsapp.startTime: = data.whatsappStartTime;
-                buttonSettings.whatsapp.endTime: = data.whatsappEndTime;
-                buttonSettings.whatsapp.pulse: = data.whatsappPulse;
-                buttonSettings.whatsapp.pulseStart: = data.whatsappPulseStart;
-                buttonSettings.whatsapp.pulseEnd: = data.whatsappPulseEnd;
-                buttonSettings.whatsapp.visibility: = data.whatsappVisibility;
-                buttonSettings.whatsapp.visibilityStart: = data.whatsappVisibilityStart;
-                buttonSettings.whatsapp.visibilityEnd: = data.whatsappVisibilityEnd;
+        console.log(buttonSettings);
+    })
+    .catch(error => console.error('Erro ao carregar as configurações:', error));
 
-     console.log(buttonSettings);
-  })
-  .catch(error => console.error('Erro ao carregar as configurações:', error));
 
 
      
