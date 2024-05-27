@@ -82,28 +82,29 @@
     <button id="instagramButton" class="button" onclick="redirectToInstagram()"></button>
 
     <script>
-    // Função para carregar as configurações do arquivo JSON
-function carregarConfiguracoes() {
-    // Faz uma requisição para carregar o arquivo JSON
-    fetch('configuracoes.json')
-    .then(response => response.json()) // Converte a resposta para JSON
-    .then(data => {
-        // Aqui você pode acessar as configurações e fazer o que precisar com elas
-        console.log(data);
-        // Por exemplo, acessar as configurações do botão do WhatsApp
-        const whatsappSettings = data.buttonSettings.whatsapp;
-        console.log(whatsappSettings);
-        // Agora você pode aplicar essas configurações aos botões do seu site
-        // Exemplo:
-        // document.getElementById('whatsappButton').style.backgroundColor = whatsappSettings.color;
-    })
-    .catch(error => {
-        console.error('Erro ao carregar as configurações:', error);
-    });
-}
 
-// Chamando a função para carregar as configurações quando a página carrega
-window.onload = carregarConfiguracoes;
+    fetch('buttonSettings.json')
+        .then(response => response.json())
+        .then(data => {
+
+                buttonSettings.whatsapp.text: = data.whatsappText;
+                buttonSettings.whatsapp.color: = data.whatsappColor;
+                buttonSettings.whatsapp.textColor: = data.whatsappTextColor;
+                buttonSettings.whatsapp.startTime: = data.whatsappStartTime;
+                buttonSettings.whatsapp.endTime: = data.whatsappEndTime;
+                buttonSettings.whatsapp.pulse: = data.whatsappPulse;
+                buttonSettings.whatsapp.pulseStart: = data.whatsappPulseStart;
+                buttonSettings.whatsapp.pulseEnd: = data.whatsappPulseEnd;
+                buttonSettings.whatsapp.visibility: = data.whatsappVisibility;
+                buttonSettings.whatsapp.visibilityStart: = data.whatsappVisibilityStart;
+                buttonSettings.whatsapp.visibilityEnd: = data.whatsappVisibilityEnd;
+
+     console.log(buttonSettings);
+  })
+  .catch(error => console.error('Erro ao carregar as configurações:', error));
+
+
+     
 
 
 
