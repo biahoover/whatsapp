@@ -1,29 +1,41 @@
 {
-  "botoes": {
     "whatsapp": {
-      "ativo": true,
-      "visivel": true,
-      "texto": "Entre em contato via WhatsApp",
-      "cor": "#25D366",
-      "horario_funcionamento": {
-        "inicio": 8,
-        "fim": 23
-      }
+        "text": "FALE COMIGO NO WHATSAPP ♥",
+        "color": "#25D366",
+        "textColor": "#ffffff",
+        "startTime": 13,
+        "endTime": 23,
+        "pulse": false,
+        "pulseStart": 8,
+        "pulseEnd": 23,
+        "visibility": true,
+        "visibilityStart": 0,
+        "visibilityEnd": 24
     },
     "telegram": {
-      "ativo": true,
-      "visivel": true,
-      "texto": "Inscreva-se no canal do Telegram",
-      "cor": "#0088cc"
+        "text": "CANAL NO TELEGRAM<br>Inscreva-se grátis",
+        "color": "#0088cc",
+        "textColor": "#ffffff",
+        "startTime": 0,
+        "endTime": 24,
+        "pulse": true,
+        "pulseStart": 8,
+        "pulseEnd": 20,
+        "visibility": true,
+        "visibilityStart": 0,
+        "visibilityEnd": 24
     },
     "instagram": {
-      "ativo": true,
-      "visivel": true,
-      "texto": "Visite meu Instagram",
-      "cor": "#405DE6"
+        "text": "Visite meu Instagram",
+        "color": "linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45)",
+        "textColor": "#ffffff",
+        "startTime": 0,
+        "endTime": 24,
+        "pulse": false,
+        "pulseStart": 0,
+        "pulseEnd": 8,
+        "visibility": true,
+        "visibilityStart": 0,
+        "visibilityEnd": 24
     }
-  },
-  "facebook_pixel": {
-    "nome": "951503763143037"
-  }
 }
