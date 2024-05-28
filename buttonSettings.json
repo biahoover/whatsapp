@@ -19,10 +19,10 @@
         "startTime": 0,
         "endTime": 24,
         "pulse": true,
-        "pulseStart": 23,
+        "pulseStart": 0,
         "pulseEnd": 8,
         "visibility": true,
-        "visibilityStart": 23,
+        "visibilityStart": 0,
         "visibilityEnd": 8
     },
     "instagram": {
@@ -35,7 +35,7 @@
         "pulseStart": 0,
         "pulseEnd": 8,
         "visibility": true,
-        "visibilityStart": 23,
+        "visibilityStart": 0,
         "visibilityEnd": 8
     }
 }
