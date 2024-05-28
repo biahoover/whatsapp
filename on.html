@@ -152,27 +152,34 @@ fetch('buttonSettings.json' + generateUniqueQueryParam())
 //    }
 
     function applyInstagramSettings() {
-        const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
-        const currentHour = now.hour;
-        const settings = buttonSettings.instagram;
-        const button = document.getElementById('instagramButton');
-       // const isVisible = true;
-            //currentHour >= settings.visibilityStart && currentHour < settings.visibilityEnd;
+    const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
+    const currentHour = now.hour;
+    const settings = buttonSettings.instagram;
+    const button = document.getElementById('instagramButton');
 
-   //     if (settings.visibility && isVisible) {
-     //       button.style.display = 'inline-block';
-//            button.style.background = settings.color;  // Use 'background' for gradients
-  //          button.style.color = settings.textColor;
-    //        button.innerHTML = settings.text;
-            if (settings.pulse && currentHour >= settings.pulseStart && currentHour < settings.pulseEnd) {
-                button.classList.add('pulse');
-            } else {
-                button.classList.remove('pulse');
-            }
-    //    } else {
-      //      button.style.display = 'none';
-        // }
+    /*
+    const isVisible = true;
+    currentHour >= settings.visibilityStart && currentHour < settings.visibilityEnd;
+
+    if (settings.visibility && isVisible) {
+        button.style.display = 'inline-block';
+        button.style.background = settings.color;  // Use 'background' for gradients
+        button.style.color = settings.textColor;
+        button.innerHTML = settings.text;
+    */
+
+    if (settings.pulse && currentHour >= settings.pulseStart && currentHour < settings.pulseEnd) {
+        button.classList.add('pulse');
+    } else {
+        button.classList.remove('pulse');
     }
+    
+    /*
+    } else {
+        button.style.display = 'none';
+    }
+    */
+}
 
     function setWhatsAppInactiveState(button) {
         button.style.backgroundColor = 'gray';
