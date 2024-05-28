@@ -6,7 +6,7 @@
         "startTime": 10,
         "endTime": 23,
         "pulse": true,
-        "pulseStart": 8,
+        "pulseStart": 10,
         "pulseEnd": 23,
         "visibility": true,
         "visibilityStart": 0,
