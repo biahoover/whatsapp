@@ -3,7 +3,7 @@
         "text": "FALE COMIGO NO WHATSAPP ♥",
         "color": "#25D366",
         "textColor": "#ffffff",
-        "startTime": 9,
+        "startTime": 10,
         "endTime": 23,
         "pulse": true,
         "pulseStart": 8,
@@ -20,10 +20,10 @@
         "endTime": 24,
         "pulse": true,
         "pulseStart": 0,
-        "pulseEnd": 8,
+        "pulseEnd": 10,
         "visibility": true,
         "visibilityStart": 0,
-        "visibilityEnd": 9
+        "visibilityEnd": 10
     },
     "instagram": {
         "text": "Visite meu Instagram",
@@ -33,9 +33,9 @@
         "endTime": 24,
         "pulse": false,
         "pulseStart": 0,
-        "pulseEnd": 8,
+        "pulseEnd": 10,
         "visibility": true,
         "visibilityStart": 0,
-        "visibilityEnd": 8
+        "visibilityEnd": 10
     }
 }
