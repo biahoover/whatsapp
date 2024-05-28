@@ -156,7 +156,8 @@ fetch('buttonSettings.json' + generateUniqueQueryParam())
         const currentHour = now.hour;
         const settings = buttonSettings.instagram;
         const button = document.getElementById('instagramButton');
-        const isVisible = currentHour >= settings.visibilityStart && currentHour < settings.visibilityEnd;
+        const isVisible = true;
+            //currentHour >= settings.visibilityStart && currentHour < settings.visibilityEnd;
 
         if (settings.visibility && isVisible) {
             button.style.display = 'inline-block';
