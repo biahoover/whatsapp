@@ -156,15 +156,14 @@ fetch('buttonSettings.json' + generateUniqueQueryParam())
         const currentHour = now.hour;
         const settings = buttonSettings.instagram;
         const button = document.getElementById('instagramButton');
-        const isVisible >= 0 && currentHour < 24;
        // const isVisible = true;
             //currentHour >= settings.visibilityStart && currentHour < settings.visibilityEnd;
 
-        if (settings.visibility && isVisible) {
-            button.style.display = 'inline-block';
-            button.style.background = settings.color;  // Use 'background' for gradients
-            button.style.color = settings.textColor;
-            button.innerHTML = settings.text;
+   //     if (settings.visibility && isVisible) {
+     //       button.style.display = 'inline-block';
+//            button.style.background = settings.color;  // Use 'background' for gradients
+  //          button.style.color = settings.textColor;
+    //        button.innerHTML = settings.text;
             if (settings.pulse && currentHour >= settings.pulseStart && currentHour < settings.pulseEnd) {
                 button.classList.add('pulse');
             } else {
@@ -173,7 +172,7 @@ fetch('buttonSettings.json' + generateUniqueQueryParam())
         } else {
             button.style.display = 'none';
         }
-    }
+//    }
 
     function setWhatsAppInactiveState(button) {
         button.style.backgroundColor = 'gray';
