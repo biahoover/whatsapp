@@ -122,7 +122,7 @@ fetch('buttonSettings.json' + generateUniqueQueryParam())
             const isVisible = currentHour >= settings.visibilityStart && currentHour < settings.visibilityEnd;
 
             if (settings.visibility && isVisible) {
-                button.style.display = 'ock';
+                button.style.display = 'inline-block';
                 button.style.backgroundColor = settings.color;
                 button.style.color = settings.textColor;
                 button.style.marginTop = '150px'; // Adicionando margem superior
