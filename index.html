@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -38,7 +39,7 @@
             cursor: pointer;
             text-align: center;
             text-decoration: none;
-            display: ock;
+            display: inline-block;
             margin-bottom: 20px;
             color: #fff;
         }
@@ -91,18 +92,11 @@ function generateUniqueQueryParam() {
 
 // Consulta o arquivo JSON para carregar as configurações dos botões
 fetch('buttonSettings.json' + generateUniqueQueryParam())
-            .then(response => {
-        console.log('Resposta da solicitação JSON:', response);
-        return response.json();
-    })    
+            .then(response => response.json())
             .then(data => {
-                console.log('Dados carregados:', data); // Verifique o conteúdo do JSON aqui
                 buttonSettings.whatsapp = data.whatsapp;
                 buttonSettings.telegram = data.telegram;
                 buttonSettings.instagram = data.instagram;
-
- // Log para verificar se os dados foram atribuídos corretamente
-            console.log('Configurações atribuídas a buttonSettings:', buttonSettings);
 
                 // Aplicar as configurações dos botões
                 applyButtonSettings();
@@ -110,10 +104,6 @@ fetch('buttonSettings.json' + generateUniqueQueryParam())
             .catch(error => console.error('Erro ao carregar as configurações dos botões:', error));
 
         function applyWhatsAppSettings() {
-            if (!buttonSettings.whatsapp) {
-        console.error('Configurações do WhatsApp não encontradas.');
-        return;
-    }
             const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
             const currentHour = now.hour;
             const settings = buttonSettings.whatsapp;
@@ -141,10 +131,6 @@ fetch('buttonSettings.json' + generateUniqueQueryParam())
         }
 
         function applyTelegramSettings() {
-             if (!buttonSettings || !buttonSettings.telegram) {
-        console.error('Configurações do Telegram não encontradas.');
-        return;
-    }
             const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
             const currentHour = now.hour;
             const settings = buttonSettings.telegram;
@@ -153,23 +139,20 @@ fetch('buttonSettings.json' + generateUniqueQueryParam())
 
             if (settings.visibility && isVisible) {
                 button.style.display = 'inline-block';
-                button.style.backgroundColor = settings.color;
-                button.style.color = settings.textColor;
-                button.innerHTML = settings.text;
+                           button.style.backgroundColor = settings.color;
+            button.style.color = settings.textColor;
+            button.innerHTML = settings.text;
             if (settings.pulse && currentHour >= settings.pulseStart && currentHour < settings.pulseEnd) {
                 button.classList.add('pulse');
             } else {
                 button.classList.remove('pulse');
-                }
-            } else {
+            }
+        } else {
             button.style.display = 'none';
         }
+    }
 
     function applyInstagramSettings() {
-        if (!buttonSettings || !buttonSettings.instagram) {
-        console.error('Configurações do Instagram não encontradas.');
-        return;
-    }
         const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
         const currentHour = now.hour;
         const settings = buttonSettings.instagram;
@@ -308,9 +291,7 @@ fetch('buttonSettings.json' + generateUniqueQueryParam())
     }
 
     applyButtonSettings();
-
-            
-</script>
+    </script>
 </body>
 </html>
 
