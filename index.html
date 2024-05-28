@@ -38,7 +38,7 @@
             cursor: pointer;
             text-align: center;
             text-decoration: none;
-            display: inline-block;
+            display: ock;
             margin-bottom: 20px;
             color: #fff;
         }
@@ -125,7 +125,7 @@ fetch('buttonSettings.json' + generateUniqueQueryParam())
             const isVisible = currentHour >= settings.visibilityStart && currentHour < settings.visibilityEnd;
 
             if (settings.visibility && isVisible) {
-                button.style.display = 'inline-block';
+                button.style.display = 'ock';
                 button.style.backgroundColor = settings.color;
                 button.style.color = settings.textColor;
                 button.style.marginTop = '150px'; // Adicionando margem superior
@@ -164,11 +164,9 @@ fetch('buttonSettings.json' + generateUniqueQueryParam())
             } else {
                 button.classList.remove('pulse');
             }
-            }
         } else {
             button.style.display = 'none';
         }
-    }
 
     function applyInstagramSettings() {
         if (!buttonSettings || !buttonSettings.instagram) {
