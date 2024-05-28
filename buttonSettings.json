@@ -17,13 +17,13 @@
         "color": "#0088cc",
         "textColor": "#ffffff",
         "startTime": 0,
-        "endTime": 8,
+        "endTime": 24,
         "pulse": true,
         "pulseStart": 0,
         "pulseEnd": 24,
         "visibility": true,
         "visibilityStart": 0,
-        "visibilityEnd": 24
+        "visibilityEnd": 8
     },
     "instagram": {
         "text": "Visite meu Instagram",
