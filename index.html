@@ -106,10 +106,7 @@ fetch('buttonSettings.json' + generateUniqueQueryParam())
 
                 // Aplicar as configurações dos botões
                 applyButtonSettings();
-            } else {
-            console.error('Dados incompletos no JSON:', data);
-        }
-    })
+            })
             .catch(error => console.error('Erro ao carregar as configurações dos botões:', error));
 
         function applyWhatsAppSettings() {
