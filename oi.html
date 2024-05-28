@@ -134,8 +134,9 @@ fetch('buttonSettings.json' + generateUniqueQueryParam())
             const currentHour = now.hour;
             const settings = buttonSettings.telegram;
             const button = document.getElementById('telegramButton');
-            const isVisible = currentHour >= settings.visibilityStart && currentHour < settings.visibilityEnd;
+            const isVisible = currentHour >= 0 && currentHour < 24;
 
+   
             if (settings.visibility && isVisible) {
                 button.style.display = 'inline-block';
                            button.style.backgroundColor = settings.color;
