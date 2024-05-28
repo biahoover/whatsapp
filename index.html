@@ -103,6 +103,10 @@ fetch('buttonSettings.json' + generateUniqueQueryParam())
             .catch(error => console.error('Erro ao carregar as configurações dos botões:', error));
 
         function applyWhatsAppSettings() {
+            if (!buttonSettings.whatsapp) {
+        console.error('Configurações do WhatsApp não encontradas.');
+        return;
+    }
             const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
             const currentHour = now.hour;
             const settings = buttonSettings.whatsapp;
