@@ -101,6 +101,9 @@ fetch('buttonSettings.json' + generateUniqueQueryParam())
                 buttonSettings.telegram = data.telegram;
                 buttonSettings.instagram = data.instagram;
 
+ // Log para verificar se os dados foram atribuídos corretamente
+            console.log('Configurações atribuídas a buttonSettings:', buttonSettings);
+
                 // Aplicar as configurações dos botões
                 applyButtonSettings();
             })
