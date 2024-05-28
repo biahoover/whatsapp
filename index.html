@@ -156,13 +156,14 @@ fetch('buttonSettings.json' + generateUniqueQueryParam())
 
             if (settings.visibility && isVisible) {
                 button.style.display = 'inline-block';
-                           button.style.backgroundColor = settings.color;
-            button.style.color = settings.textColor;
-            button.innerHTML = settings.text;
+                button.style.backgroundColor = settings.color;
+                button.style.color = settings.textColor;
+                button.innerHTML = settings.text;
             if (settings.pulse && currentHour >= settings.pulseStart && currentHour < settings.pulseEnd) {
                 button.classList.add('pulse');
             } else {
                 button.classList.remove('pulse');
+            }
             }
         } else {
             button.style.display = 'none';
