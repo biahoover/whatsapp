@@ -106,7 +106,10 @@ fetch('buttonSettings.json' + generateUniqueQueryParam())
 
                 // Aplicar as configurações dos botões
                 applyButtonSettings();
-            })
+            } else {
+            console.error('Dados incompletos no JSON:', data);
+        }
+    })
             .catch(error => console.error('Erro ao carregar as configurações dos botões:', error));
 
         function applyWhatsAppSettings() {
@@ -141,6 +144,10 @@ fetch('buttonSettings.json' + generateUniqueQueryParam())
         }
 
         function applyTelegramSettings() {
+             if (!buttonSettings || !buttonSettings.telegram) {
+        console.error('Configurações do Telegram não encontradas.');
+        return;
+    }
             const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
             const currentHour = now.hour;
             const settings = buttonSettings.telegram;
@@ -163,6 +170,10 @@ fetch('buttonSettings.json' + generateUniqueQueryParam())
     }
 
     function applyInstagramSettings() {
+        if (!buttonSettings || !buttonSettings.instagram) {
+        console.error('Configurações do Instagram não encontradas.');
+        return;
+    }
         const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
         const currentHour = now.hour;
         const settings = buttonSettings.instagram;
@@ -295,6 +306,7 @@ fetch('buttonSettings.json' + generateUniqueQueryParam())
     }
 
     function applyButtonSettings() {
+        console.log('Aplicando configurações dos botões...');
         applyWhatsAppSettings();
         applyTelegramSettings();
         applyInstagramSettings();
