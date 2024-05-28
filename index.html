@@ -96,6 +96,7 @@ fetch('buttonSettings.json' + generateUniqueQueryParam())
         return response.json();
     })    
             .then(data => {
+                console.log('Dados carregados:', data); // Verifique o conteúdo do JSON aqui
                 buttonSettings.whatsapp = data.whatsapp;
                 buttonSettings.telegram = data.telegram;
                 buttonSettings.instagram = data.instagram;
