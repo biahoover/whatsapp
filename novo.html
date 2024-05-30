@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bia Hoover</title>
+    <link rel="icon" href="https://biahoover.github.io/whatsapp/©2024 Bianca Hoover..png" type="image/png">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Bia Hoover">
+    <meta property="og:description" content="Contato Whatsapp">
+    <meta property="og:image" content="https://biahoover.github.io/whatsapp/©2024 Bianca Hoover..png">
+    <meta property="og:url" content="biahoover.github.io/whatsapp">
+    <meta property="og:type" content="website">
+
+    <!-- Facebook Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '951503763143037');
+      fbq('track', 'PageView_SiteWhatsapp');
+    </script>
+    <!-- End Facebook Pixel Code -->
+</head>
+<body>
+    <script>
+        // Função para redirecionar para o WhatsApp
+        function redirectToWhatsApp() {
+            const whatsapp = getCookie('whatsapp');
+            let newWhatsApp;
+            if (!whatsapp) {
+                newWhatsApp = Math.floor(Math.random() * 4) + 1;
+                setCookie('whatsapp', newWhatsApp, 365);
+            } else {
+                newWhatsApp = whatsapp;
+            }
+            const source = determineSource();
+            const link = getWhatsAppLink(source, newWhatsApp);
+            window.location.href = link;
+        }
+
+        // Função para determinar a origem do usuário
+        function determineSource() {
+            const referrer = document.referrer.toLowerCase();
+            if (referrer.includes('facebook.com')) return 'facebook';
+            if (referrer.includes('instagram.com')) return 'instagram';
+            if (referrer.includes('telegram.org')) return 'telegram';
+            return 'other';
+        }
+
+        // Função para obter o link do WhatsApp
+        function getWhatsAppLink(source, whatsapp) {
+            const links = {
+                'facebook': ['https://typebot.co/fbh1', 'https://typebot.co/fbh3', 'https://typebot.co/fbh5', 'https://typebot.co/fbh6'],
+                'instagram': ['https://typebot.co/ibh1', 'https://typebot.co/ibh3', 'https://typebot.co/ibh5', 'https://typebot.co/ibh6'],
+                'telegram': ['https://typebot.co/tbh1', 'https://typebot.co/tbh3', 'https://typebot.co/tbh5', 'https://typebot.co/tbh6'],
+                'other': ['https://typebot.co/nbh1', 'https://typebot.co/nbh3', 'https://typebot.co/nbh5', 'https://typebot.co/nbh6']
+            };
+            return links[source][whatsapp - 1];
+        }
+
+        // Função para definir um cookie
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        }
+
+        // Função para obter um cookie
+        function getCookie(name) {
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const ca = decodedCookie.split(';');
+            const cookieName = name + "=";
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(cookieName) == 0) {
+                    return c.substring(cookieName.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        // Executar o redirecionamento ao carregar a página
+        redirectToWhatsApp();
+    </script>
+</body>
+</html>
