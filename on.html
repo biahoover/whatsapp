@@ -82,8 +82,8 @@
     
     <!-- Botões -->
     <button id="whatsappButton" class="button" onclick="redirectToWhatsApp()"></button>
-  <!--  <button id="telegramButton" class="button" onclick="redirectToTelegram()"></button> -->
-     <button id="instagramButton" class="button" onclick="redirectToInstagram()"></button> 
+    <!-- <button id="telegramButton" class="button" onclick="redirectToTelegram()"></button> -->
+    <button id="instagramButton" class="button" onclick="redirectToInstagram()"></button> 
 
     <script>
         const buttonSettings = {};
@@ -98,8 +98,8 @@
             .then(response => response.json())
             .then(data => {
                 buttonSettings.whatsapp = data.whatsapp;
-               // buttonSettings.telegram = data.telegram;
-                 buttonSettings.instagram = data.instagram;
+                // buttonSettings.telegram = data.telegram;
+                buttonSettings.instagram = data.instagram;
 
                 // Aplicar as configurações dos botões
                 applyButtonSettings();
@@ -133,27 +133,52 @@
             }
         }
 
-   //     function applyTelegramSettings() {
-    //        const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
-  //          const currentHour = now.hour;
-//            const settings = buttonSettings.telegram;
- //           const button = document.getElementById('telegramButton');
-//            const isVisible = currentHour >= 0 && currentHour < 24;
+        // Função para Telegram (comentada)
+        /*
+        function applyTelegramSettings() {
+            const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
+            const currentHour = now.hour;
+            const settings = buttonSettings.telegram;
+            const button = document.getElementById('telegramButton');
+            const isVisible = currentHour >= 0 && currentHour < 24;
 
-    //        if (settings.visibility && isVisible) {
-   //             button.style.display = 'inline-block';
-    //            button.style.backgroundColor = settings.color;
-  //              button.style.color = settings.textColor;
-    //            button.innerHTML = settings.text;
-        //        if (settings.pulse && currentHour >= settings.pulseStart && currentHour < settings.pulseEnd) {
-      //              button.classList.add('pulse');
- //               } else {
- //                   button.classList.remove('pulse');
-//                }
- //           } else {
-   //             button.style.display = 'none';
-   //         }
- //       }
+            if (settings.visibility && isVisible) {
+                button.style.display = 'inline-block';
+                button.style.backgroundColor = settings.color;
+                button.style.color = settings.textColor;
+                button.innerHTML = settings.text;
+                if (settings.pulse && currentHour >= settings.pulseStart && currentHour < settings.pulseEnd) {
+                    button.classList.add('pulse');
+                } else {
+                    button.classList.remove('pulse');
+                }
+            } else {
+                button.style.display = 'none';
+            }
+        }
+        */
+
+        function applyInstagramSettings() {
+            const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
+            const currentHour = now.hour;
+            const settings = buttonSettings.instagram;
+            const button = document.getElementById('instagramButton');
+            const isVisible = currentHour >= 0 && currentHour < 24;
+
+            if (settings.visibility && isVisible) {
+                button.style.display = 'inline-block';
+                button.style.backgroundColor = settings.color;
+                button.style.color = settings.textColor;
+                button.innerHTML = settings.text;
+                if (settings.pulse && currentHour >= settings.pulseStart && currentHour < settings.pulseEnd) {
+                    button.classList.add('pulse');
+                } else {
+                    button.classList.remove('pulse');
+                }
+            } else {
+                button.style.display = 'none';
+            }
+        }
 
         function setWhatsAppInactiveState(button) {
             button.style.backgroundColor = 'gray';
@@ -195,7 +220,7 @@
 
         function redirectToWhatsApp() {
             const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
-            const currentHour = now.hour;
+            const currentHour = now.hour
             const settings = buttonSettings.whatsapp;
             const isWithinActiveHours = currentHour >= settings.startTime && currentHour < settings.endTime;
 
@@ -204,31 +229,29 @@
             }
         }
 
-//        function redirectToTelegram() {
-  //          const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
-    //        const currentHour = now.hour;
-      //      const settings = buttonSettings.telegram;
-        //    const isVisible = currentHour >= 0 && currentHour < 24;
+        /*
+        function redirectToTelegram() {
+            const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
+            const currentHour = now.hour;
+            const settings = buttonSettings.telegram;
+            const isVisible = currentHour >= 0 && currentHour < 24;
 
-  //          if (settings.visibility && isVisible) {
-    //            window.open(settings.link, '_blank');
-      //      }
-     //   }
-
-        //Função para simular o comportamento do Instagram (não ativada no momento)
-         function redirectToInstagram() {
-             const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
-             const currentHour = now.hour;
-             const settings = buttonSettings.instagram;
-             const isVisible = currentHour >= 0 && currentHour < 24;
-
-             if (settings.visibility && isVisible) {
-                 window.open(settings.link, '_blank');
+            if (settings.visibility && isVisible) {
+                window.open(settings.link, '_blank');
             }
-         }
+        }
+        */
+
+        function redirectToInstagram() {
+            const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
+            const currentHour = now.hour;
+            const settings = buttonSettings.instagram;
+            const isVisible = currentHour >= 0 && currentHour < 24;
+
+            if (settings.visibility && isVisible) {
+                window.open(settings.link, '_blank');
+            }
+        }
     </script>
 </body>
 </html>
-
-
-
