@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bia Hoover</title>
-    <link rel="icon" href="https://biahoover.github.io/whatsapp/©2024 Bianca Hoover..png" type="image/png">
+    <link rel="icon" href="https://biahoover.github.io/whatsapp/©2024%20Bianca%20Hoover..png" type="image/png">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Bia Hoover">
     <meta property="og:description" content="Contato Whatsapp">
-    <meta property="og:image" content="https://biahoover.github.io/whatsapp/©2024 Bianca Hoover..png">
+    <meta property="og:image" content="https://biahoover.github.io/whatsapp/©2024%20Bianca%20Hoover..png">
     <meta property="og:url" content="https://biahoover.github.io/whatsapp">
     <meta property="og:type" content="website">
 
     <style>
         body {
-            background-image: url('https://biahoover.github.io/whatsapp/©2024 Bianca Hoover..png');
+            background-image: url('https://biahoover.github.io/whatsapp/©2024%20Bianca%20Hoover..png');
             background-size: cover;
             background-position: center;
             font-family: Arial, sans-serif;
@@ -26,6 +26,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            color: white; /* Adicionando cor do texto para os elementos */
         }
 
         .button {
@@ -77,14 +78,14 @@
 </head>
 <body>
 
-    <h2><span style="color:white;"><center style="background-color:none;">Vem me conhecer melhor!</center></span></h2>
-    <span style="color:white;"><center style="background-color:none;">Clique no botão abaixo! 👇🏻</center></span>
+    <h2><center>Vem me conhecer melhor!</center></h2>
+    <center>Clique no botão abaixo! 👇🏻</center>
 
     
     <!-- Botões -->
-    <button id="whatsappButton" class="button" onclick="redirectToWhatsApp()"></button>
-    <!-- <button id="telegramButton" class="button" onclick="redirectToTelegram()"></button> -->
-    <button id="instagramButton" class="button" onclick="redirectToInstagram()"></button>
+    <button id="whatsappButton" class="button" onclick="redirectToWhatsApp()">WhatsApp</button>
+    <!-- <button id="telegramButton" class="button" onclick="redirectToTelegram()">Telegram</button> -->
+    <button id="instagramButton" class="button" onclick="redirectToInstagram()">Instagram</button>
 
     <script>
         const buttonSettings = {};
@@ -95,7 +96,7 @@
         }
 
         // Consulta o arquivo JSON para carregar as configurações dos botões
-        fetch('https://github.com/biahoover/whatsapp/blob/9bdbf70065146a6dc27e082c5883038b7a62b0c1/buttonSettings.json' + generateUniqueQueryParam())
+        fetch('https://raw.githubusercontent.com/biahoover/whatsapp/9bdbf70065146a6dc27e082c5883038b7a62b0c1/buttonSettings.json' + generateUniqueQueryParam())
             .then(response => response.json())
             .then(data => {
                 buttonSettings.whatsapp = data.whatsapp;
@@ -143,17 +144,17 @@
 
         //     if (settings.visibility && isVisible) {
         //         button.style.display = 'inline-block';
-        //                    button.style.backgroundColor = settings.color;
-        //     button.style.color = settings.textColor;
-        //     button.innerHTML = settings.text;
-        //     if (settings.pulse && currentHour >= settings.pulseStart && currentHour < settings.pulseEnd) {
-        //         button.classList.add('pulse');
+        //         button.style.backgroundColor = settings.color;
+        //         button.style.color = settings.textColor;
+        //         button.innerHTML = settings.text;
+        //         if (settings.pulse && currentHour >= settings.pulseStart && currentHour < settings.pulseEnd) {
+        //             button.classList.add('pulse');
+        //         } else {
+        //             button.classList.remove('pulse');
+        //         }
         //     } else {
-        //         button.classList.remove('pulse');
+        //         button.style.display = 'none';
         //     }
-        // } else {
-        //     button.style.display = 'none';
-        // }
         // }
 
         function applyInstagramSettings() {
@@ -219,8 +220,8 @@
                     const newWhatsApp = Math.floor(Math.random() * 4) + 1;
                     setCookie('whatsapp', newWhatsApp, 365);
                 }
-                                const source = determineSource();
-                const link = getWhatsAppLink(source, whatsapp || newWhatsApp);
+                const source = determineSource();
+                                const link = getWhatsAppLink(source, whatsapp || newWhatsApp);
                 window.location.href = link;
             }
         }
