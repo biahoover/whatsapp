@@ -210,20 +210,24 @@ fetch('https://biahoover.github.io/whatsapp/buttonSettings.json' + generateUniqu
         }, 1000);
     }
 
-    function redirectToWhatsApp() {
-        const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
-        const hours = now.hour;
-        if (hours >= buttonSettings.whatsapp.startTime && hours < buttonSettings.whatsapp.endTime) {
-            const whatsapp = getCookie('whatsapp');
-            if (!whatsapp) {
-                const newWhatsApp = Math.floor(Math.random() * 4) + 1;
-                setCookie('whatsapp', newWhatsApp, 365);
-            }
-            const source = determineSource();
-            const link = getWhatsAppLink(source, whatsapp || newWhatsApp);
-            window.location.href = link;
+function redirectToWhatsApp() {
+    const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
+    const currentHour = now.hour;
+    const settings = buttonSettings.whatsapp;
+    const isWithinActiveHours = currentHour >= settings.startTime && currentHour < settings.endTime;
+
+    if (settings.visibility && isWithinActiveHours) {
+        const whatsapp = getCookie('whatsapp');
+        if (!whatsapp) {
+            const newWhatsApp = Math.floor(Math.random() * 4) + 1;
+            setCookie('whatsapp', newWhatsApp, 365);
         }
+        const source = determineSource();
+        const link = getWhatsAppLink(source, whatsapp || newWhatsApp);
+        window.location.href = link;
     }
+}
+
 
     // function redirectToTelegram() {
     //     const source = determineSource();
