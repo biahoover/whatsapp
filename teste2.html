@@ -106,12 +106,17 @@
             .catch(error => console.error('Erro ao carregar as configurações dos botões:', error));
 
         function determineSource() {
-            const referrer = document.referrer.toLowerCase();
-            if (referrer.includes('facebook.com')) return 'facebook';
-            if (referrer.includes('instagram.com')) return 'instagram';
-            if (referrer.includes('telegram.org')) return 'telegram';
-            return 'other';
-        }
+    const referrer = document.referrer.toLowerCase();
+    const urlParams = new URLSearchParams(window.location.search);
+    const utmSource = urlParams.get('src');
+
+    if (utmSource === 'telegram') return 'telegram';
+    if (referrer.includes('facebook.com')) return 'facebook';
+    if (referrer.includes('instagram.com')) return 'instagram';
+    if (referrer.includes('telegram.org')) return 'telegram';
+    
+    return 'other';
+}
 
         function applyWhatsAppSettings() {
             const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
