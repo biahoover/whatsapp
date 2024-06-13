@@ -168,8 +168,9 @@
             const settings = buttonSettings.instagram;
             const button = document.getElementById('instagramButton');
             const isVisible = currentHour >= settings.visibilityStart && currentHour < settings.visibilityEnd;
+            const source = determineSource(); // Determine a fonte de acesso do usuário
 
-            if (settings.visibility && isVisible) {
+          if (settings.visibility && isVisible && source !== 'instagram') {
                 button.style.display = 'inline-block';
                 button.style.background = settings.color;  // Use 'background' for gradients
                 button.style.color = settings.textColor;
