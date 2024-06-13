@@ -146,8 +146,9 @@
             const settings = buttonSettings.telegram;
             const button = document.getElementById('telegramButton');
             const isVisible = currentHour >= settings.visibilityStart && currentHour < settings.visibilityEnd;
+            const source = determineSource(); // Determine a fonte de acesso do usuário
 
-            if (settings.visibility && isVisible) {
+            if (settings.visibility && isVisible && source !== 'telegram' && source !== 'other') {
                 button.style.display = 'inline-block';
                 button.style.backgroundColor = settings.color;
                 button.style.color = settings.textColor;
