@@ -1,0 +1,240 @@
+<script>
+    const buttonSettings = {};
+
+// Função para gerar um parâmetro de consulta único
+function generateUniqueQueryParam() {
+    return `?timestamp=${new Date().getTime()}`;
+}
+
+// Consulta o arquivo JSON para carregar as configurações dos botões
+fetch('buttonSettings.json' + generateUniqueQueryParam())
+    .then(response => response.json())
+    .then(data => {
+        buttonSettings.whatsapp = data.whatsapp;
+        buttonSettings.telegram = data.telegram;
+        buttonSettings.instagram = data.instagram;
+
+        // Aplicar as configurações dos botões
+        applyButtonSettings();
+    })
+    .catch(error => console.error('Erro ao carregar as configurações dos botões:', error));
+
+function applyWhatsAppSettings() {
+    const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
+    const currentHour = now.hour;
+    const settings = buttonSettings.whatsapp;
+    const button = document.getElementById('whatsappButton');
+    const isWithinActiveHours = currentHour >= settings.startTime && currentHour < settings.endTime;
+    const isVisible = currentHour >= settings.visibilityStart && currentHour < settings.visibilityEnd;
+
+    if (settings.visibility && isVisible) {
+        button.style.display = 'inline-block';
+        button.style.backgroundColor = settings.color;
+        button.style.color = settings.textColor;
+        button.style.marginTop = '50px'; // Adicionando margem superior
+        button.innerHTML = settings.text;
+        if (settings.pulse && currentHour >= settings.pulseStart && currentHour < settings.pulseEnd) {
+            button.classList.add('pulse');
+        } else {
+            button.classList.remove('pulse');
+        }
+        if (!isWithinActiveHours) {
+            setWhatsAppInactiveState(button);
+        }
+    } else {
+        button.style.display = 'none';
+    }
+}
+
+function applyTelegramSettings() {
+    const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
+    const currentHour = now.hour;
+    const settings = buttonSettings.telegram;
+    const button = document.getElementById('telegramButton');
+    const isVisible = currentHour >= settings.visibilityStart && currentHour < settings.visibilityEnd;
+
+    if (settings.visibility && isVisible) {
+        button.style.display = 'inline-block';
+        button.style.backgroundColor = settings.color;
+        button.style.color = settings.textColor;
+        button.innerHTML = settings.text;
+        if (settings.pulse && currentHour >= settings.pulseStart && currentHour < settings.pulseEnd) {
+            button.classList.add('pulse');
+        } else {
+            button.classList.remove('pulse');
+        }
+    } else {
+        button.style.display = 'none';
+    }
+}
+
+function applyInstagramSettings() {
+    const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
+    const currentHour = now.hour;
+    const settings = buttonSettings.instagram;
+    const button = document.getElementById('instagramButton');
+    const isVisible = currentHour >= settings.visibilityStart && currentHour < settings.visibilityEnd;
+
+    if (settings.visibility && isVisible) {
+        button.style.display = 'inline-block';
+        button.style.background = settings.color;  // Use 'background' for gradients
+        button.style.color = settings.textColor;
+        button.innerHTML = settings.text;
+        if (settings.pulse && currentHour >= settings.pulseStart && currentHour < settings.pulseEnd) {
+            button.classList.add('pulse');
+        } else {
+            button.classList.remove('pulse');
+        }
+    } else {
+        button.style.display = 'none';
+    }
+}
+
+function setWhatsAppInactiveState(button) {
+    button.style.backgroundColor = 'gray';
+    const countdown = document.createElement('div');
+    countdown.id = 'countdown';
+    countdown.className = 'countdown';
+    button.innerHTML = 'Online no WhatsApp em:<br>';
+    button.appendChild(countdown);
+
+    const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
+    const nextActiveHour = now.set({ hour: buttonSettings.whatsapp.startTime, minute: 0, second: 0, millisecond: 0 });
+
+    if (now.hour >= buttonSettings.whatsapp.startTime) {
+        nextActiveHour.plus({ days: 1 });
+    }
+
+    const x = setInterval(function() {
+        const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
+        const distance = nextActiveHour.diff(now);
+
+        const hours = Math.floor(distance.as('hours')).toString().padStart(2, '0');
+        const minutes = Math.floor(distance.as('minutes') % 60).toString().padStart(2, '0');
+        const seconds = Math.floor(distance.as('seconds') % 60).toString().padStart(2, '0');
+
+        countdown.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
+
+        if (distance.as('milliseconds') <= 0) {
+            clearInterval(x);
+            applyButtonSettings(); // Reapply settings to update the button state
+        }
+    }, 1000);
+}
+
+function redirectToWhatsApp() {
+    const now = luxon.DateTime.now().setZone('America/Sao_Paulo');
+    const hours = now.hour;
+    if (hours >= buttonSettings.whatsapp.startTime && hours < buttonSettings.whatsapp.endTime) {
+        const whatsapp = getCookie('whatsapp');
+        if (!whatsapp) {
+            const newWhatsApp = Math.floor(Math.random() * 4) + 1;
+            setCookie('whatsapp', newWhatsApp, 365);
+        }
+        const source = determineSource();
+        const link = getWhatsAppLink(source, whatsapp || newWhatsApp);
+        window.location.href = link;
+    }
+}
+
+function redirectToTelegram() {
+    const source = determineSource();
+    const link = getTelegramLink(source);
+    window.location.href = link;
+}
+
+function redirectToInstagram() {
+    const link = 'https://www.instagram.com/biahoover';
+    window.location.href = link;
+}
+
+function determineSource() {
+    const referrer = document.referrer.toLowerCase();
+    if (referrer.includes('facebook.com')) return 'facebook';
+    if (referrer.includes('instagram.com')) return 'instagram';
+    if (referrer.includes('telegram.org')) return 'telegram';
+    return 'other';
+}
+
+function getWhatsAppLink(source, whatsapp) {
+    const links = {
+       'facebook': ['https://api.whatsapp.com/send?phone=5519996292460&text=Oii%20Bia,%20vim%20do%20Facebook...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519997065737&text=Oii%20Bia,%20vim%20do%20Facebook...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519999631189&text=Oii%20Bia,%20vim%20do%20Facebook...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519998216043&text=Oii%20Bia,%20vim%20do%20Facebook...%20Quero%20saber%20sobre%20seus%20conteúdos🌶'],
+       'instagram': ['https://api.whatsapp.com/send?phone=5519996292460&text=Oii%20Bia,%20vim%20do%20Instragram...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519997065737&text=Oii%20Bia,%20vim%20do%20Instagram...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519999631189&text=Oii%20Bia,%20vim%20do%20Instagram...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519998216043&text=Oii%20Bia,%20vim%20do%20Instagram...%20Quero%20saber%20sobre%20seus%20conteúdos🌶'],
+       'telegram': ['https://api.whatsapp.com/send?phone=5519996292460&text=Oii%20Bia,%20vim%20do%20Telegram...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519997065737&text=Oii%20Bia,%20vim%20do%20Telegram...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519999631189&text=Oii%20Bia,%20vim%20do%20Telegram...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519998216043&text=Oii%20Bia,%20vim%20do%20Telegram...%20Quero%20saber%20sobre%20seus%20conteúdos🌶'],
+       'other': ['https://api.whatsapp.com/send?phone=5519996292460&text=Oii%20Bia,%20vim%20do%20seu%20site...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519997065737&text=Oii%20Bia,%20vim%20do%20seu%20site...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519999631189&text=Oii%20Bia,%20vim%20do%20seu%20site...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519998216043&text=Oii%20Bia,%20vim%20do%20seu%20site...%20Quero%20saber%20sobre%20seus%20conteúdos🌶']
+    };
+    return links[source][whatsapp - 1];
+}
+
+function getTelegramLink(source) {
+    const links = {
+        'facebook': 'https://t.me/username_facebook',
+        'instagram': 'https://t.me/username_instagram',
+        'telegram': 'https://t.me/username_telegram',
+        'other': 'https://t.me/username_other'
+    };
+    return links[source];
+}
+
+function setCookie(name, value, days) {
+    const d = new Date();
+    d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + d.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
+
+function getCookie(name) {
+    const cname = name + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(cname) == 0) {
+            return c.substring(cname.length, c.length);
+        }
+    }
+    return "";
+}
+
+// Nova função para ajustar a visibilidade dos botões com base na fonte de acesso
+function adjustButtonVisibilityBasedOnSource() {
+    const source = determineSource();
+    const whatsappButton = document.getElementById('whatsappButton');
+    const telegramButton = document.getElementById('telegramButton');
+    const instagramButton = document.getElementById('instagramButton');
+
+    if (source === 'facebook') {
+        whatsappButton.style.display = 'inline-block';
+        telegramButton.style.display = 'inline-block';
+        instagramButton.style.display = 'inline-block';
+    } else if (source === 'instagram') {
+        whatsappButton.style.display = 'inline-block';
+        telegramButton.style.display = 'inline-block';
+        instagramButton.style.display = 'none';
+    } else {
+        whatsappButton.style.display = 'inline-block';
+        telegramButton.style.display = 'none';
+        instagramButton.style.display = 'inline-block';
+    }
+}
+
+// Função para aplicar todas as configurações dos botões
+function applyButtonSettings() {
+    adjustButtonVisibilityBasedOnSource();
+    applyWhatsAppSettings();
+    applyTelegramSettings();
+    applyInstagramSettings();
+}
+
+// Carregar as configurações e aplicar ao carregar a página
+document.addEventListener('DOMContentLoaded', function () {
+    adjustButtonVisibilityBasedOnSource();
+    applyButtonSettings();
+});
+
+</script>
+</body>
+</html>
