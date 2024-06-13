@@ -203,7 +203,7 @@ fetch('https://biahoover.github.io/whatsapp/buttonSettings.json' + generateUniqu
 
             countdown.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
 
-            if (distance.as('milliseconds') <= 0) {
+            if (distance <= 0) {
                 clearInterval(x);
                 applyButtonSettings(); // Reapply settings to update the button state
             }
