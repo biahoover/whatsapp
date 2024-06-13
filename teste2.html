@@ -229,7 +229,7 @@ const hours = now.hour;
 if (hours >= buttonSettings.whatsapp.startTime && hours < buttonSettings.whatsapp.endTime) {
 const whatsapp = getCookie('whatsapp');
 if (!whatsapp) {
-const newWhatsApp = Math.floor(Math.random() * 4) + 1;
+const newWhatsApp = Math.floor(Math.random() * 2) + 1;
 setCookie('whatsapp', newWhatsApp, 365);
 }
 const source = determineSource();
@@ -250,10 +250,25 @@ window.location.href = link;
 
     function getWhatsAppLink(source, whatsapp) {
         const links = {
-            'facebook': ['https://api.whatsapp.com/send?phone=5519996292460&text=Oii%20Bia,%20vim%20do%20Facebook...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519997065737&text=Oii%20Bia,%20vim%20do%20Facebook...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519999631189&text=Oii%20Bia,%20vim%20do%20Facebook...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519998216043&text=Oii%20Bia,%20vim%20do%20Facebook...%20Quero%20saber%20sobre%20seus%20conteúdos🌶'],
-            'instagram': ['https://api.whatsapp.com/send?phone=5519996292460&text=Oii%20Bia,%20vim%20do%20Instragram...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519997065737&text=Oii%20Bia,%20vim%20do%20Instagram...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519999631189&text=Oii%20Bia,%20vim%20do%20Instagram...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519998216043&text=Oii%20Bia,%20vim%20do%20Instagram...%20Quero%20saber%20sobre%20seus%20conteúdos🌶'],
-            'telegram': ['https://api.whatsapp.com/send?phone=5519996292460&text=Oii%20Bia,%20vim%20do%20Telegram...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519997065737&text=Oii%20Bia,%20vim%20do%20Telegram...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519999631189&text=Oii%20Bia,%20vim%20do%20Telegram...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519998216043&text=Oii%20Bia,%20vim%20do%20Telegram...%20Quero%20saber%20sobre%20seus%20conteúdos🌶'],
-            'other': ['https://api.whatsapp.com/send?phone=5519996292460&text=Oii%20Bia...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519997065737&text=Oii%20Bia...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519999631189&text=Oii%20Bia...%20Quero%20saber%20sobre%20seus%20conteúdos🌶', 'https://api.whatsapp.com/send?phone=5519998216043&text=Oii%20Bia...%20Quero%20saber%20sobre%20seus%20conteúdos🌶']
+            'facebook': ['https://api.whatsapp.com/send?phone=5519996292460&text=Oii%20Bia,%20vim%20do%20Facebook...%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶', 
+                         'https://api.whatsapp.com/send?phone=5519997065737&text=Oii%20Bia,%20vim%20do%20Facebook...%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶']
+                       //  'https://api.whatsapp.com/send?phone=5519999631189&text=Oii%20Bia,%20vim%20do%20Facebook...%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶', 
+                       //  'https://api.whatsapp.com/send?phone=5519998216043&text=Oii%20Bia,%20vim%20do%20Facebook...%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶'],
+            
+            'instagram': ['https://api.whatsapp.com/send?phone=5519996292460&text=Oii%20Bia,%20vim%20do%20Instragram...%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶', 
+                          'https://api.whatsapp.com/send?phone=5519997065737&text=Oii%20Bia,%20vim%20do%20Instagram...%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶']
+                        //  'https://api.whatsapp.com/send?phone=5519999631189&text=Oii%20Bia,%20vim%20do%20Instagram...%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶', 
+                        //  'https://api.whatsapp.com/send?phone=5519998216043&text=Oii%20Bia,%20vim%20do%20Instagram...%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶'],
+            
+            'telegram': ['https://api.whatsapp.com/send?phone=5519996292460&text=Oii%20Bia,%20vim%20do%20Telegram...%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶', 
+                         'https://api.whatsapp.com/send?phone=5519997065737&text=Oii%20Bia,%20vim%20do%20Telegram...%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶'] 
+                       //  'https://api.whatsapp.com/send?phone=5519999631189&text=Oii%20Bia,%20vim%20do%20Telegram...%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶', 
+                       //  'https://api.whatsapp.com/send?phone=5519998216043&text=Oii%20Bia,%20vim%20do%20Telegram...%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶'],
+            
+            'other': ['https://api.whatsapp.com/send?phone=5519996292460&text=Oii%20Bia...%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶', 
+                      'https://api.whatsapp.com/send?phone=5519997065737&text=Oii%20Bia...%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶'] 
+                      //'https://api.whatsapp.com/send?phone=5519999631189&text=Oii%20Bia...%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶', 
+                      //'https://api.whatsapp.com/send?phone=5519998216043&text=Oii%20Bia...%20Quero%20saber%20sobre%20seus%20conteúdos%20🌶']
         };
         return links[source][whatsapp - 1];
     }
