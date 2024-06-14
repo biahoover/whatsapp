@@ -3,13 +3,13 @@
         "text": "FALE COMIGO NO WHATSAPP ♥",
         "color": "#25D366",
         "textColor": "#ffffff",
-        "startTime": 9,
+        "startTime": 8,
         "endTime": 24,
         "pulse": true,
         "pulseStart": 8,
         "pulseEnd": 24,
         "visibility": true,
-        "visibilityStart": 14,
+        "visibilityStart": 8,
         "visibilityEnd": 23
     },
     "telegram": {
