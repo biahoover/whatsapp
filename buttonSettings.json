@@ -9,8 +9,8 @@
         "pulseStart": 8,
         "pulseEnd": 24,
         "visibility": true,
-        "visibilityStart": 12,
-        "visibilityEnd": 18
+        "visibilityStart": 8,
+        "visibilityEnd": 23
     },
     "telegram": {
         "text": "CANAL NO TELEGRAM<br>Inscreva-se grátis",
