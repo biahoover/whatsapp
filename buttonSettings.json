@@ -9,7 +9,7 @@
         "pulseStart": 8,
         "pulseEnd": 24,
         "visibility": true,
-        "visibilityStart": 8,
+        "visibilityStart": 13,
         "visibilityEnd": 20
     },
     "telegram": {
