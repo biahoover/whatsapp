@@ -21,7 +21,7 @@
         "pulse": true,
         "pulseStart": 0,
         "pulseEnd": 8,
-        "visibility": false,
+        "visibility": true,
         "visibilityStart": 0,
         "visibilityEnd": 24
     },
