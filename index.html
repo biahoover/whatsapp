@@ -60,20 +60,6 @@
     <!-- Luxon -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/2.3.0/luxon.min.js"></script>
 
-    <!-- Facebook Pixel Code -->
-    <script>
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '471178455460382');
-      fbq('track', 'PageView_SiteWhatsapp');
-    </script>
-    <!-- End Facebook Pixel Code -->
 </head>
 <body>
    <h2><span style="color:white;"><center style="background-color:none; margin-top: 90px;">Bia Hoover</center></span></h2>
@@ -84,6 +70,9 @@
     <button id="whatsappButton" class="button" onclick="redirectToWhatsApp()"></button>
     <button id="telegramButton" class="button" onclick="redirectToTelegram()"></button>
     <button id="instagramButton" class="button" onclick="redirectToInstagram()"></button>
+
+    <button class="button" onclick="window.location.href='https://www.google.com'">Ir para o Google</button>
+
 
     <script>
         const buttonSettings = {};
