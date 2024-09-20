@@ -164,6 +164,9 @@
                 } else {
                     button.classList.remove('pulse');
                 }
+                 if (!isWithinActiveHours) {
+                    setWhatsAppInactiveState(button);
+                }
             } else {
                 button.style.display = 'none';
             }
