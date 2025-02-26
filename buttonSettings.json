@@ -8,7 +8,7 @@
         "pulse": true,
         "pulseStart": 8,
         "pulseEnd": 24,
-        "visibility": true,
+        "visibility": false,
         "visibilityStart":8,
         "visibilityEnd": 24
     },
@@ -21,7 +21,7 @@
         "pulse": true,
         "pulseStart": 0,
         "pulseEnd": 8,
-        "visibility": true,
+        "visibility": false,
         "visibilityStart": 0,
         "visibilityEnd": 24
     },
