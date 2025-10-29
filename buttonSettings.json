@@ -4,13 +4,13 @@
         "color": "#25D366",
         "textColor": "#ffffff",
         "startTime": 8,
-        "endTime": 24,
+        "endTime": 12,
         "pulse": true,
         "pulseStart": 8,
-        "pulseEnd": 24,
+        "pulseEnd": 12,
         "visibility": true,
         "visibilityStart":8,
-        "visibilityEnd": 24
+        "visibilityEnd": 12
     },
     "telegram": {
         "text": "CANAL NO TELEGRAM<br>Inscreva-se grátis",
